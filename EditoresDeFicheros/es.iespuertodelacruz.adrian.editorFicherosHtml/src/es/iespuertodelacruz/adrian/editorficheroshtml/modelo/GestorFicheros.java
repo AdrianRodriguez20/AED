@@ -63,7 +63,8 @@ public class GestorFicheros {
             BufferedWriter bw = new BufferedWriter(fw);
             if (Pattern.matches(regexp, archivo.getAbsolutePath().toString())) {
                 txt = html.replaceAll("</(h1|h2|h3|h4|h5|h6|p)>", "\n");
-                txt = txt.replaceAll("\\<[^>]*>", "");
+                txt = txt.replaceAll("<[^>]*>", "");
+                txt = txt.replaceAll("&nbsp;", " ");
 
             } else {
                 txt = html;
@@ -93,6 +94,7 @@ public class GestorFicheros {
             if (Pattern.matches(regexp, pathFile.toString())) {
                 txt = html.replaceAll("</(h1|h2|h3|h4|h5|h6|p)>", "\n");
                 txt = txt.replaceAll("\\<[^>]*>", "");
+                txt = txt.replaceAll("&nbsp;", " ");
 
             } else {
                 txt = html;

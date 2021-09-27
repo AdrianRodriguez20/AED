@@ -47,7 +47,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void crear(ActionEvent event) {
-
+         htmlEditor.setHtmlText("");
     }
 
     @FXML

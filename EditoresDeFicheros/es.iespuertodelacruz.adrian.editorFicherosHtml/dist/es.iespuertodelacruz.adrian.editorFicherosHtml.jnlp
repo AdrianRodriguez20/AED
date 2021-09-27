@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="es.iespuertodelacruz.adrian.editorFicherosHtml.jar" size="8832" download="eager" />
+    <jar href="es.iespuertodelacruz.adrian.editorFicherosHtml.jar" size="8846" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="es.iespuertodelacruz.adrian.editorFicherosHtml" >
     <param name="requiredFXVersion" value="8.0+"/>
