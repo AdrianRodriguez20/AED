@@ -34,14 +34,17 @@ public class GestorPersona {
         path = Paths.get(archivo);
     }
 
-    public void aniadirPersona(Persona persona) {
+    public void aniadirPersona(ArrayList<Persona> persona) {
 
         try (
                 FileOutputStream fos = new FileOutputStream(path.toString());
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 ObjectOutputStream oos = new ObjectOutputStream(bos);) {
 
-            oos.writeObject(persona);
+            for (Persona persona1 : persona) {
+                oos.writeObject(persona1);   
+            }
+         
 
         } catch (FileNotFoundException ex) {
         } catch (IOException ex) {

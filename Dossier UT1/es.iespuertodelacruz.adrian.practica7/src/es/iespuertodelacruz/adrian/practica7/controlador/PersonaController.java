@@ -22,6 +22,7 @@ public class PersonaController {
     private PersonaView vista;
     private Persona modelo;
     GestorPersona gp = new GestorPersona();
+    Persona p1 = new Persona();
 
     public PersonaController() {
     }
@@ -31,14 +32,14 @@ public class PersonaController {
         this.modelo = modelo;
     }
 
-    public void iniciar()  {
+    public void iniciar() {
         while (true) {
             switch (vista.menuPrincipal()) {
                 case 1:
                     crearPersona(vista.crearPersona());
                     break;
                 case 2:
-               
+
                     vista.listarPersonas(listarPersonas());
                     break;
                 case 3:
@@ -52,17 +53,24 @@ public class PersonaController {
 
     public void crearPersona(String[] datosPersona) {
 
+        try {
+            p1.setAll(gp.getAll());
+        } catch (IOException | ClassNotFoundException ex) {
+
+        }
+
         NumIdentidad numIden = new NumIdentidad(datosPersona[3]);
         if (numIden.validarNumIdentidad()) {
-            Persona p = new Persona(datosPersona[0], parseInt(datosPersona[1]), parseInt(datosPersona[2]), numIden);
-            gp.aniadirPersona(p);
+            Persona p = new Persona(datosPersona[0], parseInt(datosPersona[1]),
+                    parseInt(datosPersona[2]), numIden);
+            p1.aniadirListaPersonas(p);
+            gp.aniadirPersona(p1.getAll());
         }
 
     }
 
-    public ArrayList<Persona> listarPersonas()  {
+    public ArrayList<Persona> listarPersonas() {
 
-        Persona p1 = new Persona();
         try {
             p1.setAll(gp.getAll());
         } catch (IOException | ClassNotFoundException ex) {

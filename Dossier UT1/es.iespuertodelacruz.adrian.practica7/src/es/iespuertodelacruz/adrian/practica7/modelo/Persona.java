@@ -46,6 +46,9 @@ public class Persona implements Serializable {
         return dni;
     }
 
+
+
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -68,6 +71,9 @@ public class Persona implements Serializable {
 
     public ArrayList<Persona> getAll() {
         return listaPersonas;
+    }
+    public void aniadirListaPersonas(Persona persona){
+        listaPersonas.add(persona);
     }
 
     @Override
