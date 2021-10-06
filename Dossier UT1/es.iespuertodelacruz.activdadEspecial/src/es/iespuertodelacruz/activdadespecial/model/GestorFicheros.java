@@ -54,7 +54,7 @@ public class GestorFicheros {
         RandomAccessFile rafFichero = null;
         boolean finArchivo = false;
         try {
-            rafFichero = new RandomAccessFile("‪prueba.txt", "rwd");
+            rafFichero = new RandomAccessFile("‪ficheroPersonas.txt", "rwd");
 
             while (!finArchivo) {
                 line = rafFichero.readUTF();
@@ -83,5 +83,33 @@ public class GestorFicheros {
         }
         return personas;
     }
+    
+    /*
+    private String readString(RandomAccessFile raf, long comienzo , int cantidad}){
+    raf.seek(comienzo);
+    char campo[]= new char[cantidad];
+    for ( int=0;i<cantidad;i++){
+        campo[i]=raf.readChar()
+    }
+    return new String(campo)
+    }
+    */
+    
+    /*
+    private guardarRegistro(){ 
+    RandomAccessFile raf  = new RandomAccessFile(file, "rwd");
+    boolean guardadoOK=false;
+    if(raf.length()>=pos){
+    raf.seek(pos)
+    raf.writeChars(rp.nombre)
+    raf.writeChars(rp.apellido)
+    raf.writeChars(rp.edad)
+    raf.close();
+    guardadoOK=true;
+    }
+    return guardadoOK
+    }
+    
+    */
 
 }
