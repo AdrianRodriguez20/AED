@@ -50,8 +50,10 @@ public class Persona {
 
     @Override
     public String toString() {
-        return nombre + apellido +  edad ;
+        return nombre +" "+ apellido +" "+  edad ;
     }
+    
+    
 
     
 }

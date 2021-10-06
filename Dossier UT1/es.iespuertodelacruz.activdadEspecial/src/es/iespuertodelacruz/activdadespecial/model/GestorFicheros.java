@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.iespuertodelacruz.activdadespecial.controller;
+package es.iespuertodelacruz.activdadespecial.model;
 
-import es.iespuertodelacruz.activdadespecial.model.Persona;
+import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,21 +17,7 @@ import java.io.RandomAccessFile;
  */
 public class GestorFicheros {
 
-    public final int nombreSize;
-    public final int apellidoSize;
-    public final int edadSize;
- 
-
     public GestorFicheros() {
-        this.apellidoSize = 50;
-        this.edadSize = 3;
-        this.nombreSize = 50;
-
-    }
-
-    public <T> String rellenarDatos(T atributo, int size) {
-
-        return 'Ø' + String.format("%-" + size + "s", atributo);
     }
 
     public void guardarDatosFichero(Persona p) {
@@ -43,7 +30,7 @@ public class GestorFicheros {
                 rafFichero.seek(rafFichero.length());
             }
 
-            rafFichero.writeUTF(p.toString());
+            rafFichero.writeUTF(p.getNombre() + p.getApellido() + p.getEdad());
 
         } catch (FileNotFoundException ex) {
 
@@ -60,19 +47,30 @@ public class GestorFicheros {
 
     }
 
-    public void leerFichero() {
+    public ArrayList<Persona> leerFichero() {
 
-        String[] listaPersonas;
         String line = "";
+        ArrayList<Persona> personas = new ArrayList();
         RandomAccessFile rafFichero = null;
-
+        boolean finArchivo = false;
         try {
             rafFichero = new RandomAccessFile("‪prueba.txt", "rwd");
 
-            while ((line = rafFichero.readUTF()) != null) {
+            while (!finArchivo) {
+                line = rafFichero.readUTF();
                 System.out.println(line);
+            //cambiar
+                String[] listaPersonas = line.split("\0");
+                Persona persona = new Persona(listaPersonas[0].replace(" ", ""),
+                        listaPersonas[1].replace(" ", ""),
+                        listaPersonas[2].replace(" ", ""));
+
+                personas.add(persona);
+
             }
 
+        } catch (EOFException e) {
+            finArchivo = true;
         } catch (IOException e) {
             System.err.println("ERROR: " + e);
         } finally {
@@ -83,6 +81,7 @@ public class GestorFicheros {
             } catch (IOException ex) {
             }
         }
+        return personas;
     }
 
 }
