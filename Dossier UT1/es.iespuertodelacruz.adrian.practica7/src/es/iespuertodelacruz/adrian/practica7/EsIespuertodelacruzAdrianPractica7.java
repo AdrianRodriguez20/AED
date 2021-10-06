@@ -36,11 +36,11 @@ public class EsIespuertodelacruzAdrianPractica7 {
             System.out.println(p);
         }
 
-        NumIdentidad numIden = new NumIdentidad("43353860x");
+        NumIdentidad numIden = new NumIdentidad("43494199A");
         if (numIden.validarNumIdentidad()) {
             Persona p = new Persona("Adrian", 20, 178, numIden);
 
-            gp.aniadirPersona(p);
+           // gp.aniadirPersona(p);
         }
 
         ArrayList listaPersona = gp.getAll();
@@ -49,6 +49,9 @@ public class EsIespuertodelacruzAdrianPractica7 {
             System.out.println(listaPersona.get(i).toString());
            
         }
+        
+  
+
 
     }
 
