@@ -24,9 +24,7 @@ public class EsIespuertodelacruzActivdadEspecial {
     public static void main(String[] args) throws IOException {
         GestorFicheros gf = new GestorFicheros();
         ManejoPersona mp = new ManejoPersona();
-        String nombre = mp.rellenarDatos("Juan", mp.nombreSize);
-        String apellido = mp.rellenarDatos("Chubasco", mp.apellidoSize);
-        String edad = mp.rellenarDatos("19", mp.edadSize);
+ 
 
         Persona p = new Persona(nombre, apellido, edad);
 

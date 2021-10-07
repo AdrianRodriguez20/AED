@@ -11,25 +11,48 @@ package es.iespuertodelacruz.activdadespecial.model;
  */
 public class ManejoPersona {
 
-    public final int nombreSize;
-    public final int apellidoSize;
-    public final int edadSize;
+    static int nombreSize = 50;
+    static int apellidoSize = 50;
+    static int edadSize = 3;
+
+    private String nombre;
+    private String apellido;
+    private String edad;
 
     public ManejoPersona() {
-        this.apellidoSize = 50;
-        this.edadSize = 3;
-        this.nombreSize = 50;
+    }
+
+    public ManejoPersona(String nombre, String apellido, String edad) {
+        this.nombre = stringToStringFixedSize(nombre, nombreSize);
+        this.apellido = stringToStringFixedSize(apellido, apellidoSize);
+        this.edad = stringToStringFixedSize(edad, edadSize);
+    }
+
+    public String stringToStringFixedSize(String atributo, int size) {
+
+        return String.format("%-" + size + "s", atributo + '\0');
 
     }
 
-    public String rellenarDatos(String atributo, int size) {
+    public String stringFixedSizeToString(String atributo) {
 
-    
-          return String.format("%-" + size + "s", atributo+'\0'); 
-       
+        String[] parse = null;
 
+        if (atributo.contains("\0")) {
+            parse = atributo.split("\0");
+
+        }
+        return parse[0];
     }
 
+    public Persona toPersona(ManejoPersona mp) {
+        
+        Persona p = new Persona();
 
-
+        p.setNombre(mp.stringFixedSizeToString(mp.nombre));
+        p.setEdad(mp.stringFixedSizeToString(mp.edad));
+        p.setApellido(mp.stringFixedSizeToString(mp.nombre));
+        
+        return p;
+    }
 }

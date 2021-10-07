@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class GestorPersona {
 
     Path path = Paths.get("personasSerializable.txt");
-
+    
     public GestorPersona() {
     }
 
