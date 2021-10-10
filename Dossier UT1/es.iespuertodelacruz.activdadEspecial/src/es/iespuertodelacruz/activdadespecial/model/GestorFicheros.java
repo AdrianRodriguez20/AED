@@ -5,12 +5,13 @@
  */
 package es.iespuertodelacruz.activdadespecial.model;
 
-import java.io.EOFException;
+import static es.iespuertodelacruz.activdadespecial.model.RegistroPersona.apellidoSize;
+import static es.iespuertodelacruz.activdadespecial.model.RegistroPersona.edadSize;
+import static es.iespuertodelacruz.activdadespecial.model.RegistroPersona.nombreSize;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -21,79 +22,50 @@ public class GestorFicheros {
 
     final int SIZECHAR = 2;
 
-    Path path = Paths.get("prueba.txt");
+    final int SIZEREGISTER = (nombreSize + apellidoSize + edadSize) * SIZECHAR;
+    File file = new File("ficheroPersonas.txt");
 
     public GestorFicheros() {
     }
 
-    public GestorFicheros(String archivo) {
-        path = Paths.get(archivo);
+    public GestorFicheros(File file) {
+        this.file = file;
     }
 
-    public void guardarDatosFichero(Persona p) {
-        RandomAccessFile rafFichero = null;
+    /**
+     * Método para mostrar todas las personas
+     *
+     * @return ArrayList de personas
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     */
 
-        try {
-            rafFichero = new RandomAccessFile(path.toString(), "rwd");
+    public ArrayList<Persona> getAll() throws FileNotFoundException, IOException {
+        RegistroPersona rp = new RegistroPersona();
 
-            if (rafFichero.length() > 1) {
-                rafFichero.seek(rafFichero.length());
-            }
-
-            rafFichero.writeUTF(p.getNombre() + p.getApellido() + p.getEdad());
-
-        } catch (FileNotFoundException ex) {
-
-        } catch (IOException ex) {
-
-        } finally {
-            try {
-                if (rafFichero != null) {
-                    rafFichero.close();
-                }
-            } catch (IOException ex) {
-            }
-        }
-
-    }
-
-    public ArrayList<Persona> leerFichero() {
-
-        String line = "";
         ArrayList<Persona> personas = new ArrayList();
-        RandomAccessFile rafFichero = null;
-        boolean finArchivo = false;
-        try {
-            rafFichero = new RandomAccessFile("‪ficheroPersonas.txt", "rwd");
 
-            while (!finArchivo) {
-                line = rafFichero.readUTF();
-                System.out.println(line);
-                //cambiar
-                String[] listaPersonas = line.split("\0");
-                Persona persona = new Persona(listaPersonas[0].replace(" ", ""),
-                        listaPersonas[1].replace(" ", ""),
-                        listaPersonas[2].replace(" ", ""));
+        try (RandomAccessFile raf = new RandomAccessFile(file, "rwd")) {
+            long size = raf.length() / SIZEREGISTER;
+            for (int i = 0; i <= size - 1; i++) {
+                personas.add(obtenerPersona(i));
 
-                personas.add(persona);
-
-            }
-
-        } catch (EOFException e) {
-            finArchivo = true;
-        } catch (IOException e) {
-            System.err.println("ERROR: " + e);
-        } finally {
-            try {
-                if (rafFichero != null) {
-                    rafFichero.close();
-                }
-            } catch (IOException ex) {
             }
         }
+
         return personas;
     }
 
+    /**
+     * Método para leer String
+     *
+     * @param raf
+     * @param comienzo
+     * @param cantidad
+     * @return el campo convertido en String
+     * @throws IOException
+     */
     private String readString(RandomAccessFile raf, long comienzo, int cantidad) throws IOException {
         raf.seek(comienzo);
         char campo[] = new char[cantidad];
@@ -104,7 +76,35 @@ public class GestorFicheros {
         return new String(campo);
     }
 
-    private boolean guardarRegistro(long pos) throws IOException {
+    /**
+     * Método para obtener una persona mediante su posición
+     *
+     * @param posicion
+     * @return persona
+     * @throws IOException
+     */
+    public Persona obtenerPersona(long posicion) throws IOException {
+        RegistroPersona p = new RegistroPersona();
+        RandomAccessFile raf = new RandomAccessFile(file, "rwd");
+
+        p.nombre = readString(raf, posicion * SIZEREGISTER, RegistroPersona.nombreSize);
+        p.apellido = readString(raf, posicion * SIZEREGISTER + SIZECHAR * RegistroPersona.nombreSize, RegistroPersona.apellidoSize);
+        p.edad = readString(raf, posicion * SIZEREGISTER + SIZECHAR * RegistroPersona.nombreSize + SIZECHAR * RegistroPersona.apellidoSize, p.edadSize);
+
+        return p.toPersona(p);
+
+    }
+
+    /**
+     * Método para guardar un registro en el fichero
+     *
+     * @param pos
+     * @param rp
+     * @return Boolean que verifica si se ha guardado
+     * @throws IOException
+     */
+    public boolean guardarRegistro(long pos, RegistroPersona rp) throws IOException {
+
         RandomAccessFile raf = new RandomAccessFile(file, "rwd");
         boolean guardadoOK = false;
         if (raf.length() >= pos) {
@@ -118,4 +118,29 @@ public class GestorFicheros {
         return guardadoOK;
     }
 
+    /**
+     * Método para agregar una persona al fichero
+     *
+     * @param rp
+     * @throws IOException
+     */
+    public void aniadirPersona(RegistroPersona rp) throws IOException {
+        try (RandomAccessFile raf = new RandomAccessFile(file, "rwd")) {
+            guardarRegistro(raf.length(), rp);
+        };
+
+    }
+
+    /**
+     * Método para sustituir una persona al fichero
+     *
+     * @param rp
+     * @throws IOException
+     */
+    public void sustituirPersona(long pos, RegistroPersona rp) throws IOException {
+        try (RandomAccessFile raf = new RandomAccessFile(file, "rwd")) {
+            guardarRegistro(pos * SIZEREGISTER, rp);
+        }
+
+    }
 }
