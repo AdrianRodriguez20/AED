@@ -103,7 +103,7 @@ public class GestorFicheros {
      * @return Boolean que verifica si se ha guardado
      * @throws IOException
      */
-    public boolean guardarRegistro(long pos, RegistroPersona rp) throws IOException {
+    private boolean guardarRegistro(long pos, RegistroPersona rp) throws IOException {
 
         RandomAccessFile raf = new RandomAccessFile(file, "rwd");
         boolean guardadoOK = false;
