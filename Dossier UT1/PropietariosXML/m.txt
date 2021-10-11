@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<casa>
+    <ciudad>La Isleta</ciudad>
+    <idCasa>24</idCasa>
+    <propietarios>
+        <propietario>
+            <apellido>Rodríguez</apellido>
+            <nombre>Adrian</nombre>
+        </propietario>
+        <propietario>
+            <apellido>González</apellido>
+            <nombre>Nicolás</nombre>
+        </propietario>
+    </propietarios>
+</casa>
