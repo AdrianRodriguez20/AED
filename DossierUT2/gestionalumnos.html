@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Gestionar Alumnos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .boxImpar{
+            background-color: #d9e6ed;
+        }
+        .boxPar{
+            background-color: #d0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <h3 class="text-center">Gestionar Instituto</h3>
+                <h4 class="text-center">Alumno</h4>
+            </div>
+        </div>
+        <div class="row m-3">
+            <div class="col-md-3 boxImpar">
+
+                <p class="text-center font-weight-bold"> Borrar alumno</p>
+                <form>
+                    <div class="form-group row">
+                        <label for="nombreAgregar" class="col-md-4 col-form-label">*Nombre:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="nombreAgregar">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="apellidosAgregar" class="col-md-4 col-form-label">Apellidos:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="apellidosAgregar">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nacimientoAgregar" class="col-md-4 col-form-label">Nacimiento: </label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="nacimientoAgregar">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="dniAgregar" class="col-md-4 col-form-label">*DNI:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="dniAgregar">
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <div class=" col text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 boxPar">
+                <p class="text-center font-weight-bold"> Borrar alumno</p>
+                <form>
+                    <div class="form-group row">
+                        <label for="dniBorrar" class="col-md-4 col-form-label">*DNI:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="dniBorrar">
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <div class=" col text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 boxImpar">
+                <p class="text-center font-weight-bold"> Editar alumno</p>
+                <form>
+                    <div class="form-group row">
+                        <label for="nombreEditar" class="col-md-4 col-form-label">*Nombre:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="nombreEditar">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="apellidosEditar" class="col-md-4 col-form-label">Apellidos:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="apellidosEditar">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nacimientoEditar" class="col-md-4 col-form-label">Nacimiento: </label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="nacimientoEditar">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="dniEditar" class="col-md-4 col-form-label">*DNI:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="dniEditar">
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <div class=" col text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 boxPar">
+                <p class="text-center font-weight-bold"> Buscar alumno</p>
+                <form>
+                    <div class="form-group row">
+                        <label for="nombreBuscar" class="col-md-4 col-form-label">*Nombre:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="nombreBuscar">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="nombreBuscar" class="col-md-4 col-form-label">*DNI:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="nombreBuscar">
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <div class=" col text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
