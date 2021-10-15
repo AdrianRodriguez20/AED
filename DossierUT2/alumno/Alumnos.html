@@ -14,14 +14,14 @@
     <script src="js/script.js" language="javascript" type="text/javascript"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
 </head>
 
 <body class='snippet-body'>
     <div class="container-fluid px-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="Inicio.html"><i class="fas fa-home"></i></a>
 
@@ -255,8 +255,34 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <textarea class="form-control" id="resultado" rows="10"></textarea>
+                <div class="text-center mt-2">
+                    <button class="btn btn-success" id="clear">Limpiar</button>
+                    <button class="btn btn-success" id="copiar">Copiar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function clear() {
+            document.getElementById("resultado").value = "";
+        }
+
+        function copy() {
+            var contenido = document.getElementById('resultado');
+
+            contenido.select();
+            document.execCommand('copy');
+        }
 
 
+        document.getElementById("clear").addEventListener("click", clear);
+        document.getElementById("copiar").addEventListener("click", copy);
+    </script>
 
 </body>
 
