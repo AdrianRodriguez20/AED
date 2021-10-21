@@ -75,8 +75,10 @@ public class ForoWeb extends HttpServlet {
 		lista.add(nombre + " : " + mensaje);
 
 		request.getServletContext().setAttribute("mensajes", lista);
-		 
+		
+		request.getSession().setAttribute("nombre", nombre);
 		request.getRequestDispatcher("viewforo.jsp").forward(request, response);
+		
 
 	}
 

@@ -40,8 +40,8 @@
 
 		<form action="ForoWeb" method="POST">
 
-			<label for="nombre">nombre: </label> <input type="text" name="nombre"
-				id="nombre">
+			<label for="nombre">nombre: </label>
+			 <input type="text" name="nombre" id="nombre" value=${nombre} ${nombre!=null?'disabled':''}>
 			<textarea name="mensaje" id="mensaje" cols="20" rows="10"></textarea>
 			<input type="submit" value="Enviar">
 
