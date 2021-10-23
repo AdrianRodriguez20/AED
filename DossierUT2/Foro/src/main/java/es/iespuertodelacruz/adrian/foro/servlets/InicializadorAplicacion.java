@@ -1,14 +1,20 @@
 package es.iespuertodelacruz.adrian.foro.servlets;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+
 import es.iespuertodelacruz.adrian.foro.modelo.ManejoFichero;
 import es.iespuertodelacruz.adrian.foro.modelo.Mensaje;
+import es.iespuertodelacruz.adrian.foro.modelo.MyTimerTask;
 
 /**
  * Application Lifecycle Listener implementation class InicializadorAplicacion
@@ -54,6 +60,20 @@ public class InicializadorAplicacion implements ServletContextListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	Vector<Mensaje> lista = (Vector<Mensaje>)sce.getServletContext().getAttribute("mensajes");
+        int sizeMensajes=lista.size();
+        sce.getServletContext().setAttribute("sizeMensajes", sizeMensajes);
+        Timer timer = new Timer();
+        MyTimerTask mtk = new MyTimerTask(sce, mf);
+    	timer.scheduleAtFixedRate(mtk, 1000, 10000);
+    	
+    	
+       
     }
+    
+ 
+    
 	
 }
+
+

@@ -23,7 +23,7 @@
 
 
 
-			David: Hola <br> Fabian: Hola <br>
+			
 			
 			<c:forEach items="${mensajes}" var="men">
 				${men} <br>
