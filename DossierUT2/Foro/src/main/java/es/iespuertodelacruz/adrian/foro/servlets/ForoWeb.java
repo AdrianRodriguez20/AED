@@ -23,6 +23,7 @@ public class ForoWeb extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
+	
 	public ForoWeb() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -32,6 +33,7 @@ public class ForoWeb extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -50,6 +52,7 @@ public class ForoWeb extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		

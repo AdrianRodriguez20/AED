@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.adrian.foro.modelo;
 
-public class Mensaje {
+import java.io.Serializable;
+
+public class Mensaje implements Serializable {
 
 	private String remitente;
 	private String contenido;
