@@ -65,7 +65,7 @@ public class InicializadorAplicacion implements ServletContextListener {
         sce.getServletContext().setAttribute("sizeMensajes", sizeMensajes);
         Timer timer = new Timer();
         MyTimerTask mtk = new MyTimerTask(sce, mf);
-    	timer.scheduleAtFixedRate(mtk, 1000, 10000);
+    	timer.scheduleAtFixedRate(mtk, 1000, 100000);
     	
     	
        

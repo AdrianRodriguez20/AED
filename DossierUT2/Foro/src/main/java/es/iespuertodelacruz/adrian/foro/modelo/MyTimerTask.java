@@ -21,19 +21,19 @@ public class MyTimerTask extends TimerTask{
 	@Override
 	public void run() {
 		
-		System.out.println("-----Entro-----");
+		
 			int sizeMensajes=(int)sce.getServletContext().getAttribute("sizeMensajes");
-			System.out.println("sizeMensaje: "+sizeMensajes);
+			
 			
 			Vector<Mensaje> lista = (Vector<Mensaje>)sce.getServletContext().getAttribute("mensajes");
-			System.out.println("Lista.size()"+ lista.size());
+		
 			if (lista.size()>sizeMensajes) {
-				System.out.println("Guardo");
+				
 		    	mf.aniadirMensaje(lista);
 		    	sizeMensajes=lista.size();
 		    	sce.getServletContext().setAttribute("sizeMensajes", sizeMensajes);
 			}
-			System.out.println("----FIN----");
+		
 		
 		
 	}

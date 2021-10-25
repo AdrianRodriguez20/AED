@@ -58,15 +58,18 @@ public class ForoWeb extends HttpServlet {
 		
 		
 		request.setCharacterEncoding("UTF-8");
-		String nombre = request.getParameter("nombre");
+		String nombre=null;
 		String mensaje = request.getParameter("mensaje");
+		if(request.getSession().getAttribute(nombre)==null) {
+			nombre = request.getParameter("nombre");
+			if (nombre!=null && !nombre.isEmpty()) {
+				request.getSession().setAttribute("nombre", nombre);	
+			}
 		
-		
+		}
+			
 		if (nombre!=null && !nombre.isEmpty() && mensaje!=null && !mensaje.isEmpty() ) {
 
-			if(request.getSession().getAttribute(nombre)==null) {
-				request.getSession().setAttribute("nombre", nombre);
-			}
 			
 			Vector<Mensaje> lista = (Vector<Mensaje>)request.getServletContext().getAttribute("mensajes");
 		
