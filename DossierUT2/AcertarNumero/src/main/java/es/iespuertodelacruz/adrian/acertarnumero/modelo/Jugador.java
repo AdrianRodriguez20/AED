@@ -1,47 +1,50 @@
 package es.iespuertodelacruz.adrian.acertarnumero.modelo;
 
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.TreeMap;
 
 public class Jugador {
 
-	String nick;
-	ArrayList<Integer> listaApuestas;
-	
-	
-	
+	private String nick;
+	private TreeMap<Date, Integer> listaApuestas = new TreeMap<Date, Integer>();
+
 	public Jugador() {
 		super();
 	}
 
-
 	public Jugador(String nick) {
 		this.nick = nick;
-		this.listaApuestas=new ArrayList<Integer>();
+		this.listaApuestas = new TreeMap<Date, Integer>();
 	}
-
 
 	public String getNick() {
 		return nick;
 	}
 
-
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
 
-
-	public ArrayList<Integer> getListaApuestas() {
+	public TreeMap<Date, Integer> getListaApuestas() {
 		return listaApuestas;
 	}
 
-
-	public void setListaApuestas(ArrayList<Integer> listaApuestas) {
+	public void setListaApuestas(TreeMap<Date, Integer> listaApuestas) {
 		this.listaApuestas = listaApuestas;
 	}
-	
-	public void clearListaApuestas() {
-		this.listaApuestas.clear();
+
+	public void clearListaApuestas(Date dateGanadora) {
+
+		for (Iterator<Date> iterator = listaApuestas.keySet().iterator(); iterator.hasNext();) {
+			Date key = iterator.next();
+			if (key.before(dateGanadora) || key.equals(dateGanadora)) {
+				iterator.remove();
+			}
+
+		}
+
 	}
 	
-	
+
 }
