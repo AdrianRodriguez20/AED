@@ -15,7 +15,7 @@
 			type="submit" value="apostar">
 	</form>
 	<span>Usuario: &nbsp; ${jugador.getNick()}</span><br>
-	<span>Último ganador: Nick: Secreto: Hora:</span><br>
+	<span>Último ganador -  Nick: ${lastSecreto.getGanador()} Secreto:${lastSecreto.getNum()} Hora:${lastSecreto.getDateCreado()}</span><br>
 	<span>Hora actual del secreto: ${secreto.getDateCreado()}</span><br>
 
 	

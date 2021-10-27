@@ -59,7 +59,7 @@ public class Principal extends HttpServlet {
 		String nickParameter = (String) request.getSession().getAttribute("nick");
 		if (nickParameter == null) {
 			String nick = request.getParameter("nick");
-			if (nick != null && !nick.isEmpty()) {
+			if (nick != null && !nick.trim().isEmpty()) {
 				request.getSession().setAttribute("nick", nick);
 				request.getRequestDispatcher("jugar.jsp").forward(request, response);
 			} else {
@@ -96,6 +96,9 @@ public class Principal extends HttpServlet {
 				player.clearListaApuestas(fecha);
 			}
 			System.out.println("Acertaste! Secreto="+secretoParameter.getNum() );
+			Secreto lastSecreto = secretoParameter;
+			lastSecreto.setGanador(jugador.getNick());
+			request.getServletContext().setAttribute("lastSecreto", lastSecreto);
 			Secreto secreto = new Secreto();
 			request.getServletContext().setAttribute("secreto", secreto);
 			

@@ -6,11 +6,13 @@ public class Secreto {
 
 	private int num;
 	private Date dateCreado;
+	private String ganador;
 	
 	public Secreto() {
 		super();
 		this.num =(int)(Math.random()*10000+1);
 		this.dateCreado = new Date();
+		this.ganador=null;
 	}
 
 	public int getNum() {
@@ -29,6 +31,15 @@ public class Secreto {
 		this.dateCreado = dateCreado;
 	}
 
+	public String getGanador() {
+		return ganador;
+	}
+
+	public void setGanador(String ganador) {
+		this.ganador = ganador;
+	}
+
+	
 
 
 	
