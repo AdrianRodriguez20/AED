@@ -32,6 +32,10 @@
 		</c:choose>
 	</c:forEach>
 
-
+	<div>
+	<c:forEach items="${secretos}" var="secr">
+				${secr} <br>
+			</c:forEach>
+	</div>
 </body>
 </html>
