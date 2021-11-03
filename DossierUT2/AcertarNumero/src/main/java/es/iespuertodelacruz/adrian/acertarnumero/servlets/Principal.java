@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.iespuertodelacruz.adrian.acertarnumero.modelo.Jugador;
+import es.iespuertodelacruz.adrian.acertarnumero.modelo.ManejoFichero;
 import es.iespuertodelacruz.adrian.acertarnumero.modelo.Secreto;
 
 /**
@@ -72,6 +73,8 @@ public class Principal extends HttpServlet {
 
 	public void apostarNumero(HttpServletRequest request, HttpServletResponse response) {
 		
+		ArrayList<Secreto> secretos  = (ArrayList<Secreto>) request.getServletContext().getAttribute("secretos");
+		ManejoFichero mf = (ManejoFichero)request.getServletContext().getAttribute("mf");
 		ArrayList <Jugador> listaJugadores=(ArrayList<Jugador>) request.getServletContext().getAttribute("listaJugadores");	
 		Secreto secretoParameter = (Secreto) request.getServletContext().getAttribute("secreto");		
 		Jugador jugador = (Jugador) request.getSession().getAttribute("jugador");
@@ -98,8 +101,13 @@ public class Principal extends HttpServlet {
 			System.out.println("Acertaste! Secreto="+secretoParameter.getNum() );
 			Secreto lastSecreto = secretoParameter;
 			lastSecreto.setGanador(jugador.getNick());
+
 			request.getServletContext().setAttribute("lastSecreto", lastSecreto);
 			Secreto secreto = new Secreto();
+			lastSecreto.setTiempoEnAcertar(secreto.getDateCreado());
+			secretos.add(lastSecreto);
+			mf.aniadirSecreto(secretos);
+			
 			request.getServletContext().setAttribute("secreto", secreto);
 			
 		}
