@@ -31,7 +31,8 @@ public class InicializadorAplicacion implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent sce)  { 
        
-		GestorConexionDDBB gc = new GestorConexionDDBB("oficina","root","");
+		GestorConexionDDBB gc = new GestorConexionDDBB("oficina", "root", "1q2w3e4r");
+
 		LapizDAO  lapizDAO = new LapizDAO(gc);
 		
 		sce.getServletContext().setAttribute("lapizDAO", lapizDAO);

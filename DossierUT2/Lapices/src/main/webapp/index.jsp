@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -18,6 +18,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
 <style>
 .boxImpar {
 	background-color: #d9e6ed;
@@ -72,7 +73,7 @@ body {
 					<div class="form-group row">
 						<label for="idLapizBorrar" class="col-md-4 col-form-label">*ID:</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="idLapizBorrar">
+							<input type="number" class="form-control" name="idLapizBorrar">
 						</div>
 					</div>
 					<div class="form-group row ">
@@ -89,7 +90,7 @@ body {
 					<div class="form-group row">
 						<label for="idLapizEditar" class="col-md-4 col-form-label">*ID:</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="idLapizEditar">
+							<input type="number" class="form-control" name="idLapizEditar">
 						</div>
 					</div>
 					<div class="form-group row">
@@ -102,7 +103,7 @@ body {
 						<label for="numeroEditar" class="col-md-4 col-form-label">Número:
 						</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="numeroEditar">
+							<input type="number" class="form-control" name="numeroEditar">
 						</div>
 					</div>
 					<div class="form-group row ">
@@ -118,14 +119,14 @@ body {
 				<form action="gestionlapices" METHOD="POST">
 
 					<div class="form-group row">
-						<div class="col-md-3">
-							<select class="form-control  " name="opcionBuscar">
+						<div class="col-md-4">
+							<select class="form-control  " id="opcionBuscar" name="opcionBuscar" ID ="opcionBuscar">
 								<option selected name="buscarPor" value="idLapizBuscar">ID</option>
-								<option name="buscarPor" value="marcaBuscar">Marca</option>
+								<option id="buscarPor" name="buscarPor"  value="marcaBuscar">Marca</option>
 							</select>
 						</div>
-						<div class="col-md-8">
-							<input type="text" class="form-control" name="lapizBuscar">
+						<div class="col-md-7">
+							<input type="number" class="form-control" id="lapizBuscar" name="lapizBuscar">
 						</div>
 					</div>
 					<div class="form-group row ">
@@ -146,6 +147,7 @@ body {
            </textarea>
 		</div>
 	</div>
+<script src="js/script.js" language="javascript" type="text/javascript"></script>
 </body>
 
 </html>
