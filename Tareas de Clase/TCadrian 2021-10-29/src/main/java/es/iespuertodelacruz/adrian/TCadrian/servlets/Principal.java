@@ -33,7 +33,7 @@ public class Principal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**
@@ -41,10 +41,11 @@ public class Principal extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	
-		if (request.getParameter("rutaGuardar")!=null ) {
-			
-			String rutaGuardar =rutaPorDefecto(request.getParameter("rutaGuardar"),request);
+		String rutaGuardar =request.getParameter("rutaGuardar");
+		System.out.println("RG" +rutaGuardar);
+		//rutaGuardar =rutaPorDefecto(rutaGuardar,request);
+		if (rutaGuardar!=null ) {
+
 			String contenido = request.getParameter("contenido");
 			ManejoFichero mf = new ManejoFichero(rutaGuardar);
 			mf.guardar(contenido);
@@ -53,8 +54,11 @@ public class Principal extends HttpServlet {
 			
 			
 		}
-		if (request.getParameter("rutaCargar")!=null) {
-			String rutaCargar =rutaPorDefecto(request.getParameter("rutaCargar"),request);
+		String rutaCargar = request.getParameter("rutaCargar");
+		System.out.println("RC"+rutaCargar);
+		rutaCargar =rutaPorDefecto(rutaCargar,request);
+		if (rutaCargar!=null) {
+			
 			ManejoFichero mf = new ManejoFichero(rutaCargar);
 			String contenido = mf.leer();
 			request.getSession().setAttribute("rutaGuardar", rutaCargar);
@@ -70,14 +74,26 @@ public class Principal extends HttpServlet {
 	
 	public String rutaPorDefecto(String ruta , HttpServletRequest request) {
 		String regexp = "^[a-z]{1,}.txt$";
-		Path path = Paths.get(ruta);
-		File directorio = new File(ruta.replaceAll("[a-z]{1,}.txt$", ""));
-
+		Path path =null;
+		File directorio =null;
+		try {
+			if(ruta!=null) {
+				path = Paths.get(ruta);
+				directorio = new File(ruta.replaceAll("[a-z]{1,}.txt$", ""));	
+			}else {
+				return null;
+			}
+			 
+		}catch(Exception ex){
+			
+		}
 
 		if (Files.exists(path) || directorio.exists() ) {
+			System.out.println("A");
 			
 			return ruta;
 		} else if (Pattern.matches(regexp, ruta)) {
+			System.out.println("b");
 			String direccion = request.getServletContext().getRealPath("") + File.separator + "WEB-INF" + File.separator
 					+ request.getSession().getId();
 		
@@ -85,8 +101,11 @@ public class Principal extends HttpServlet {
 			 if (!carpeta.exists())
 				 carpeta.mkdir();
 			return direccion + File.separator + ruta;
+		}else {
+			System.out.println("c");
+			return null;
 		}
-		return null;
+		
 	}
 
 
