@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" xmlns="http://JAVA.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <display-name>Lapices</display-name>
+    <listener>
+    	<listener-class>es.iespuertodelacruz.adrian.lapices.servlets.InicializadorAplicacion</listener-class>
+    </listener>
+    <servlet>
+    	<description>
+    	</description>
+    	<display-name>GestionLapices</display-name>
+    	<servlet-name>GestionLapices</servlet-name>
+    	<servlet-class>es.iespuertodelacruz.adrian.lapices.servlets.GestionLapices</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>GestionLapices</servlet-name>
+    	<url-pattern>/GestionLapices</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>GestionLapices</servlet-name>
+    	<url-pattern>/gestionlapices</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

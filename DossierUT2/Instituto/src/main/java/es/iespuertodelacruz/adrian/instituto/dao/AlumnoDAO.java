@@ -20,9 +20,8 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 
 	       String sql = "INSERT INTO alumnos (dni,nombre, apellidos, fechanacimiento) VALUES(?,?,?,?)";
 
-	        try {
-	            Connection conn =  gc.getConnection();
-	            PreparedStatement pstmt = conn.prepareStatement(sql);
+			try (Connection conn = gc.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, dao.getDni());
 	            pstmt.setString(2, dao.getNombre());
 	            pstmt.setString(3, dao.getApellidos());
@@ -40,9 +39,8 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 		ArrayList<Alumno> alumnos = null;
 		 String sql = "SELECT dni,nombre, apellidos, fechanacimiento FROM alumnos WHERE  dni = ?";
 
-		  try {
-			  	Connection conn =  gc.getConnection();
-	            PreparedStatement pstmt = conn.prepareStatement(sql);
+			try (Connection conn = gc.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, id);
 
 	            ResultSet resultSet = pstmt.executeQuery();
@@ -57,9 +55,8 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 		
 		String sql = "UPDATE alumnos SET nombre = ?, apellidos = ? , fechanacimiento = ? WHERE dni= ?";
 		
-		 try {
-			  	Connection conn =  gc.getConnection();
-		        PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (Connection conn = gc.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, dao.getNombre());
 	            pstmt.setString(2, dao.getApellidos());
 	            pstmt.setLong(3, dao.getFechanacimiento());
@@ -77,9 +74,8 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 
 		 String sql = "DELETE FROM alumnos  WHERE  dni = ?";
 
-		  try {
-			  	Connection conn =  gc.getConnection();
-	            PreparedStatement pstmt = conn.prepareStatement(sql);
+			try (Connection conn = gc.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, id);
 
 	            pstmt.executeUpdate();

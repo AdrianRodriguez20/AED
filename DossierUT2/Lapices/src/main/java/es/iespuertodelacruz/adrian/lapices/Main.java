@@ -13,7 +13,7 @@ public class Main {
 		LapizDAO  lapizDAO = new LapizDAO(gc);
 		
 		System.out.println("Método save()");
-		lapizDAO.save(new Lapiz ( "FaberCastle",2));
+		
 		
 		System.out.println("Método findAll()");
 		

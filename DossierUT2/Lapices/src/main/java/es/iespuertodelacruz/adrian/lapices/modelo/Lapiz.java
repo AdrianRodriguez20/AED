@@ -1,5 +1,8 @@
 package es.iespuertodelacruz.adrian.lapices.modelo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Lapiz {
 
 	private int idlapiz;
@@ -48,7 +51,17 @@ public class Lapiz {
 
 	@Override
 	public String toString() {
-		return "Lapiz [idlapiz=" + idlapiz + ", marca=" + marca + ", numero=" + numero + "]";
+		ObjectMapper mapper = new ObjectMapper();
+		String strLapiz=null;
+		try {
+			strLapiz = mapper
+			.writerWithDefaultPrettyPrinter()
+			.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return strLapiz;
 	}
 
 	

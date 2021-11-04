@@ -23,18 +23,26 @@ public class LapizDAO implements Crud<Lapiz, String> {
 	public Lapiz save(Lapiz dao) {
 		
 		String sql = "INSERT INTO lapices (marca, numero ) VALUES(?,?)";
-
-		try {
-			Connection conn = gc.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+		Lapiz lapiz =null ;
+		try (Connection conn = gc.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1,dao.getMarca());
 			pstmt.setInt(2, dao.getNumero());
 			pstmt.executeUpdate();
+			
+			lapiz = new Lapiz(dao.getMarca(),dao.getNumero());
+			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                lapiz.setIdlapiz(generatedKeys.getInt(1));
+	            }
+	        }
+			
 		} catch (SQLException e) {
 			System.out.println("Se ha producido un error almacenando en la BBDD:" + e.getMessage());
 		}
-
-		return null;
+	       
+		
+		return lapiz;
 	}
 
 	public Lapiz findById(String id) {
@@ -42,9 +50,8 @@ public class LapizDAO implements Crud<Lapiz, String> {
 		ArrayList<Lapiz> lapices = null;
 		String sql = "SELECT idlapiz ,marca, numero FROM lapices  WHERE  idlapiz = ?";
 
-		try {
-			Connection conn = gc.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (Connection conn = gc.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
 
 			ResultSet resultSet = pstmt.executeQuery();
@@ -53,9 +60,10 @@ public class LapizDAO implements Crud<Lapiz, String> {
 			System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
 		}
 
-		if (lapices != null) {
+		if (lapices != null && lapices.size()>0) {
 			return lapices.get(0);
 		} else {
+
 			return null;
 		}
 	}
@@ -65,9 +73,9 @@ public class LapizDAO implements Crud<Lapiz, String> {
 		ArrayList<Lapiz> lapices = null;
 		String sql = "SELECT idlapiz ,marca, numero FROM lapices  WHERE  marca = ?";
 
-		try {
-			Connection conn = gc.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (Connection conn = gc.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			
 			pstmt.setString(1, marca);
 
 			ResultSet resultSet = pstmt.executeQuery();
@@ -101,9 +109,8 @@ public class LapizDAO implements Crud<Lapiz, String> {
 		
 		 String sql = "DELETE FROM lapices  WHERE  idlapiz = ?";
 
-		  try {
-			  	Connection conn =  gc.getConnection();
-	            PreparedStatement pstmt = conn.prepareStatement(sql);
+			try (Connection conn = gc.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, id);
 
 	            pstmt.executeUpdate();
@@ -119,9 +126,8 @@ public class LapizDAO implements Crud<Lapiz, String> {
 		ArrayList<Lapiz> lapices = null;
 		String sql = "SELECT idlapiz ,marca, numero FROM lapices";
 
-		try {
-			Connection conn = gc.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (Connection conn = gc.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			ResultSet resultSet = pstmt.executeQuery();
 			lapices = resultSetToList(resultSet);

@@ -19,9 +19,8 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 
 		String sql = "INSERT INTO asignaturas (nombre, curso ) VALUES(?,?)";
 
-		try {
-			Connection conn = gc.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+		try (Connection conn = gc.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1, dao.getNombre());
 			pstmt.setString(2, dao.getCurso());
 			pstmt.executeUpdate();
@@ -37,9 +36,8 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		ArrayList<Asignatura> asignaturas = null;
 		String sql = "SELECT idasignatura ,nombre, curso FROM asignaturas  WHERE  idasignatura = ?";
 
-		try {
-			Connection conn = gc.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (Connection conn = gc.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
 
 			ResultSet resultSet = pstmt.executeQuery();
@@ -48,7 +46,7 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 			System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
 		}
 
-		if (asignaturas != null) {
+		if (asignaturas != null && asignaturas.size()>0) {
 			return asignaturas.get(0);
 		} else {
 			return null;
@@ -59,9 +57,8 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 
 		String sql = "UPDATE asignaturas SET nombre = ?, curso = ?  WHERE idasignatura= ?";
 
-		try {
-			Connection conn = gc.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (Connection conn = gc.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, dao.getNombre());
 			pstmt.setString(2, dao.getCurso());
 			pstmt.setLong(3, dao.getIdAsignatura());
@@ -78,9 +75,8 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 
 		 String sql = "DELETE FROM asignaturas  WHERE  idasignatura = ?";
 
-		  try {
-			  	Connection conn =  gc.getConnection();
-	            PreparedStatement pstmt = conn.prepareStatement(sql);
+			try (Connection conn = gc.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, id);
 
 	            pstmt.executeUpdate();
@@ -96,9 +92,8 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		ArrayList<Asignatura> asignaturas = null;
 		String sql = "SELECT idasignatura ,nombre, curso FROM asignaturas";
 
-		try {
-			Connection conn = gc.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (Connection conn = gc.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			ResultSet resultSet = pstmt.executeQuery();
 			asignaturas = resultSetToList(resultSet);
