@@ -5,6 +5,8 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Alumno {
 
@@ -30,6 +32,14 @@ public class Alumno {
 		this.matriculas = matriculas;
 	}
 
+
+
+	public Alumno(String dni, String nombre, String apellidos, Date fechanacimiento) {
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.fechanacimiento = fechanacimiento;
+	}
 
 
 	public String getDni() {
@@ -88,6 +98,22 @@ public class Alumno {
 
 	public void setMatriculas(ArrayList<Matricula> matriculas) {
 		this.matriculas = matriculas;
+	}
+
+
+	@Override
+	public String toString() {
+		ObjectMapper mapper = new ObjectMapper();
+		String strAlumno=null;
+		try {
+			strAlumno = mapper
+			.writerWithDefaultPrettyPrinter()
+			.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return strAlumno;
 	}
 	
 	

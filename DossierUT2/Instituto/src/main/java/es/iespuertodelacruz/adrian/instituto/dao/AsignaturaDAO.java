@@ -18,17 +18,25 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 	public Asignatura save(Asignatura dao) {
 
 		String sql = "INSERT INTO asignaturas (nombre, curso ) VALUES(?,?)";
-
+		Asignatura asignatura= null;
 		try (Connection conn = gc.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			pstmt.setString(1, dao.getNombre());
 			pstmt.setString(2, dao.getCurso());
-			pstmt.executeUpdate();
+			int filasAfectadas = pstmt.executeUpdate();
+			if( filasAfectadas > 0) {
+				asignatura = new Asignatura(dao.getNombre(),dao.getCurso());
+				try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+		            if (generatedKeys.next()) {
+		                asignatura.setIdAsignatura(generatedKeys.getInt(1));
+		            }
+		        }
+			}
 		} catch (SQLException e) {
 			System.out.println("Se ha producido un error almacenando en la BBDD:" + e.getMessage());
 		}
 
-		return null;
+		return asignatura;
 	}
 
 	public Asignatura findById(String id) {

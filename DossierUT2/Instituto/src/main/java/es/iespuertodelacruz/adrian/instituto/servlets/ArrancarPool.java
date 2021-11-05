@@ -1,21 +1,20 @@
-package es.iespuertodelacruz.adrian.lapices.servlets;
+package es.iespuertodelacruz.adrian.instituto.servlets;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import es.iespuertodelacruz.adrian.lapices.dao.GestorConexionDDBB;
-import es.iespuertodelacruz.adrian.lapices.dao.LapizDAO;
+import es.iespuertodelacruz.adrian.instituto.dao.GestorConexionDDBB;
 
 /**
- * Application Lifecycle Listener implementation class InicializadorAplicacion
+ * Application Lifecycle Listener implementation class ArrancarPool
  *
  */
-public class InicializadorAplicacion implements ServletContextListener {
+public class ArrancarPool implements ServletContextListener {
 
     /**
      * Default constructor. 
      */
-    public InicializadorAplicacion() {
+    public ArrancarPool() {
         // TODO Auto-generated constructor stub
     }
 
@@ -30,7 +29,7 @@ public class InicializadorAplicacion implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
-       
+    	
 		GestorConexionDDBB gc = new GestorConexionDDBB("oficina", "root", "1q2w3e4r");
 
 		sce.getServletContext().setAttribute("gc", gc);

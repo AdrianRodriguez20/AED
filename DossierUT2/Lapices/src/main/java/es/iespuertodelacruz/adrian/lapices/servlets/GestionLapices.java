@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.iespuertodelacruz.adrian.lapices.dao.GestorConexionDDBB;
 import es.iespuertodelacruz.adrian.lapices.dao.LapizDAO;
 import es.iespuertodelacruz.adrian.lapices.modelo.Lapiz;
 
@@ -44,7 +45,8 @@ public class GestionLapices extends HttpServlet {
 			throws ServletException, IOException {
 		request.getSession().setAttribute("lapiz", null);
 		request.getSession().setAttribute("lapices",null);
-		LapizDAO lapizDAO = (LapizDAO) request.getServletContext().getAttribute("lapizDAO");
+		GestorConexionDDBB gc= (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
+		LapizDAO lapizDAO = new LapizDAO(gc);
 		String agregarParameter = request.getParameter("agregar");
 		String editarParameter = request.getParameter("editar");
 		String borrarParameter = request.getParameter("borrar");

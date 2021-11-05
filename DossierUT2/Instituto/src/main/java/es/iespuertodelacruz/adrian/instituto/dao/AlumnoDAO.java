@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import es.iespuertodelacruz.adrian.instituto.modelo.Alumno;
 
@@ -19,7 +20,8 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 	public Alumno save(Alumno dao) {
 
 	       String sql = "INSERT INTO alumnos (dni,nombre, apellidos, fechanacimiento) VALUES(?,?,?,?)";
-
+	       
+	       Alumno alumno;
 			try (Connection conn = gc.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, dao.getDni());
@@ -30,25 +32,32 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 	        } catch (SQLException e) {
 	            System.out.println("Se ha producido un error almacenando en la BBDD:" + e.getMessage());
 	        } 
-	        
-	        return null;
+	
+	        return new Alumno (dao.getDni(),dao.getNombre(), dao.getApellidos(), new Date( dao.getFechanacimiento()));
 	}
 
 	public Alumno findById(String id) {
 		
-		ArrayList<Alumno> alumnos = null;
+		
 		 String sql = "SELECT dni,nombre, apellidos, fechanacimiento FROM alumnos WHERE  dni = ?";
-
+		 
+		 ArrayList<Alumno> alumnos = null;
 			try (Connection conn = gc.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, id);
 
 	            ResultSet resultSet = pstmt.executeQuery();
-	           // alumnos = resultSetToList(resultSet);
+	           alumnos = resultSetToList(resultSet);
 	        } catch (SQLException e) {
 	            System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
 	        }
-		return null; 
+			
+			if (alumnos != null && alumnos.size()>0) {
+				return alumnos.get(0);
+			} else {
+
+				return null;
+			}
 	}
 
 	public boolean update(Alumno dao) {
@@ -106,11 +115,11 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 	}
 	
     /*
-     * Funcion que transforma un resultSet en una lista de partidas
+     * Funcion que transforma un resultSet en una lista de alumnos
      * @param resultSet
      * @return
      */
-	/*
+	
     static ArrayList<Alumno> resultSetToList(ResultSet resultSet) {
         ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
 
@@ -121,8 +130,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
                 				resultSet.getString(1), 
                 				resultSet.getString(2), 
                 				resultSet.getString(3), 
-                				new Date(resultSet.getLong(4)*1000),
-                				
+                				new Date(resultSet.getLong(4))
                 				));
             }
         } catch (SQLException sqlException) {
@@ -133,6 +141,6 @@ public class AlumnoDAO implements Crud<Alumno, String> {
         return alumnos;
     }
 
-	*/     
+	
 
 }
