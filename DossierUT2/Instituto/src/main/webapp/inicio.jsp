@@ -29,13 +29,13 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
-                        <a class="nav-link" href="alumno.jsp">Alumno<span class="sr-only"></span></a>
+                        <a class="nav-link" href="alumno.jsp">Alumno</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Matrícula</a>
+                        <a class="nav-link" href="matriculas.jsp">Matrícula</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#">Asignatura</a>
+                        <a class="nav-link " href="asignaturas.jsp">Asignatura</a>
                     </li>
                 </ul>
 
@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-4">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="Alumnos.html">
+                    <a href="matriculas.jsp">
                         <div class="wrimagecard-topimage_header text-center" style="background-color:#8CC0FF">
                             <i class="fas fa-graduation-cap" style="color:white "></i>
                         </div>
@@ -75,7 +75,7 @@
             </div>
             <div class="col-md-4">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="Alumnos.html">
+                    <a href="asignaturas.jsp">
                         <div class="wrimagecard-topimage_header text-center" style="background-color:#8CC0FF">
                             <i class="fas fa-book " style="color:white "></i>
 

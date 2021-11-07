@@ -21,19 +21,22 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 
 	       String sql = "INSERT INTO alumnos (dni,nombre, apellidos, fechanacimiento) VALUES(?,?,?,?)";
 	       
-	       Alumno alumno;
+	       Alumno alumno=null;
 			try (Connection conn = gc.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, dao.getDni());
 	            pstmt.setString(2, dao.getNombre());
 	            pstmt.setString(3, dao.getApellidos());
-	            pstmt.setLong(4, dao.getFechanacimiento());
-	            pstmt.executeUpdate();
+	            pstmt.setLong(4, dao.getFechanacimiento().getTime());
+	            int filasAfectadas =pstmt.executeUpdate();
+	            if( filasAfectadas > 0) {
+	             alumno =new Alumno (dao.getDni(),dao.getNombre(), dao.getApellidos(), new Date( dao.getFechanacimiento().getTime()));
+	            }
 	        } catch (SQLException e) {
 	            System.out.println("Se ha producido un error almacenando en la BBDD:" + e.getMessage());
 	        } 
 	
-	        return new Alumno (dao.getDni(),dao.getNombre(), dao.getApellidos(), new Date( dao.getFechanacimiento()));
+	        return alumno;
 	}
 
 	public Alumno findById(String id) {
@@ -63,37 +66,44 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 	public boolean update(Alumno dao) {
 		
 		String sql = "UPDATE alumnos SET nombre = ?, apellidos = ? , fechanacimiento = ? WHERE dni= ?";
+		Boolean exito=false;
 		
 		try (Connection conn = gc.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, dao.getNombre());
 	            pstmt.setString(2, dao.getApellidos());
-	            pstmt.setLong(3, dao.getFechanacimiento());
+	            pstmt.setLong(3, dao.getFechanacimiento().getTime());
 	            pstmt.setString(4, dao.getDni());
-		        pstmt.executeUpdate();
+	    		int filasAfectadas = pstmt.executeUpdate();
+				if( filasAfectadas > 0) {
+				exito=true;
+				}
 		        
 		 }catch (SQLException e) {
 	            System.out.println("Se ha producido un error actualizando en la BBDD:" + e.getMessage());
 	     } 
 		 
-		return false;
+		return exito;
 	}
 
 	public boolean delete(String id) {
 
 		 String sql = "DELETE FROM alumnos  WHERE  dni = ?";
-
+		 Boolean exito=false;
 			try (Connection conn = gc.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, id);
 
-	            pstmt.executeUpdate();
+	    		int filasAfectadas = pstmt.executeUpdate();
+				if( filasAfectadas > 0) {
+				exito=true;
+				}
 	  
 	        } catch (SQLException e) {
 	            System.out.println("Se ha producido un error eliminando en la BBDD:" + e.getMessage());
 	        }
 
-		return false;
+		return exito;
 	}
 
 	public ArrayList<Alumno> findAll() {
@@ -120,7 +130,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
      * @return
      */
 	
-    static ArrayList<Alumno> resultSetToList(ResultSet resultSet) {
+     static ArrayList<Alumno> resultSetToList(ResultSet resultSet) {
         ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
 
         try {

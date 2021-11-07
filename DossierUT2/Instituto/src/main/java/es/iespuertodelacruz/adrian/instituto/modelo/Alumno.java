@@ -78,8 +78,8 @@ public class Alumno {
 
 
 
-	public long getFechanacimiento() {
-		return fechanacimiento.getTime();
+	public Date getFechanacimiento() {
+		return fechanacimiento;
 	}
 
 

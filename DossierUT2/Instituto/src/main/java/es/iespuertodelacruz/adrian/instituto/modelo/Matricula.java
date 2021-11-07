@@ -3,13 +3,15 @@ package es.iespuertodelacruz.adrian.instituto.modelo;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Matricula {
 
 	int idmatricula;
 	Alumno alumno;
 	
-	@JsonProperty("año")
+	@JsonProperty("aÃ±o")
 	int year;
 	ArrayList<Asignatura> asignaturas;
 	
@@ -65,7 +67,19 @@ public class Matricula {
 	public void setAsignaturas(ArrayList<Asignatura> asignaturas) {
 		this.asignaturas = asignaturas;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		ObjectMapper mapper = new ObjectMapper();
+		String strMatricula=null;
+		try {
+			strMatricula = mapper
+					.writerWithDefaultPrettyPrinter()
+					.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return strMatricula;
+	}
 }

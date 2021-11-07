@@ -64,30 +64,36 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 	public boolean update(Asignatura dao) {
 
 		String sql = "UPDATE asignaturas SET nombre = ?, curso = ?  WHERE idasignatura= ?";
-
+		Boolean exito=false;
+		
 		try (Connection conn = gc.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, dao.getNombre());
 			pstmt.setString(2, dao.getCurso());
 			pstmt.setLong(3, dao.getIdAsignatura());
-			pstmt.executeUpdate();
-
+			int filasAfectadas = pstmt.executeUpdate();
+			if( filasAfectadas > 0) {
+			exito=true;
+			}
 		} catch (SQLException e) {
 			System.out.println("Se ha producido un error actualizando en la BBDD:" + e.getMessage());
 		}
 
-		return false;
+		return exito;
 	}
 
 	public boolean delete(String id) {
-
+		Boolean exito=false;
 		 String sql = "DELETE FROM asignaturas  WHERE  idasignatura = ?";
 
 			try (Connection conn = gc.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, id);
 
-	            pstmt.executeUpdate();
+				int filasAfectadas = pstmt.executeUpdate();
+				if( filasAfectadas > 0) {
+				exito=true;
+				}
 	        } catch (SQLException e) {
 	            System.out.println("Se ha producido un error eliminando en la BBDD:" + e.getMessage());
 	        }
@@ -111,6 +117,26 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		return asignaturas;
 	}
 
+	public ArrayList<Asignatura> findAsignaturasAlumnoByIdAndYear(String dni , int year) {
+
+		ArrayList<Asignatura> asignaturas = null;
+		String sql = "SELECT idasignatura , nombre , curso FROM asignaturas WHERE idasignatura in"
+				+ "(SELECT idasignatura FROM asignatura_matricula WHERE idmatricula = "
+				+ "(SELECT idmatricula FROM matriculas WHERE dni = ? and year = ? ))";
+
+
+		try (Connection conn = gc.getConnection();
+			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, dni);
+			pstmt.setInt(2, year);
+			ResultSet resultSet = pstmt.executeQuery();
+			asignaturas = resultSetToList(resultSet);
+		} catch (SQLException e) {
+			System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
+		}
+		return asignaturas;
+	}
+
 	/*
 	 * Funcion que transforma un resultSet en una lista de partidas
 	 * 
@@ -118,7 +144,7 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 	 * 
 	 * @return
 	 */
-	static ArrayList<Asignatura> resultSetToList(ResultSet resultSet) {
+	public static ArrayList<Asignatura> resultSetToList(ResultSet resultSet) {
 		ArrayList<Asignatura> asignaturas = new ArrayList<Asignatura>();
 
 		try {

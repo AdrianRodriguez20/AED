@@ -4,6 +4,39 @@
     <listener>
     	<listener-class>es.iespuertodelacruz.adrian.instituto.servlets.ArrancarPool</listener-class>
     </listener>
+    <servlet>
+    	<description>
+    	</description>
+    	<display-name>GestorMatricula</display-name>
+    	<servlet-name>GestorMatricula</servlet-name>
+    	<servlet-class>es.iespuertodelacruz.adrian.instituto.servlets.GestorMatricula</servlet-class>
+    </servlet>
+    <servlet>
+    	<description>
+    	</description>
+    	<display-name>GestorAsignatura</display-name>
+    	<servlet-name>GestorAsignatura</servlet-name>
+    	<servlet-class>es.iespuertodelacruz.adrian.instituto.servlets.GestorAsignatura</servlet-class>
+    </servlet>
+    <servlet>
+    	<description>
+    	</description>
+    	<display-name>GestorAlumno</display-name>
+    	<servlet-name>GestorAlumno</servlet-name>
+    	<servlet-class>es.iespuertodelacruz.adrian.instituto.servlets.GestorAlumno</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>GestorMatricula</servlet-name>
+    	<url-pattern>/GestorMatricula</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>GestorAsignatura</servlet-name>
+    	<url-pattern>/GestorAsignatura</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>GestorAlumno</servlet-name>
+    	<url-pattern>/GestorAlumno</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
