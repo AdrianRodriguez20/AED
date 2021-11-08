@@ -28,6 +28,12 @@ public class Matricula {
 		this.asignaturas = asignaturas;
 	}
 
+	public Matricula( Alumno alumno, int year, ArrayList<Asignatura> asignaturas) {
+		this.alumno = alumno;
+		this.year = year;
+		this.asignaturas = asignaturas;
+	}
+
 
 	public int getIdmatricula() {
 		return idmatricula;

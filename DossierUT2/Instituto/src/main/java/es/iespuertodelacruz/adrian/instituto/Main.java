@@ -15,7 +15,7 @@ public class Main {
 
         System.out.println("Método findAll()");
 
-        for(Matricula matricula :matriculaDAO.findAll()) {
+        for(Matricula matricula :matriculaDAO.findByAnio(2021)) {
             System.out.println(matricula);
         }
 

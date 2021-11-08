@@ -59,14 +59,13 @@ public class GestorAlumno extends HttpServlet {
             if (nombreParameter != null && !nombreParameter.trim().isEmpty() && dniParameter != null
                     && !dniParameter.trim().isEmpty()) {
 
-                Alumno alumno = null;
                 Date fechaNacimiento= null;
                 try {
                     fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(nacimientoParameter);
                 } catch (ParseException e) {
-                    fechaNacimiento=null;
+                    e.printStackTrace();
                 }
-                alumno = alumnoDao.save(new Alumno(dniParameter,nombreParameter, apellidosParameter, fechaNacimiento));
+                Alumno alumno = alumnoDao.save(new Alumno(dniParameter,nombreParameter, apellidosParameter, fechaNacimiento));
 
                 request.getSession().setAttribute("alumno", alumno);
 
@@ -83,12 +82,11 @@ public class GestorAlumno extends HttpServlet {
             if (nombreParameter != null && !nombreParameter.isEmpty() && dniParameter != null
                     && !dniParameter.trim().isEmpty()) {
 
-                Alumno alumno = null;
                 Date fechaNacimiento= null;
                 try {
                     fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(nacimientoParameter);
                 } catch (ParseException e) {
-                    fechaNacimiento=null;
+                    e.printStackTrace();
                 }
                alumnoDao.update(new Alumno(dniParameter,nombreParameter, apellidosParameter, fechaNacimiento));
             }
@@ -109,13 +107,19 @@ public class GestorAlumno extends HttpServlet {
 
             if (dniParameter != null && !dniParameter.trim().isEmpty()) {
                 Alumno alumno = alumnoDao.findById(dniParameter);
-                request.getSession().setAttribute("alumno", alumno);
+                if(alumno!=null){
+                    request.getSession().setAttribute("alumno", alumno);
+                }
             } else if (nombreParameter != null && !nombreParameter.trim().isEmpty()) {
                 List<Alumno> alumnos = alumnoDao.findByNombre(nombreParameter);
-                request.getSession().setAttribute("alumnos", alumnos);
+                if(alumnos!=null){
+                    request.getSession().setAttribute("alumnos", alumnos);
+                }
             } else {
                 List<Alumno> alumnos = alumnoDao.findAll();
-                request.getSession().setAttribute("alumnos", alumnos);
+                if(alumnos!=null){
+                    request.getSession().setAttribute("alumnos", alumnos);
+                }
             }
 
         }

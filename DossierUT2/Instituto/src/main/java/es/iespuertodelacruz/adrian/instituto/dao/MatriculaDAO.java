@@ -18,31 +18,50 @@ public class MatriculaDAO implements Crud<Matricula, String> {
 	public Matricula save(Matricula dao) {
 
 		AlumnoDAO alumnoDao = new AlumnoDAO(gc);
-		Alumno alumno = alumnoDao.findById(null);
+		Alumno alumno = alumnoDao.findById(dao.getAlumno().getDni());
 		Matricula matricula = null;
 		if (alumno != null) {
 
-			String sql = "INSERT INTO matriculas (dni, year ) VALUES(?,?)";
-
+			String sqlMatri = "INSERT INTO matriculas (dni, year ) VALUES(?,?)";
+			String sqlAsigMatri = "INSERT INTO asignatura_matricula (idmatricula , idasignatura) VALUES (?,?)";
 			try (Connection conn = gc.getConnection();
-					PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-				pstmt.setString(1, dao.getAlumno().getDni());
-				pstmt.setInt(2, dao.getYear());
-				int filasAfectadas = pstmt.executeUpdate();
-				if (filasAfectadas > 0) {
-					matricula = new Matricula();
-					try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+				 PreparedStatement pstmtMatri = conn.prepareStatement(sqlMatri, PreparedStatement.RETURN_GENERATED_KEYS);
+				 PreparedStatement pstmtAsigMatri = conn.prepareStatement(sqlAsigMatri, PreparedStatement.RETURN_GENERATED_KEYS)
+			) {
+				pstmtMatri.setString(1, dao.getAlumno().getDni());
+				pstmtMatri.setInt(2, dao.getYear());
+				int filasAfectadasMatri = pstmtMatri.executeUpdate();
+
+				int filasAfectadasAsigMatri=0;
+				if (filasAfectadasMatri > 0  ) {
+					matricula = new Matricula(dao.getAlumno(), dao.getYear(), null);
+					try (ResultSet generatedKeys = pstmtMatri.getGeneratedKeys()) {
 						if (generatedKeys.next()) {
 							matricula.setIdmatricula(generatedKeys.getInt(1));
 						}
 					}
 				}
+				for (int i = 0; i < dao.getAsignaturas().size(); i++) {
+					pstmtAsigMatri.setInt(1, matricula.getIdmatricula());
+				    pstmtAsigMatri.setInt(2, dao.getAsignaturas().get(i).getIdAsignatura());
+					pstmtAsigMatri.addBatch();
+					pstmtAsigMatri.executeBatch();
+				}
+
+					matricula.setAsignaturas(dao.getAsignaturas());
+
+
 			} catch (SQLException e) {
 				System.out.println("Se ha producido un error almacenando en la BBDD:" + e.getMessage());
 			}
 		}
 
 		return matricula;
+	}
+
+	@Override
+	public Matricula findById(String id) {
+		return null;
 	}
 
 	public Matricula findById(String dni, int year) {
@@ -120,9 +139,56 @@ public class MatriculaDAO implements Crud<Matricula, String> {
 		return null;
 	}
 
-	public Matricula findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Matricula> findByDni(String id) {
+
+		String sql = "SELECT year FROM matriculas WHERE dni = ?";
+
+
+		ArrayList <Matricula> matriculas =null;
+		try (Connection conn = gc.getConnection();
+			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, id);
+
+			ResultSet resultSet = pstmt.executeQuery();
+			ArrayList<Integer> years = new ArrayList<>();
+
+			matriculas = new ArrayList<>();
+			while (resultSet.next()) {
+				years.add( Integer.parseInt(resultSet.getString(1)));
+			}
+			for (int year : years) {
+			matriculas.add(findById(id, year));
+			}
+		} catch (SQLException e) {
+			System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
+		}
+
+		return matriculas;
 	}
 
+	public ArrayList<Matricula> findByAnio(int anio) {
+
+		String sql = "SELECT dni FROM matriculas WHERE year = ?";
+
+		ArrayList <Matricula> matriculas =null;
+		try (Connection conn = gc.getConnection();
+			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, anio);
+
+			ResultSet resultSet = pstmt.executeQuery();
+			ArrayList<String> dnis = new ArrayList<>();
+
+			matriculas = new ArrayList<>();
+			while (resultSet.next()) {
+				dnis.add( resultSet.getString(1));
+			}
+			for (String dni : dnis) {
+				matriculas.add(findById(dni, anio));
+			}
+		} catch (SQLException e) {
+			System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
+		}
+
+		return matriculas;
+	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+         pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +14,7 @@
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
     <link href='css/style.css' rel="stylesheet" type="text/css">
-    <script src="js/script.js" language="javascript" type="text/javascript"></script>
+    <script src="js/script.js"  type="text/javascript"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
@@ -29,14 +30,14 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="alumno.jsp">Alumno</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="matriculas.jsp">Matrícula</a>
+                    <a class="nav-link active" href="matriculas.jsp">Matrícula<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="asignaturas.jsp">Asignatura<span class="sr-only">(current)</span></a>
+                    <a class="nav-link " href="asignaturas.jsp">Asignatura</a>
                 </li>
             </ul>
 
@@ -101,11 +102,11 @@
                                     <div class="col-11 ">
                                         <div class="form-card">
                                             <h3 class="mt-3 mb-4 text-center">Agregar Matricula</h3>
-                                            <form>
+                                            <form action="GestorMatricula" method="POST">
                                                 <div class="row">
                                                     <div class="col-12 col-md-5">
-                                                        <div class="input-group"> <input type="text" name="dniAlumnoAgregar" id="dniAlumnoAgregar">
-                                                            <label for="dniAlumnoAgregar">DNI Alumno</label>
+                                                        <div class="input-group"> <input type="text" name="dniAgregar" id="dniAgregar">
+                                                            <label for="dniAgregar">DNI Alumno</label>
                                                         </div>
                                                     </div>
 
@@ -126,7 +127,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-3 offset-md-5"> <input type="submit" class="btn btn-success placeicon"> </div>
+                                                    <div class="col-md-3 offset-md-5"> <input type="submit" name="agregar" value="agregar" class="btn btn-success placeicon"> </div>
                                                 </div>
 
                                             </form>
@@ -140,7 +141,7 @@
                                     <div class="col-11">
                                         <div class="form-card">
                                             <h3 class="mt-3 mb-4 text-center">Borrar Matrícula</h3>
-                                            <form>
+                                            <form action="GestorMatricula" method="POST">
                                                 <div class="row">
 
                                                     <div class="col-12">
@@ -152,7 +153,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-3 offset-md-5"> <input type="submit" class="btn btn-success placeicon"> </div>
+                                                    <div class="col-md-3 offset-md-5"> <input type="submit" name="borrar" value="borrar" class="btn btn-success placeicon"> </div>
                                                 </div>
 
                                             </form>
@@ -167,7 +168,7 @@
                                         <div class="form-card">
 
                                             <h3 class="mt-3 mb-4 text-center">Editar Matricula</h3>
-                                            <form>
+                                            <form action="GestorMatricula" method="POST">
                                                 <div class="row">
                                                     <div class="col-5">
                                                         <div class="input-group"> <input type="text" id="idMatriculaEditar" name="idMatriculaEditar">
@@ -199,7 +200,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-3 offset-md-5"> <input type="submit" class="btn btn-success placeicon"> </div>
+                                                    <div class="col-md-3 offset-md-5"> <input type="submit"
+                                                                                              value="editar"
+                                                                                              name="editar"
+                                                                                              class="btn btn-success placeicon"> </div>
                                                 </div>
 
                                             </form>
@@ -215,10 +219,11 @@
 
 
                                             <h3 class="mt-3 mb-4 text-center">Buscar Matricula</h3>
-                                            <form>
+                                            <form action="GestorMatricula" method="POST">
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <div class="input-group"> <input type="text" id="nombreBuscar" for="nombreBuscar"> <label>Año</label>
+                                                        <div class="input-group"> <input type="text" id="anioBuscar" name="anioBuscar">
+                                                            <label for="anioBuscar">Año</label>
                                                         </div>
                                                     </div>
 
@@ -231,7 +236,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-3 offset-md-5"> <input type="submit" class="btn btn-success placeicon"> </div>
+                                                    <div class="col-md-3 offset-md-5"> <input type="submit"
+                                                                                              name ="buscar"
+                                                                                              value="buscar"
+                                                                                              class="btn btn-success placeicon"> </div>
                                                 </div>
 
                                             </form>
@@ -250,7 +258,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 ">
-            <textarea class="form-control" id="resultado" rows="10"></textarea>
+                        <textarea class="form-control" id="resultado" name="resultado" rows="10"><c:choose>
+                            <c:when test="${matricula!=null}"> ${matricula}
+                            </c:when>
+                            <c:when test="${matriculas!=null}">
+                                <c:forEach items="${matriculas}" var="matri"> ${matri}
+                                </c:forEach>
+                            </c:when>
+                        </c:choose></textarea>
             <div class="text-center mt-2">
                 <button class="btn btn-success" id="clear">Limpiar</button>
                 <button class="btn btn-success" id="copiar">Copiar</button>
