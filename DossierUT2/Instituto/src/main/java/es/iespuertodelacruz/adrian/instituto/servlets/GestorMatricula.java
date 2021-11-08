@@ -74,8 +74,11 @@ public class GestorMatricula extends HttpServlet {
 
                         }
                     }
-                    Matricula matricula = new Matricula(alumno, Integer.parseInt(anioParameter), asignaturas);
-                    matriculaDAO.save(matricula);
+                    if (asignaturas.size()>0){
+                        Matricula matricula = new Matricula(alumno, Integer.parseInt(anioParameter), asignaturas);
+                        matriculaDAO.save(matricula);
+                    }
+
                 }
             }
         }

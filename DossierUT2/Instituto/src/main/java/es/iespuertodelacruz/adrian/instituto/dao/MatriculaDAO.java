@@ -17,10 +17,10 @@ public class MatriculaDAO implements Crud<Matricula, String> {
 
 	public Matricula save(Matricula dao) {
 
-		AlumnoDAO alumnoDao = new AlumnoDAO(gc);
-		Alumno alumno = alumnoDao.findById(dao.getAlumno().getDni());
+		//AlumnoDAO alumnoDao = new AlumnoDAO(gc);
+		//Alumno alumno = alumnoDao.findById(dao.getAlumno().getDni());
 		Matricula matricula = null;
-		if (alumno != null) {
+		//if (alumno != null) {
 
 			String sqlMatri = "INSERT INTO matriculas (dni, year ) VALUES(?,?)";
 			String sqlAsigMatri = "INSERT INTO asignatura_matricula (idmatricula , idasignatura) VALUES (?,?)";
@@ -54,7 +54,7 @@ public class MatriculaDAO implements Crud<Matricula, String> {
 			} catch (SQLException e) {
 				System.out.println("Se ha producido un error almacenando en la BBDD:" + e.getMessage());
 			}
-		}
+		//}
 
 		return matricula;
 	}
