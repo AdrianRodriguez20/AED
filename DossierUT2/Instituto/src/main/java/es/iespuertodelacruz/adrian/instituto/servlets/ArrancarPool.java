@@ -28,9 +28,9 @@ public class ArrancarPool implements ServletContextListener {
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
-    public void contextInitialized(ServletContextEvent sce)  { 
-    	
-		GestorConexionDDBB gc = new GestorConexionDDBB("oficina", "root", "1q2w3e4r");
+    public void contextInitialized(ServletContextEvent sce)  {
+
+        GestorConexionDDBB gc = new GestorConexionDDBB("instituto", "root", "");
 
 		sce.getServletContext().setAttribute("gc", gc);
     }

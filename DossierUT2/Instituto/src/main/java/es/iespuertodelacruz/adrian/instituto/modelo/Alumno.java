@@ -10,113 +10,101 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Alumno {
 
-	String dni;
-	String nombre;
-	String apellidos;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	Date fechanacimiento;
-	@JsonIgnore
-	ArrayList<Matricula> matriculas;
-	
-	
-	public Alumno() {
-	
-	}
+    String dni;
+    String nombre;
+    String apellidos;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    Date fechanacimiento;
+    @JsonIgnore
+    ArrayList<Matricula> matriculas;
 
 
-	public Alumno(String dni, String nombre, String apellidos, Date fechanacimiento, ArrayList<Matricula> matriculas) {
-		this.dni = dni;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.fechanacimiento = fechanacimiento;
-		this.matriculas = matriculas;
-	}
+    public Alumno() {
+
+    }
 
 
-
-	public Alumno(String dni, String nombre, String apellidos, Date fechanacimiento) {
-		this.dni = dni;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.fechanacimiento = fechanacimiento;
-	}
-
-
-	public String getDni() {
-		return dni;
-	}
+    public Alumno(String dni, String nombre, String apellidos, Date fechanacimiento, ArrayList<Matricula> matriculas) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechanacimiento = fechanacimiento;
+        this.matriculas = matriculas;
+    }
 
 
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
-
-
-	public String getNombre() {
-		return nombre;
-	}
+    public Alumno(String dni, String nombre, String apellidos, Date fechanacimiento) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechanacimiento = fechanacimiento;
+    }
 
 
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
+    public String getDni() {
+        return dni;
+    }
 
 
-	public String getApellidos() {
-		return apellidos;
-	}
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
 
 
-
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-
+    public String getNombre() {
+        return nombre;
+    }
 
 
-	public Date getFechanacimiento() {
-		return fechanacimiento;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
 
-
-	public void setFechanacimiento(Date fechanacimiento) {
-		this.fechanacimiento = fechanacimiento;
-	}
-
+    public String getApellidos() {
+        return apellidos;
+    }
 
 
-	public ArrayList<Matricula> getMatriculas() {
-		return matriculas;
-	}
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
 
+    public Date getFechanacimiento() {
+        return fechanacimiento;
+    }
 
-	public void setMatriculas(ArrayList<Matricula> matriculas) {
-		this.matriculas = matriculas;
-	}
+
+    public void setFechanacimiento(Date fechanacimiento) {
+        this.fechanacimiento = fechanacimiento;
+    }
 
 
-	@Override
-	public String toString() {
-		ObjectMapper mapper = new ObjectMapper();
-		String strAlumno=null;
-		try {
-			strAlumno = mapper
-			.writerWithDefaultPrettyPrinter()
-			.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
+    public ArrayList<Matricula> getMatriculas() {
+        return matriculas;
+    }
 
-		return strAlumno;
-	}
-	
-	
-	
-	
+
+    public void setMatriculas(ArrayList<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        String strAlumno = null;
+        try {
+            strAlumno = mapper
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return strAlumno;
+    }
+
+
 }
