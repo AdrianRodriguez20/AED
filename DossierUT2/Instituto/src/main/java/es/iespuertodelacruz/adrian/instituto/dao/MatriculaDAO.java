@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import es.iespuertodelacruz.adrian.instituto.modelo.Alumno;
+import es.iespuertodelacruz.adrian.instituto.modelo.Asignatura;
 import es.iespuertodelacruz.adrian.instituto.modelo.Matricula;
 
 public class MatriculaDAO implements Crud<Matricula, String> {
@@ -17,10 +18,10 @@ public class MatriculaDAO implements Crud<Matricula, String> {
 
 	public Matricula save(Matricula dao) {
 
-		//AlumnoDAO alumnoDao = new AlumnoDAO(gc);
-		//Alumno alumno = alumnoDao.findById(dao.getAlumno().getDni());
+		AlumnoDAO alumnoDao = new AlumnoDAO(gc);
+		Alumno alumno = alumnoDao.findById(dao.getAlumno().getDni());
 		Matricula matricula = null;
-		//if (alumno != null) {
+		if (alumno != null) {
 
 			String sqlMatri = "INSERT INTO matriculas (dni, year ) VALUES(?,?)";
 			String sqlAsigMatri = "INSERT INTO asignatura_matricula (idmatricula , idasignatura) VALUES (?,?)";
@@ -28,33 +29,43 @@ public class MatriculaDAO implements Crud<Matricula, String> {
 				 PreparedStatement pstmtMatri = conn.prepareStatement(sqlMatri, PreparedStatement.RETURN_GENERATED_KEYS);
 				 PreparedStatement pstmtAsigMatri = conn.prepareStatement(sqlAsigMatri, PreparedStatement.RETURN_GENERATED_KEYS)
 			) {
+				
+				conn.setAutoCommit(false);
 				pstmtMatri.setString(1, dao.getAlumno().getDni());
 				pstmtMatri.setInt(2, dao.getYear());
 				int filasAfectadasMatri = pstmtMatri.executeUpdate();
 
-				int filasAfectadasAsigMatri=0;
+			
 				if (filasAfectadasMatri > 0  ) {
-					matricula = new Matricula(dao.getAlumno(), dao.getYear(), null);
 					try (ResultSet generatedKeys = pstmtMatri.getGeneratedKeys()) {
 						if (generatedKeys.next()) {
 							matricula.setIdmatricula(generatedKeys.getInt(1));
 						}
 					}
+					ArrayList<Asignatura> asignaturas = new ArrayList<>();
+					
+					for (Asignatura asignatura : dao.getAsignaturas()) {
+						pstmtAsigMatri.setInt(1, matricula.getIdmatricula());
+					    pstmtAsigMatri.setInt(2, asignatura.getIdAsignatura());
+					    asignaturas.add(asignatura);
+						filasAfectadasMatri = pstmtAsigMatri.executeUpdate();
+						
+						if (filasAfectadasMatri == 0) {
+							conn.rollback();
+							break;
+						}
+					}
+					
+					if (filasAfectadasMatri > 0) {
+						conn.commit();
+						conn.setAutoCommit(true);
+						matricula = new Matricula(dao.getAlumno(), dao.getYear(), asignaturas);
+					}
 				}
-				for (int i = 0; i < dao.getAsignaturas().size(); i++) {
-					pstmtAsigMatri.setInt(1, matricula.getIdmatricula());
-				    pstmtAsigMatri.setInt(2, dao.getAsignaturas().get(i).getIdAsignatura());
-					pstmtAsigMatri.addBatch();
-					pstmtAsigMatri.executeBatch();
-				}
-
-					matricula.setAsignaturas(dao.getAsignaturas());
-
-
 			} catch (SQLException e) {
 				System.out.println("Se ha producido un error almacenando en la BBDD:" + e.getMessage());
 			}
-		//}
+		}
 
 		return matricula;
 	}

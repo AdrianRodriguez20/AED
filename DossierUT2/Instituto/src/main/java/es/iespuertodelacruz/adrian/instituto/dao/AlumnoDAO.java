@@ -29,12 +29,12 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 
             if(dao.getApellidos()!=null && !dao.getApellidos().isEmpty()){
                 pstmt.setString(3, dao.getApellidos());
-                System.out.println("Meq quedo");
+                
             }else{
                 pstmt.setNull(3, java.sql.Types.VARCHAR);
             }
 
-            if (dao.getFechanacimiento() != null) {
+            if (dao.getFechanacimiento() != null && dao.getFechanacimiento().getTime()>0) {
                 pstmt.setLong(4, dao.getFechanacimiento().getTime());
             } else {
                 pstmt.setNull(4, java.sql.Types.DATE);
