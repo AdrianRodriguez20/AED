@@ -87,13 +87,18 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		return exito;
 	}
 
+	@Override
 	public boolean delete(String id) {
+		return false;
+	}
+
+	public boolean delete(int id) {
 		Boolean exito=false;
 		 String sql = "DELETE FROM asignaturas  WHERE  idasignatura = ?";
 
 			try (Connection conn = gc.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	            pstmt.setString(1, id);
+	            pstmt.setInt(1, id);
 
 				int filasAfectadas = pstmt.executeUpdate();
 				if( filasAfectadas > 0) {
@@ -103,7 +108,7 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 	            System.out.println("Se ha producido un error eliminando en la BBDD:" + e.getMessage());
 	        }
 
-		return false;
+		return exito;
 	}
 
 	public ArrayList<Asignatura> findAll() {

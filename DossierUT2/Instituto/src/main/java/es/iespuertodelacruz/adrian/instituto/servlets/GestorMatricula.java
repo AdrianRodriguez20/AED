@@ -131,7 +131,10 @@ public class GestorMatricula extends HttpServlet {
 			}
 		}
 		if (borrarParameter != null) {
-
+	        String idParameter = request.getParameter("idMatriculaBorrar");
+			if (idParameter != null && !idParameter.trim().isEmpty()) {
+				matriculaDAO.delete(Integer.parseInt(idParameter));
+			}
 		}
 		if (buscarParameter != null) {
 			String anioParameter = request.getParameter("anioBuscar");

@@ -166,13 +166,18 @@ public class MatriculaDAO implements Crud<Matricula, String> {
         return ok;
     }
 
+    @Override
     public boolean delete(String id) {
+        return false;
+    }
+
+    public boolean delete(int id) {
         String sql = "DELETE FROM asignatura_matricula WHERE idmatricula = ? ";
 
         Boolean exito = false;
         try (Connection conn = gc.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             int filasAfectadas = pstmt.executeUpdate();
             if (filasAfectadas > 0) {
