@@ -172,16 +172,32 @@ public class MatriculaDAO implements Crud<Matricula, String> {
     }
 
     public boolean delete(int id) {
-        String sql = "DELETE FROM asignatura_matricula WHERE idmatricula = ? ";
+        String sqlDeleteRelacion = "DELETE FROM asignatura_matricula WHERE idmatricula = ? ";
+        String sqlDelete = "DELETE FROM matriculas WHERE idmatricula = ? ";
 
         Boolean exito = false;
         try (Connection conn = gc.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
+             PreparedStatement pstmtDeleteRelacion = conn.prepareStatement(sqlDeleteRelacion );
+             PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)){
+            conn.setAutoCommit(false);
 
-            int filasAfectadas = pstmt.executeUpdate();
+            pstmtDeleteRelacion.setInt(1, id);
+
+            int filasAfectadas = pstmtDeleteRelacion.executeUpdate();
             if (filasAfectadas > 0) {
-                exito = true;
+                pstmtDelete.setInt(1, id);
+                filasAfectadas = pstmtDelete.executeUpdate();
+                if (filasAfectadas > 0) {
+                    exito = true;
+                    conn.commit();
+                    conn.setAutoCommit(true);
+                }else {
+                    conn.rollback();
+                    conn.setAutoCommit(true);
+                }
+            }else {
+                conn.rollback();
+                conn.setAutoCommit(true);
             }
 
         } catch (SQLException e) {

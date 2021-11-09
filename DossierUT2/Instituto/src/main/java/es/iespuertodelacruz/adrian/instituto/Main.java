@@ -1,8 +1,12 @@
 package es.iespuertodelacruz.adrian.instituto;
 
+import es.iespuertodelacruz.adrian.instituto.dao.AsignaturaDAO;
 import es.iespuertodelacruz.adrian.instituto.dao.GestorConexionDDBB;
 import es.iespuertodelacruz.adrian.instituto.dao.MatriculaDAO;
+import es.iespuertodelacruz.adrian.instituto.modelo.Asignatura;
 import es.iespuertodelacruz.adrian.instituto.modelo.Matricula;
+
+import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,5 +23,7 @@ public class Main {
             System.out.println(matricula);
         }
 
+        AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
+        Asignatura asignatura = asignaturaDAO.save(new Asignatura("SSG", "2 DAM"));
     }
 }

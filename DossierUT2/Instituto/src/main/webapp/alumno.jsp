@@ -143,7 +143,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 offset-md-5"><input type="submit"
-                                                                                             name="agregar"
+                                                                                             name="submit"
                                                                                              value="agregar"
                                                                                              class="btn btn-success placeicon">
                                                     </div>
@@ -173,7 +173,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 offset-md-5"><input type="submit"
-                                                                                             name="borrar"
+                                                                                             name="submit"
                                                                                              value="borrar"
                                                                                              class="btn btn-success placeicon">
                                                     </div>
@@ -232,7 +232,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 offset-md-5"><input type="submit"
-                                                                                             name="editar"
+                                                                                             name="submit"
                                                                                              value="editar"
                                                                                              class="btn btn-success placeicon">
                                                     </div>
@@ -274,7 +274,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 offset-md-5"><input type="submit"
-                                                                                             name="buscar"
+                                                                                             name="submit"
                                                                                              value="buscar"
                                                                                              class="btn btn-success placeicon">
                                                     </div>

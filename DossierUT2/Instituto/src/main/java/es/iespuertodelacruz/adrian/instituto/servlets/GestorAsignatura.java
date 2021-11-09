@@ -39,6 +39,7 @@ public class GestorAsignatura extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
         String valueAsignatura = request.getParameter("submit");
 
         //switch para gestionar las opciones de la pagina
@@ -63,16 +64,18 @@ public class GestorAsignatura extends HttpServlet {
     }
 
     private void agregarAsignatura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().setAttribute("asignatura", null);
+        request.getSession().setAttribute("asignaturas", null);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
 
         String nombreParameter = request.getParameter("nombreAgregar");
         String cursoParameter = request.getParameter("cursoAgregar");
 
-        if(nombreParameter != null && nombreParameter.trim().isEmpty() && cursoParameter != null && cursoParameter.trim().isEmpty()){
+        if(nombreParameter != null && !nombreParameter.trim().isEmpty() && cursoParameter != null && !cursoParameter.trim().isEmpty()){
 
             Asignatura asignatura = asignaturaDAO.save(new Asignatura(nombreParameter, cursoParameter));
-            request.setAttribute("asignatura", asignatura);
+            request.getSession().setAttribute("asignatura", asignatura);
         }
 
 
@@ -85,9 +88,9 @@ public class GestorAsignatura extends HttpServlet {
         String nombreParameter = request.getParameter("nombreEditar");
         String cursoParameter = request.getParameter("cursoEditar");
 
-        if(idParameter != null && idParameter.trim().isEmpty()
-                && nombreParameter != null && nombreParameter.trim().isEmpty()
-                && cursoParameter != null && cursoParameter.trim().isEmpty()){
+        if(idParameter != null && !idParameter.trim().isEmpty()
+                && nombreParameter != null && !nombreParameter.trim().isEmpty()
+                && cursoParameter != null && !cursoParameter.trim().isEmpty()){
             asignaturaDAO.update(new Asignatura(Integer.parseInt(idParameter),nombreParameter, cursoParameter));
         }
 
@@ -98,23 +101,27 @@ public class GestorAsignatura extends HttpServlet {
 
         String idParameter = request.getParameter("idBorrar");
 
-        if(idParameter != null && idParameter.trim().isEmpty()){
+        if(idParameter != null && !idParameter.trim().isEmpty()){
             asignaturaDAO.delete(Integer.parseInt(idParameter));
         }
 
     }
     private void buscarAsignatura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().setAttribute("asignatura", null);
+        request.getSession().setAttribute("asignaturas", null);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
         String idParameter = request.getParameter("idBuscar");
         String nombreParameter = request.getParameter("nombreBuscar");
-        if(idParameter != null && idParameter.trim().isEmpty()){
+        if(idParameter != null && !idParameter.trim().isEmpty()){
             Asignatura asignatura = asignaturaDAO.findById(Integer.parseInt(idParameter));
-        }else if(nombreParameter != null && nombreParameter.trim().isEmpty()){
+            request.getSession().setAttribute("asignatura", asignatura);
+        }else if(nombreParameter != null && !nombreParameter.trim().isEmpty()){
             Asignatura asignatura = asignaturaDAO.findByNombre(nombreParameter);
+            request.getSession().setAttribute("asignatura", asignatura);
         }else{
-            ArrayList<Asignatura> asignatura = asignaturaDAO.findAll();
-            request.setAttribute("asignatura", asignatura);
+            ArrayList<Asignatura> asignaturas = asignaturaDAO.findAll();
+            request.getSession().setAttribute("asignaturas", asignaturas);
         }
 
     }

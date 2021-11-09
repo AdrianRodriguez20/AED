@@ -103,10 +103,12 @@
                                     <div class="col-11 ">
                                         <div class="form-card">
                                             <h3 class="mt-3 mb-4 text-center">Agregar Asignatura</h3>
-                                            <form action="GestorMatricula" method="POST">
+                                            <form action="GestorAsignatura" method="POST">
                                                 <div class="row">
                                                     <div class="col-12 col-md-4">
-                                                        <div class="input-group"><input type="text" id="nombreAgregar">
+                                                        <div class="input-group"><input type="text"
+                                                                                        id="nombreAgregar"
+                                                                                        name="nombreAgregar">
                                                             <label for="nombreAgregar">Nombre</label>
                                                         </div>
                                                     </div>
@@ -141,12 +143,12 @@
                                     <div class="col-11">
                                         <div class="form-card">
                                             <h3 class="mt-3 mb-4 text-center">Borrar Asignatura</h3>
-                                            <form action="GestorMatricula" method="POST">
+                                            <form action="GestorAsignatura" method="POST">
                                                 <div class="row">
 
                                                     <div class="col-12">
 
-                                                        <div class="input-group"><input type="text" id="idBorrar">
+                                                        <div class="input-group"><input type="text" id="idBorrar" name="idBorrar">
                                                             <label for="idBorrar">ID</label>
                                                         </div>
 
@@ -172,7 +174,7 @@
                                         <div class="form-card">
 
                                             <h3 class="mt-3 mb-4 text-center">Editar Asignatura</h3>
-                                            <form action="GestorMatricula" method="POST">
+                                            <form action="GestorAsignatura" method="POST">
                                                 <div class="row">
                                                     <div class="col-4">
 
@@ -223,7 +225,7 @@
 
 
                                             <h3 class="mt-3 mb-4 text-center">Buscar Alumno</h3>
-                                            <form action="GestorMatricula" method="POST">
+                                            <form action="GestorAsignatura" method="POST">
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <div class="input-group"><input type="text" id="nombreBuscar"
@@ -266,7 +268,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 ">
-            <textarea class="form-control" id="resultado" rows="10"></textarea>
+                                    <textarea class="form-control" id="resultado" name="resultado" rows="10"><c:choose>
+                                        <c:when test="${asignatura!=null}"> ${asignatura}
+                                        </c:when>
+                                        <c:when test="${asignaturas!=null}">
+                                            <c:forEach items="${asignaturas}" var="asig"> ${asig}
+                                            </c:forEach>
+                                        </c:when>
+                                    </c:choose></textarea>
             <div class="text-center mt-2">
                 <button class="btn btn-success" id="clear">Limpiar</button>
                 <button class="btn btn-success" id="copiar">Copiar</button>

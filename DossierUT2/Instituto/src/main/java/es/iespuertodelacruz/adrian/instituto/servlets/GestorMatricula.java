@@ -20,159 +20,186 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class GestorMatricula
  */
 public class GestorMatricula extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public GestorMatricula() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public GestorMatricula() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.getRequestDispatcher("matriculas.jsp").forward(request, response);
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("matriculas.jsp").forward(request, response);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		request.getSession().setAttribute("matricula", null);
-		request.getSession().setAttribute("matriculas", null);
-		GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
-		MatriculaDAO matriculaDAO = new MatriculaDAO(gc);
-		//cambiar submit 
-		String agregarParameter = request.getParameter("agregar");
-		String editarParameter = request.getParameter("editar");
-		String borrarParameter = request.getParameter("borrar");
-		String buscarParameter = request.getParameter("buscar");
-		// añadir switch 
-		if (agregarParameter != null) {
-			String dniParameter = request.getParameter("dniAgregar");
-			String anioParameter = request.getParameter("anioAgregar");
-			String asignaturasParameter = request.getParameter("asignaturasAgregar");
-
-			String[] asignaturasStr = asignaturasParameter.split(",");
-			if (dniParameter != null && !dniParameter.trim().isEmpty() && anioParameter != null
-					&& !anioParameter.trim().isEmpty() && asignaturasParameter != null
-					&& !asignaturasParameter.trim().isEmpty()) {
-
-				AlumnoDAO alumnoDAO = new AlumnoDAO(gc);
-				AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
-
-				Alumno alumno = alumnoDAO.findById(dniParameter);
-				
-				if( alumno!=null) {
-					
-					ArrayList<Asignatura> asignaturas = new ArrayList<>();
-
-					for (String asignaturaStr : asignaturasStr) {
-					Asignatura asignatura = asignaturaDAO.findById(Integer.parseInt(asignaturaStr));
-					asignaturas.add(asignatura);
-
-					}
-
-					if (asignaturas.size() > 0) {
-						Matricula matricula = new Matricula(alumno, Integer.parseInt(anioParameter), asignaturas);
-						matricula = matriculaDAO.save(matricula);
-						request.getSession().setAttribute("matricula", matricula);
-					}
-				}
-				
-				
-
-			}
-		}
-
-		if (editarParameter != null) {
-			String idParameter = request.getParameter("idMatriculaEditar");
-			String dniParameter = request.getParameter("dniEditar");
-			String anioParameter = request.getParameter("anioEditar");
-			String asignaturasParameter = request.getParameter("asignaturasEditar");
+        String valueMatricula = request.getParameter("submit");
 
 
-			if (idParameter != null && !idParameter.trim().isEmpty()
-					&& dniParameter != null && !dniParameter.trim().isEmpty()
-					&& anioParameter != null && !anioParameter.trim().isEmpty()
-					&& asignaturasParameter != null && !asignaturasParameter.trim().isEmpty()) {
+        switch (valueMatricula) {
+            case "agregar":
+                agregarMatricula(request, response);
+                break;
+            case "editar":
+                editarMatricula(request, response);
+                break;
+            case "borrar":
+                borrarMatricula(request, response);
+                break;
+            case "buscar":
+                buscarMatricula(request, response);
+                break;
+            default:
+                break;
+        }
 
-				String[] asignaturasStr = asignaturasParameter.split(",");
-				AlumnoDAO alumnoDAO = new AlumnoDAO(gc);
-				AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
 
-				Alumno alumno = alumnoDAO.findById(dniParameter);
+        request.getRequestDispatcher("matriculas.jsp").forward(request, response);
+    }
 
-				if (alumno != null) {
+    private void agregarMatricula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().setAttribute("matricula", null);
+        request.getSession().setAttribute("matriculas", null);
+        GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
+        MatriculaDAO matriculaDAO = new MatriculaDAO(gc);
 
-					ArrayList<Asignatura> asignaturas = new ArrayList<>();
+        String dniParameter = request.getParameter("dniAgregar");
+        String anioParameter = request.getParameter("anioAgregar");
+        String asignaturasParameter = request.getParameter("asignaturasAgregar");
 
-					for (String asignaturaStr : asignaturasStr) {
-						Asignatura asignatura = asignaturaDAO.findById(Integer.parseInt(asignaturaStr));
-						asignaturas.add(asignatura);
+        String[] asignaturasStr = asignaturasParameter.split(",");
+        if (dniParameter != null && !dniParameter.trim().isEmpty() && anioParameter != null
+                && !anioParameter.trim().isEmpty() && asignaturasParameter != null
+                && !asignaturasParameter.trim().isEmpty()) {
 
-					}
+            AlumnoDAO alumnoDAO = new AlumnoDAO(gc);
+            AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
 
-					if (asignaturas.size() > 0) {
-						Matricula matricula = new Matricula(Integer.parseInt(idParameter) ,alumno, Integer.parseInt(anioParameter), asignaturas);
-						System.out.println(matricula);
-						matriculaDAO.update(matricula);
+            Alumno alumno = alumnoDAO.findById(dniParameter);
 
-					}
-				}
-			}
-		}
-		if (borrarParameter != null) {
-	        String idParameter = request.getParameter("idMatriculaBorrar");
-			if (idParameter != null && !idParameter.trim().isEmpty()) {
-				matriculaDAO.delete(Integer.parseInt(idParameter));
-			}
-		}
-		if (buscarParameter != null) {
-			String anioParameter = request.getParameter("anioBuscar");
-			String dniParameter = request.getParameter("dniBuscar");
+            if (alumno != null) {
 
-			if (anioParameter != null && !anioParameter.trim().isEmpty() && dniParameter != null
-					&& !dniParameter.trim().isEmpty()) {
+                ArrayList<Asignatura> asignaturas = new ArrayList<>();
 
-				Matricula matricula = matriculaDAO.findById(dniParameter, Integer.parseInt(anioParameter));
-				if (matricula != null) {
-					request.getSession().setAttribute("matricula", matricula);
-				}
+                for (String asignaturaStr : asignaturasStr) {
+                    Asignatura asignatura = asignaturaDAO.findById(Integer.parseInt(asignaturaStr));
+                    asignaturas.add(asignatura);
 
-			} else if (anioParameter != null && !anioParameter.trim().isEmpty()) {
+                }
 
-				ArrayList<Matricula> matriculas = matriculaDAO.findByAnio(Integer.parseInt(anioParameter));
-				if (matriculas != null) {
-					request.getSession().setAttribute("matriculas", matriculas);
-				}
+                if (asignaturas.size() > 0) {
+                    Matricula matricula = new Matricula(alumno, Integer.parseInt(anioParameter), asignaturas);
+                    matricula = matriculaDAO.save(matricula);
+                    request.getSession().setAttribute("matricula", matricula);
+                }
+            }
 
-			} else if (dniParameter != null && !dniParameter.trim().isEmpty()) {
+        }
+    }
 
-				ArrayList<Matricula> matriculas = matriculaDAO.findByDni(dniParameter);
-				if (matriculas != null) {
-					request.getSession().setAttribute("matriculas", matriculas);
-				}
+    private void editarMatricula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
+        MatriculaDAO matriculaDAO = new MatriculaDAO(gc);
 
-			} else {
+        String idParameter = request.getParameter("idMatriculaEditar");
+        String dniParameter = request.getParameter("dniEditar");
+        String anioParameter = request.getParameter("anioEditar");
+        String asignaturasParameter = request.getParameter("asignaturasEditar");
 
-				ArrayList<Matricula> matriculas = matriculaDAO.findAll();
-				if (matriculas != null) {
-					request.getSession().setAttribute("matriculas", matriculas);
-				}
 
-			}
-		}
+        if (idParameter != null && !idParameter.trim().isEmpty()
+                && dniParameter != null && !dniParameter.trim().isEmpty()
+                && anioParameter != null && !anioParameter.trim().isEmpty()
+                && asignaturasParameter != null && !asignaturasParameter.trim().isEmpty()) {
 
-		request.getRequestDispatcher("matriculas.jsp").forward(request, response);
-	}
+            String[] asignaturasStr = asignaturasParameter.split(",");
+            AlumnoDAO alumnoDAO = new AlumnoDAO(gc);
+            AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
+
+            Alumno alumno = alumnoDAO.findById(dniParameter);
+
+            if (alumno != null) {
+
+                ArrayList<Asignatura> asignaturas = new ArrayList<>();
+
+                for (String asignaturaStr : asignaturasStr) {
+                    Asignatura asignatura = asignaturaDAO.findById(Integer.parseInt(asignaturaStr));
+                    asignaturas.add(asignatura);
+
+                }
+
+                if (asignaturas.size() > 0) {
+                    Matricula matricula = new Matricula(Integer.parseInt(idParameter), alumno, Integer.parseInt(anioParameter), asignaturas);
+                    System.out.println(matricula);
+                    matriculaDAO.update(matricula);
+
+                }
+            }
+        }
+    }
+
+    private void borrarMatricula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
+        MatriculaDAO matriculaDAO = new MatriculaDAO(gc);
+
+        String idParameter = request.getParameter("idMatriculaBorrar");
+        if (idParameter != null && !idParameter.trim().isEmpty()) {
+            matriculaDAO.delete(Integer.parseInt(idParameter));
+        }
+    }
+
+    private void buscarMatricula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().setAttribute("matricula", null);
+        request.getSession().setAttribute("matriculas", null);
+        GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
+        MatriculaDAO matriculaDAO = new MatriculaDAO(gc);
+
+        String anioParameter = request.getParameter("anioBuscar");
+        String dniParameter = request.getParameter("dniBuscar");
+
+        if (anioParameter != null && !anioParameter.trim().isEmpty() && dniParameter != null
+                && !dniParameter.trim().isEmpty()) {
+
+            Matricula matricula = matriculaDAO.findById(dniParameter, Integer.parseInt(anioParameter));
+            if (matricula != null) {
+                request.getSession().setAttribute("matricula", matricula);
+            }
+
+        } else if (anioParameter != null && !anioParameter.trim().isEmpty()) {
+
+            ArrayList<Matricula> matriculas = matriculaDAO.findByAnio(Integer.parseInt(anioParameter));
+            if (matriculas != null) {
+                request.getSession().setAttribute("matriculas", matriculas);
+            }
+
+        } else if (dniParameter != null && !dniParameter.trim().isEmpty()) {
+
+            ArrayList<Matricula> matriculas = matriculaDAO.findByDni(dniParameter);
+            if (matriculas != null) {
+                request.getSession().setAttribute("matriculas", matriculas);
+            }
+
+        } else {
+
+            ArrayList<Matricula> matriculas = matriculaDAO.findAll();
+            if (matriculas != null) {
+                request.getSession().setAttribute("matriculas", matriculas);
+            }
+
+        }
+    }
 
 }
