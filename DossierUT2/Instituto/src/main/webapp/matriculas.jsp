@@ -193,8 +193,8 @@
                                                     </div>
                                                     <div class="col-4">
 
-                                                        <div class="input-group"> <input type="text" id="asignaturaEditar" name="asignaturaEditar">
-                                                            <label for="asignaturaEditar">Asignaturas</label>
+                                                        <div class="input-group"> <input type="text" id="asignaturasEditar" name="asignaturasEditar">
+                                                            <label for="asignaturasEditar">Asignaturas</label>
                                                         </div>
 
                                                     </div>

@@ -103,41 +103,29 @@
                                     <div class="col-11 ">
                                         <div class="form-card">
                                             <h3 class="mt-3 mb-4 text-center">Agregar Asignatura</h3>
-                                            <form>
+                                            <form action="GestorMatricula" method="POST">
                                                 <div class="row">
-                                                    <div class="col-12 col-md-5">
+                                                    <div class="col-12 col-md-4">
                                                         <div class="input-group"><input type="text" id="nombreAgregar">
                                                             <label for="nombreAgregar">Nombre</label>
                                                         </div>
                                                     </div>
 
-
-                                                    <div class="col-12 col-md-7">
-
-                                                        <div class="input-group"><input type="text"
-                                                                                        id="apellidosAgregar">
-                                                            <label for="apellidosAgregar">Apellidos</label>
-                                                        </div>
-
-                                                    </div>
                                                     <div class="col-12 col-md-8">
 
                                                         <div class="input-group"><input type="text"
-                                                                                        id="nacimientoAgregar">
-                                                            <label for="nacimientoAgregar">Nacimiento</label>
+                                                                                        id="cursoAgregar"
+                                                                                        name="cursoAgregar">
+                                                            <label for="cursoAgregar">Curso</label>
                                                         </div>
 
                                                     </div>
-                                                    <div class=" col-12 col-md-4">
 
-                                                        <div class="input-group"><input type="text" id="dniAgregar">
-                                                            <label for="dniAgregar">DNI</label>
-                                                        </div>
-
-                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 offset-md-5"><input type="submit"
+                                                                                             name="submit"
+                                                                                             value="agregar"
                                                                                              class="btn btn-success placeicon">
                                                     </div>
                                                 </div>
@@ -152,20 +140,22 @@
                                 <div class="row justify-content-center">
                                     <div class="col-11">
                                         <div class="form-card">
-                                            <h3 class="mt-3 mb-4 text-center">Borrar Alumno</h3>
-                                            <form>
+                                            <h3 class="mt-3 mb-4 text-center">Borrar Asignatura</h3>
+                                            <form action="GestorMatricula" method="POST">
                                                 <div class="row">
 
                                                     <div class="col-12">
 
-                                                        <div class="input-group"><input type="text" id="dniBorrar">
-                                                            <label for="dniBorrar">DNI</label>
+                                                        <div class="input-group"><input type="text" id="idBorrar">
+                                                            <label for="idBorrar">ID</label>
                                                         </div>
 
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 offset-md-5"><input type="submit"
+                                                                                             name="submit"
+                                                                                             value="borrar"
                                                                                              class="btn btn-success placeicon">
                                                     </div>
                                                 </div>
@@ -181,42 +171,41 @@
                                     <div class="col-11">
                                         <div class="form-card">
 
-                                            <h3 class="mt-3 mb-4 text-center">Editar Alumno</h3>
-                                            <form onsubmit="event.preventDefault()">
+                                            <h3 class="mt-3 mb-4 text-center">Editar Asignatura</h3>
+                                            <form action="GestorMatricula" method="POST">
                                                 <div class="row">
-                                                    <div class="col-5">
-                                                        <div class="input-group"><input type="text" id="nombreEditar">
+                                                    <div class="col-4">
+
+                                                        <div class="input-group"><input type="text"
+                                                                                        id="idEditar"
+                                                                                        name="idEditar">
+                                                            <label for="idEditar">ID</label>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="col-8">
+                                                        <div class="input-group"><input type="text"
+                                                                                        id="nombreEditar"
+                                                                                        name="nombreEditar">
                                                             <label for="nombreEditar">Nombre</label>
                                                         </div>
                                                     </div>
 
 
-                                                    <div class="col-7">
-
+                                                    <div class="col-12">
                                                         <div class="input-group"><input type="text"
-                                                                                        id="apellidosAgregar">
-                                                            <label for="apellidosEditar">Apellidos</label>
+                                                                                        name="cursoEditar"
+                                                                                        id="cursoEditar">
+                                                            <label for="cursoEditar">Curso</label>
                                                         </div>
-
-                                                    </div>
-                                                    <div class="col-8">
-
-                                                        <div class="input-group"><input type="text"
-                                                                                        id="nacimientoAgregar">
-                                                            <label for="nacimientoEditar">Nacimiento</label>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-4">
-
-                                                        <div class="input-group"><input type="text" id="dniEditar">
-                                                            <label for="dniEditar">DNI</label>
-                                                        </div>
-
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 offset-md-5"><input type="submit"
+                                                                                             name="submit"
+                                                                                             value="editar"
                                                                                              class="btn btn-success placeicon">
                                                     </div>
                                                 </div>
@@ -234,10 +223,11 @@
 
 
                                             <h3 class="mt-3 mb-4 text-center">Buscar Alumno</h3>
-                                            <form onsubmit="event.preventDefault()">
+                                            <form action="GestorMatricula" method="POST">
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <div class="input-group"><input type="text" id="nombreBuscar">
+                                                        <div class="input-group"><input type="text" id="nombreBuscar"
+                                                                                        name="nombreBuscar">
                                                             <label for="nombreBuscar">Nombre</label>
                                                         </div>
                                                     </div>
@@ -245,14 +235,17 @@
 
                                                     <div class="col-6">
 
-                                                        <div class="input-group"><input type="text" id="nombreBuscar">
-                                                            <label for="nombreBuscar">DNI</label>
+                                                        <div class="input-group"><input type="text" id="idBuscar"
+                                                                                        name="idBuscar">
+                                                            <label for="idBuscar">ID</label>
                                                         </div>
 
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3 offset-md-5"><input type="submit"
+                                                                                             name="submit"
+                                                                                             value="buscar"
                                                                                              class="btn btn-success placeicon">
                                                     </div>
                                                 </div>

@@ -76,13 +76,15 @@ public class GestorMatricula extends HttpServlet {
 					ArrayList<Asignatura> asignaturas = new ArrayList<>();
 
 					for (String asignaturaStr : asignaturasStr) {
-						Asignatura asignatura = asignaturaDAO.findByNombre(asignaturaStr);
-						asignaturas.add(asignatura);
+					Asignatura asignatura = asignaturaDAO.findById(Integer.parseInt(asignaturaStr));
+					asignaturas.add(asignatura);
 
 					}
+
 					if (asignaturas.size() > 0) {
 						Matricula matricula = new Matricula(alumno, Integer.parseInt(anioParameter), asignaturas);
-						matriculaDAO.save(matricula);
+						matricula = matriculaDAO.save(matricula);
+						request.getSession().setAttribute("matricula", matricula);
 					}
 				}
 				
@@ -92,7 +94,41 @@ public class GestorMatricula extends HttpServlet {
 		}
 
 		if (editarParameter != null) {
+			String idParameter = request.getParameter("idMatriculaEditar");
+			String dniParameter = request.getParameter("dniEditar");
+			String anioParameter = request.getParameter("anioEditar");
+			String asignaturasParameter = request.getParameter("asignaturasEditar");
 
+
+			if (idParameter != null && !idParameter.trim().isEmpty()
+					&& dniParameter != null && !dniParameter.trim().isEmpty()
+					&& anioParameter != null && !anioParameter.trim().isEmpty()
+					&& asignaturasParameter != null && !asignaturasParameter.trim().isEmpty()) {
+
+				String[] asignaturasStr = asignaturasParameter.split(",");
+				AlumnoDAO alumnoDAO = new AlumnoDAO(gc);
+				AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
+
+				Alumno alumno = alumnoDAO.findById(dniParameter);
+
+				if (alumno != null) {
+
+					ArrayList<Asignatura> asignaturas = new ArrayList<>();
+
+					for (String asignaturaStr : asignaturasStr) {
+						Asignatura asignatura = asignaturaDAO.findById(Integer.parseInt(asignaturaStr));
+						asignaturas.add(asignatura);
+
+					}
+
+					if (asignaturas.size() > 0) {
+						Matricula matricula = new Matricula(Integer.parseInt(idParameter) ,alumno, Integer.parseInt(anioParameter), asignaturas);
+						System.out.println(matricula);
+						matriculaDAO.update(matricula);
+
+					}
+				}
+			}
 		}
 		if (borrarParameter != null) {
 
