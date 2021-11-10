@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
 let t1 = gsap.timeline();
 let t2 = gsap.timeline();
 let t3 = gsap.timeline();
@@ -33,4 +33,3 @@ t3.fromTo(".wrong-para",
             yoyo:true
         }
     });
-})

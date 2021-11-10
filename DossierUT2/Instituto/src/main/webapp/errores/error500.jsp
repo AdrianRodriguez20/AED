@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
     <link href='css/error.css' rel="stylesheet" type="text/css">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/gsap.min.js"></script>
 </head>
 
 <body class='snippet-body'>
@@ -81,7 +81,7 @@
     </button>
 
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 50%; max-height: 10%" role="document">
+        <div class="modal-dialog" style="max-width: 70%; max-height: 10%" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Excepciones</h5>
@@ -103,6 +103,6 @@
     </div>
 
 </div>
-<script src="js/error.js"></script>
+<script type="module" src="js/error.js"></script>
 </body>
 </html>

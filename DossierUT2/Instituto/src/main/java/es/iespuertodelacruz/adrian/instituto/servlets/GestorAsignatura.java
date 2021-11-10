@@ -67,7 +67,8 @@ public class GestorAsignatura extends HttpServlet {
 
     }
 
-    private void agregarAsignatura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void agregarAsignatura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
@@ -77,15 +78,15 @@ public class GestorAsignatura extends HttpServlet {
         String cursoParameter = request.getParameter("cursoAgregar");
 
         if (nombreParameter != null && !nombreParameter.trim().isEmpty() && cursoParameter != null && !cursoParameter.trim().isEmpty()) {
-
-            Asignatura asignatura = asignaturaDAO.save(new Asignatura(nombreParameter, cursoParameter));
+        	Asignatura asignaturaPrev =new Asignatura(nombreParameter, cursoParameter);
+            Asignatura asignatura = asignaturaDAO.save(asignaturaPrev);
             if (asignatura != null) {
 
                 request.getSession().setAttribute("asignatura", asignatura);
                 request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.SUBJECT_SAVE_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
 
             } else {
-                if (asignatura.equals(asignaturaDAO.findEquals(nombreParameter, cursoParameter))) {
+                if (asignaturaPrev.equals(asignaturaDAO.findEquals(nombreParameter, cursoParameter))) {
                     request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.SUBJECT_SAVE_ERROR_DUPLICATE, Mensaje.tipoMensaje.ERROR));
                 } else {
                     request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.SUBJECT_SAVE_ERROR, Mensaje.tipoMensaje.ERROR));

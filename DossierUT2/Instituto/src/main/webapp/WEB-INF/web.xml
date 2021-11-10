@@ -43,9 +43,11 @@
         <location>/errores/error404.html</location>
     </error-page>
     <error-page>
+   
         <error-code>500</error-code>
         <location>/errores/error500.jsp</location>
     </error-page>
+
     <session-config>
         <session-timeout>
             30

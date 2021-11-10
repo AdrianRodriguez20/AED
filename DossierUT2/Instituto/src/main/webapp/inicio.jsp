@@ -47,7 +47,7 @@
         <div class="row ">
             <div class="col-md-4">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="alumno.jsp">
+                    <a href="/Instituto/GestorAlumno">
                         <div class="wrimagecard-topimage_header text-center" style="background-color:#8CC0FF">
                             <i class="fas fa-user-graduate " style="color:white "></i>
                         </div>
@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-4">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="matriculas.jsp">
+                    <a href="/Instituto/GestorMatricula">
                         <div class="wrimagecard-topimage_header text-center" style="background-color:#8CC0FF">
                             <i class="fas fa-graduation-cap" style="color:white "></i>
                         </div>
@@ -75,7 +75,7 @@
             </div>
             <div class="col-md-4">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="asignaturas.jsp">
+                    <a href="/Instituto/GestorAsignatura">
                         <div class="wrimagecard-topimage_header text-center" style="background-color:#8CC0FF">
                             <i class="fas fa-book " style="color:white "></i>
 

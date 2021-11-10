@@ -24,6 +24,7 @@ $(document).ready(function() {
         $("#tab4").addClass("active1");
         $("#tab4").removeClass("bg-light");
     });
+	
 
     function clear() {
         document.getElementById("resultado").value = "";
@@ -35,6 +36,7 @@ $(document).ready(function() {
         contenido.select();
         document.execCommand('copy');
     }
+
 
 
     document.getElementById("clear").addEventListener("click", clear);
