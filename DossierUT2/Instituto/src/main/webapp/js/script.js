@@ -24,19 +24,20 @@ $(document).ready(function() {
         $("#tab4").addClass("active1");
         $("#tab4").removeClass("bg-light");
     });
+
+    function clear() {
+        document.getElementById("resultado").value = "";
+    }
+
+    function copy() {
+        var contenido = document.getElementById('resultado');
+
+        contenido.select();
+        document.execCommand('copy');
+    }
+
+
+    document.getElementById("clear").addEventListener("click", clear);
+    document.getElementById("copiar").addEventListener("click", copy);
 })
 
- function clear() {
-            document.getElementById("resultado").value = "";
-        }
-
-        function copy() {
-            var contenido = document.getElementById('resultado');
-
-            contenido.select();
-            document.execCommand('copy');
-        }
-
-
-        document.getElementById("clear").addEventListener("click", clear);
-        document.getElementById("copiar").addEventListener("click", copy);

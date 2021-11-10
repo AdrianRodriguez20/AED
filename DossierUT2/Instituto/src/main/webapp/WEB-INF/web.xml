@@ -37,6 +37,15 @@
     	<servlet-name>GestorAlumno</servlet-name>
     	<url-pattern>/GestorAlumno</url-pattern>
     </servlet-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errores/error404.html</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/errores/error500.jsp</location>
+    </error-page>
     <session-config>
         <session-timeout>
             30

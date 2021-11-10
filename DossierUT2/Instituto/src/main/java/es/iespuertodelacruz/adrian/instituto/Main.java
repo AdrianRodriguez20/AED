@@ -5,6 +5,7 @@ import es.iespuertodelacruz.adrian.instituto.dao.GestorConexionDDBB;
 import es.iespuertodelacruz.adrian.instituto.dao.MatriculaDAO;
 import es.iespuertodelacruz.adrian.instituto.modelo.Asignatura;
 import es.iespuertodelacruz.adrian.instituto.modelo.Matricula;
+import es.iespuertodelacruz.adrian.instituto.modelo.Mensaje;
 
 import java.util.Properties;
 
@@ -23,7 +24,15 @@ public class Main {
             System.out.println(matricula);
         }
 
-        AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
-        Asignatura asignatura = asignaturaDAO.save(new Asignatura("SSG", "2 DAM"));
+      //  AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
+      //  Asignatura asignatura = asignaturaDAO.save(new Asignatura("SSG", "2 DAM"));
+
+
+            Mensaje mensaje = new Mensaje("hola", Mensaje.tipoMensaje.ERROR);
+            System.out.println(mensaje.getMensaje());
+            System.out.println(mensaje.getTipo());
+
+
+
     }
 }

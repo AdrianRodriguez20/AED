@@ -32,13 +32,13 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item ">
-                    <a class="nav-link" href="alumno.jsp">Alumno</a>
+                    <a class="nav-link" href="/Instituto/GestorAlumno">Alumno</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="matriculas.jsp">Matrícula</a>
+                    <a class="nav-link" href="/Instituto/GestorMatricula">Matrícula</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link " href="asignaturas.jsp">Asignatura<span class="sr-only">(current)</span></a>
+                    <a class="nav-link " href="/Instituto/GestorAsignatura">Asignatura<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
 
@@ -148,7 +148,8 @@
 
                                                     <div class="col-12">
 
-                                                        <div class="input-group"><input type="text" id="idBorrar" name="idBorrar">
+                                                        <div class="input-group"><input type="number" id="idBorrar"
+                                                                                        name="idBorrar">
                                                             <label for="idBorrar">ID</label>
                                                         </div>
 
@@ -178,7 +179,7 @@
                                                 <div class="row">
                                                     <div class="col-4">
 
-                                                        <div class="input-group"><input type="text"
+                                                        <div class="input-group"><input type="number"
                                                                                         id="idEditar"
                                                                                         name="idEditar">
                                                             <label for="idEditar">ID</label>
@@ -237,7 +238,7 @@
 
                                                     <div class="col-6">
 
-                                                        <div class="input-group"><input type="text" id="idBuscar"
+                                                        <div class="input-group"><input type="number" id="idBuscar"
                                                                                         name="idBuscar">
                                                             <label for="idBuscar">ID</label>
                                                         </div>
@@ -267,6 +268,31 @@
 </div>
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            <c:choose>
+                <c:when test="${mensaje.getTipo().toString().equals('SUCCESS')}">
+                    <div class="alert alert-success" role="alert">
+                        <h5 class="alert-heading">${mensaje.getMensaje()}</h5>
+                    </div>
+                </c:when>
+                <c:when test="${mensaje.getTipo().toString().equals('WARNING')}">
+                    <div class="alert alert-warning" role="alert">
+                        <h5 class="alert-heading">${mensaje.getMensaje()}</h5>
+                    </div>
+                </c:when>
+                <c:when test="${mensaje.getTipo().toString().equals('ERROR')}">
+                    <div class="alert alert-danger" role="alert">
+                        <h5 class="alert-heading">${mensaje.getMensaje()}</h5>
+                    </div>
+                </c:when>
+                <c:when test="${mensaje.getTipo().toString().equals('INFO')}">
+                    <div class="alert alert-info" role="alert">
+                        <h5 class="alert-heading">${mensaje.getMensaje()}</h5>
+                    </div>
+                </c:when>
+            </c:choose>
+
+        </div>
         <div class="col-md-12 ">
                                     <textarea class="form-control" id="resultado" name="resultado" rows="10"><c:choose>
                                         <c:when test="${asignatura!=null}"> ${asignatura}

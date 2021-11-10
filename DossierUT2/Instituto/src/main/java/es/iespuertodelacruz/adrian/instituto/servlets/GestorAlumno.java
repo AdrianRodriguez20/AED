@@ -63,6 +63,7 @@ public class GestorAlumno extends HttpServlet {
 
         request.getRequestDispatcher("alumno.jsp").forward(request, response);
     }
+
     private void agregarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.getSession().setAttribute("alumno", null);

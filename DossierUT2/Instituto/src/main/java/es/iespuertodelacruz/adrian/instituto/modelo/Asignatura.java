@@ -3,6 +3,8 @@ package es.iespuertodelacruz.adrian.instituto.modelo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.Objects;
+
 public class Asignatura {
 
 	private int idAsignatura;
@@ -75,7 +77,15 @@ public class Asignatura {
 
 		return strAsignatura; 
 	}
-	
-	
-	
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Asignatura that = (Asignatura) o;
+		return Objects.equals(nombre, that.nombre) && Objects.equals(curso, that.curso);
+	}
+
+
 }

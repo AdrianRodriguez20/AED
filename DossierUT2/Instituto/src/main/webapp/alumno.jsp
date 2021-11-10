@@ -33,13 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="alumno.jsp">Alumno<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/Instituto/GestorAlumno">Alumno<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="matriculas.jsp">Matrícula</a>
+                    <a class="nav-link" href="/Instituto/GestorMatricula">Matrícula</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="asignaturas.jsp">Asignatura</a>
+                    <a class="nav-link " href="/Instituto/GestorAsignatura">Asignatura</a>
                 </li>
             </ul>
 

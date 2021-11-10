@@ -169,6 +169,26 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		}
 	}
 
+	public Asignatura findEquals(String nombre, String curso) {
+		ArrayList<Asignatura> asignaturas = null;
+		String sql = "SELECT idasignatura ,nombre, curso FROM asignaturas  WHERE  nombre = ? and  curso = ?";
+
+		try (Connection conn = gc.getConnection();
+			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, nombre);
+			pstmt.setString(2, curso);
+			ResultSet resultSet = pstmt.executeQuery();
+			asignaturas = resultSetToList(resultSet);
+		} catch (SQLException e) {
+			System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
+		}
+
+		if (asignaturas != null && asignaturas.size()>0) {
+			return asignaturas.get(0);
+		} else {
+			return null;
+		}
+	}
 	/*
 	 * Funcion que transforma un resultSet en una lista de partidas
 	 * 
