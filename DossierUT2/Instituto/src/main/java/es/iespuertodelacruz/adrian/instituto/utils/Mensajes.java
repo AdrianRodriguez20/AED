@@ -1,6 +1,6 @@
 package es.iespuertodelacruz.adrian.instituto.utils;
 
-public class Mensajes {
+public abstract class Mensajes {
     public static final String STUDENT_SAVE_SUCCESS = "El Alumno se ha guardado en la base de datos correctamente.";
     public static final String STUDENT_SAVE_ERROR = "El Alumno no se ha podido guardar en la base de datos.";
     public static final String STUDENT_SAVE_ERROR_DUPLICATE = "El Alumno ya existe en la base de datos.";

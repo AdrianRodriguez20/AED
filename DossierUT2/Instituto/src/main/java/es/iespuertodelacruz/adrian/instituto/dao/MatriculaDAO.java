@@ -3,12 +3,14 @@ package es.iespuertodelacruz.adrian.instituto.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import es.iespuertodelacruz.adrian.instituto.modelo.Alumno;
 import es.iespuertodelacruz.adrian.instituto.modelo.Asignatura;
 import es.iespuertodelacruz.adrian.instituto.modelo.Matricula;
 
-public class MatriculaDAO implements Crud<Matricula, String> {
+public class MatriculaDAO implements Crud<Matricula, Integer> {
 
     GestorConexionDDBB gc;
 
@@ -79,10 +81,7 @@ public class MatriculaDAO implements Crud<Matricula, String> {
         return matricula;
     }
 
-    @Override
-    public Matricula findById(String id) {
-        return null;
-    }
+  
 
     public Matricula findById(String dni, int year) {
 
@@ -166,12 +165,9 @@ public class MatriculaDAO implements Crud<Matricula, String> {
         return ok;
     }
 
-    @Override
-    public boolean delete(String id) {
-        return false;
-    }
+  
 
-    public boolean delete(int id) {
+    public boolean delete(Integer id) {
         String sqlDeleteRelacion = "DELETE FROM asignatura_matricula WHERE idmatricula = ? ";
         String sqlDelete = "DELETE FROM matriculas WHERE idmatricula = ? ";
 
@@ -208,7 +204,36 @@ public class MatriculaDAO implements Crud<Matricula, String> {
     }
 
     public ArrayList<Matricula> findAll() {
-        return null;
+    	
+    	 String sql = "SELECT dni, year   FROM matriculas";
+    	 
+         ArrayList<Matricula> matriculas = null;
+         try (Connection conn = gc.getConnection();
+              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    
+
+             ResultSet resultSet = pstmt.executeQuery();
+             ArrayList<String>listadoDni = new ArrayList<>();
+             ArrayList<Integer>listadoYears = new ArrayList<>();
+             matriculas = new ArrayList<>();
+             while (resultSet.next()) {
+                 listadoDni.add(resultSet.getString(1));
+                 listadoYears.add(Integer.parseInt(resultSet.getString(2)));
+                 
+             }
+             for (int i=0; i < listadoDni.size() ; i++) {
+            	 	matriculas.add(findById( listadoDni.get(i),listadoYears.get(i)));	
+             }
+            		
+            
+             
+                
+             
+         } catch (SQLException e) {
+             System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
+         }
+
+         return matriculas;
     }
 
     public ArrayList<Matricula> findByDni(String id) {
@@ -263,4 +288,12 @@ public class MatriculaDAO implements Crud<Matricula, String> {
 
         return matriculas;
     }
+
+	@Override
+	public Matricula findById(Integer id) {
+		
+		return null;
+	}
+
+
 }

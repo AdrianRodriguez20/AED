@@ -81,12 +81,12 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 
     public ArrayList<Alumno> findByNombre(String nombre) {
 
-        String sql = "SELECT dni,nombre, apellidos, fechanacimiento FROM alumnos WHERE  nombre = ?";
+        String sql = "SELECT dni,nombre, apellidos, fechanacimiento FROM alumnos LIKE nombre = ?";
 
         ArrayList<Alumno> alumnos = null;
         try (Connection conn = gc.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, nombre);
+            pstmt.setString(1, "%"+nombre+"%");
 
             ResultSet resultSet = pstmt.executeQuery();
             alumnos = resultSetToList(resultSet);
