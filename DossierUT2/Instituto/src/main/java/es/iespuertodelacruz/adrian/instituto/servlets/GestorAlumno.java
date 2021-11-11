@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import es.iespuertodelacruz.adrian.instituto.dao.AlumnoDAO;
 import es.iespuertodelacruz.adrian.instituto.dao.GestorConexionDDBB;
+import es.iespuertodelacruz.adrian.instituto.dao.MatriculaDAO;
 import es.iespuertodelacruz.adrian.instituto.modelo.Alumno;
+import es.iespuertodelacruz.adrian.instituto.modelo.Mensaje;
+import es.iespuertodelacruz.adrian.instituto.utils.Mensajes;
 
 /**
  * Servlet implementation class GestorAlumno
@@ -33,6 +36,9 @@ public class GestorAlumno extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        request.getSession().setAttribute("alumno", null);
+        request.getSession().setAttribute("alumnos", null);
+        request.getSession().setAttribute("mensaje", null);
         request.getRequestDispatcher("alumno.jsp").forward(request, response);
     }
 
@@ -66,14 +72,13 @@ public class GestorAlumno extends HttpServlet {
 
     private void agregarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getSession().setAttribute("alumno", null);
-        request.getSession().setAttribute("alumnos", null);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AlumnoDAO alumnoDao = new AlumnoDAO(gc);
 
         String nombreParameter = request.getParameter("nombreAgregar");
         String apellidosParameter = request.getParameter("apellidosAgregar");
         String nacimientoParameter = request.getParameter("nacimientoAgregar");
+
         String dniParameter = request.getParameter("dniAgregar");
         if (nombreParameter != null && !nombreParameter.trim().isEmpty() && dniParameter != null
                 && !dniParameter.trim().isEmpty()) {
@@ -86,14 +91,25 @@ public class GestorAlumno extends HttpServlet {
             }
             Alumno alumno = alumnoDao.save(new Alumno(dniParameter,nombreParameter, apellidosParameter, fechaNacimiento));
 
-            request.getSession().setAttribute("alumno", alumno);
+            if (alumno != null) {
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_SAVE_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+                request.getSession().setAttribute("alumno", alumno);
+            }else{
+                if (alumnoDao.findById(dniParameter) != null) {
+                    request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_SAVE_ERROR_DUPLICATE, Mensaje.tipoMensaje.ERROR));
+                }else{
+                    request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_SAVE_ERROR, Mensaje.tipoMensaje.ERROR));
+                }
+            }
 
+
+        }else{
+            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_SAVE_INCOMPLETE, Mensaje.tipoMensaje.WARNING));
         }
     }
 
     private void editarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("alumno", null);
-        request.getSession().setAttribute("alumnos", null);
+
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AlumnoDAO alumnoDao = new AlumnoDAO(gc);
 
@@ -111,7 +127,20 @@ public class GestorAlumno extends HttpServlet {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            alumnoDao.update(new Alumno(dniParameter,nombreParameter, apellidosParameter, fechaNacimiento));
+
+            boolean exito = alumnoDao.update(new Alumno(dniParameter,nombreParameter, apellidosParameter, fechaNacimiento));
+
+            if (exito) {
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_UPDATE_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+            }else{
+                if (alumnoDao.findById(dniParameter) == null) {
+                    request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_UPDATE_ERROR_NOT_FOUND, Mensaje.tipoMensaje.ERROR));
+                }else {
+                    request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_UPDATE_ERROR, Mensaje.tipoMensaje.ERROR));
+                }
+            }
+        }else{
+            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_UPDATE_INCOMPLETE, Mensaje.tipoMensaje.WARNING));
         }
 
     }
@@ -123,13 +152,29 @@ public class GestorAlumno extends HttpServlet {
         String dniParameter = request.getParameter("dniBorrar");
         if (dniParameter != null && !dniParameter.trim().isEmpty()) {
 
-            alumnoDao.delete(dniParameter);
+          boolean exito =  alumnoDao.delete(dniParameter);
+          if(exito){
+              request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_DELETE_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+          }else{
+              if(alumnoDao.findById(dniParameter) == null){
+                  request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_DELETE_ERROR_NOT_FOUND, Mensaje.tipoMensaje.ERROR));
+              }else{
+                  MatriculaDAO matriculaDao = new MatriculaDAO(gc);
+                  if (matriculaDao.findByDni(dniParameter) != null) {
+                      request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_DELETE_ERROR_TUITION, Mensaje.tipoMensaje.ERROR));
+                  }else{
+                      request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_DELETE_ERROR, Mensaje.tipoMensaje.ERROR));
+                  }
+
+              }
+          }
         }
     }
 
     private void buscarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AlumnoDAO alumnoDao = new AlumnoDAO(gc);
+
 
         String dniParameter = request.getParameter("dniBuscar");
         String nombreParameter = request.getParameter("nombreBuscar");
@@ -138,16 +183,25 @@ public class GestorAlumno extends HttpServlet {
             Alumno alumno = alumnoDao.findById(dniParameter);
             if(alumno!=null){
                 request.getSession().setAttribute("alumno", alumno);
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_FIND_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+            }else{
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_FIND_ERROR_NOT_FOUND, Mensaje.tipoMensaje.INFO));
             }
         } else if (nombreParameter != null && !nombreParameter.trim().isEmpty()) {
             List<Alumno> alumnos = alumnoDao.findByNombre(nombreParameter);
             if(alumnos!=null){
                 request.getSession().setAttribute("alumnos", alumnos);
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_FIND_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+            }else{
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_FIND_ERROR_NOT_FOUND, Mensaje.tipoMensaje.INFO));
             }
         } else {
             List<Alumno> alumnos = alumnoDao.findAll();
             if(alumnos!=null){
                 request.getSession().setAttribute("alumnos", alumnos);
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_FIND_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+            }else{
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.STUDENT_FIND_ERROR_NOT_FOUND, Mensaje.tipoMensaje.INFO));
             }
         }
     }

@@ -1,6 +1,7 @@
 package es.iespuertodelacruz.adrian.instituto.modelo;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -88,4 +89,14 @@ public class Matricula {
 
 		return strMatricula;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Matricula matricula = (Matricula) o;
+		return year == matricula.year && Objects.equals(alumno.dni, matricula.alumno.dni);
+	}
+
+
 }

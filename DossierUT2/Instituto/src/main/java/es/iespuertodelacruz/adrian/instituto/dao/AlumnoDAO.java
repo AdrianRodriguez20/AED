@@ -17,6 +17,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
         this.gc = gc;
     }
 
+    @Override
     public Alumno save(Alumno dao) {
 
         String sql = "INSERT INTO alumnos (dni,nombre, apellidos, fechanacimiento) VALUES(?,?,?,?)";
@@ -55,6 +56,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
         return alumno;
     }
 
+    @Override
     public Alumno findById(String id) {
 
 
@@ -79,23 +81,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
         }
     }
 
-    public ArrayList<Alumno> findByNombre(String nombre) {
-
-        String sql = "SELECT dni,nombre, apellidos, fechanacimiento FROM alumnos LIKE nombre = ?";
-
-        ArrayList<Alumno> alumnos = null;
-        try (Connection conn = gc.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, "%"+nombre+"%");
-
-            ResultSet resultSet = pstmt.executeQuery();
-            alumnos = resultSetToList(resultSet);
-        } catch (SQLException e) {
-            System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
-        }
-        return alumnos;
-    }
-
+    @Override
     public boolean update(Alumno dao) {
 
         String sql = "UPDATE alumnos SET nombre = ?, apellidos = ? , fechanacimiento = ? WHERE dni= ?";
@@ -129,6 +115,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
         return exito;
     }
 
+    @Override
     public boolean delete(String id) {
 
         String sql = "DELETE FROM alumnos  WHERE  dni = ?";
@@ -149,6 +136,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
         return exito;
     }
 
+    @Override
     public ArrayList<Alumno> findAll() {
 
         ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
@@ -166,6 +154,25 @@ public class AlumnoDAO implements Crud<Alumno, String> {
         }
         return alumnos;
     }
+
+
+    public ArrayList<Alumno> findByNombre(String nombre) {
+
+        String sql = "SELECT dni,nombre, apellidos, fechanacimiento FROM alumnos  WHERE nombre LIKE  ?";
+
+        ArrayList<Alumno> alumnos = null;
+        try (Connection conn = gc.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%"+nombre+"%");
+
+            ResultSet resultSet = pstmt.executeQuery();
+            alumnos = resultSetToList(resultSet);
+        } catch (SQLException e) {
+            System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
+        }
+        return alumnos;
+    }
+
 
     /*
      * Funcion que transforma un resultSet en una lista de alumnos

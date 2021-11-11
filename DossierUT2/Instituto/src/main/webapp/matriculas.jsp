@@ -49,7 +49,7 @@
                 <div class="d-flex" id="wrapper">
                     <!-- Sidebar -->
                     <div class="bg-light border-right col-lg-2 col-4 " id="sidebar-wrapper">
-                        <div class="sidebar-heading pt-5 pb-4"><strong>Alumno</strong></div>
+                        <div class="sidebar-heading pt-5 pb-4"><strong>Matricula</strong></div>
                         <div class="list-group list-group-flush">
                             <a data-toggle="tab" href="#menu1" id="tab1" class="tabs list-group-item active1">
                                 <div class="list-div my-2">
@@ -258,6 +258,31 @@
 </div>
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            <c:choose>
+                <c:when test="${mensaje.getTipo().toString().equals('SUCCESS')}">
+                    <div class="alert alert-success" role="alert">
+                        <h5 class="alert-heading">${mensaje.getMensaje()}</h5>
+                    </div>
+                </c:when>
+                <c:when test="${mensaje.getTipo().toString().equals('WARNING')}">
+                    <div class="alert alert-warning" role="alert">
+                        <h5 class="alert-heading">${mensaje.getMensaje()}</h5>
+                    </div>
+                </c:when>
+                <c:when test="${mensaje.getTipo().toString().equals('ERROR')}">
+                    <div class="alert alert-danger" role="alert">
+                        <h5 class="alert-heading">${mensaje.getMensaje()}</h5>
+                    </div>
+                </c:when>
+                <c:when test="${mensaje.getTipo().toString().equals('INFO')}">
+                    <div class="alert alert-info" role="alert">
+                        <h5 class="alert-heading">${mensaje.getMensaje()}</h5>
+                    </div>
+                </c:when>
+            </c:choose>
+
+        </div>
         <div class="col-md-12 ">
                         <textarea class="form-control" id="resultado" name="resultado" rows="10"><c:choose>
                             <c:when test="${matricula!=null}"> ${matricula}

@@ -225,7 +225,7 @@
                                         <div class="form-card">
 
 
-                                            <h3 class="mt-3 mb-4 text-center">Buscar Alumno</h3>
+                                            <h3 class="mt-3 mb-4 text-center">Buscar Asignatura</h3>
                                             <form action="GestorAsignatura" method="POST">
                                                 <div class="row">
                                                     <div class="col-6">

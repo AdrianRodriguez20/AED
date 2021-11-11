@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import es.iespuertodelacruz.adrian.instituto.modelo.Asignatura;
 
-public class AsignaturaDAO implements Crud<Asignatura, String> {
+public class AsignaturaDAO implements Crud<Asignatura, Integer> {
 
 	GestorConexionDDBB gc;
 
@@ -15,6 +15,7 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		this.gc = gc;
 	}
 
+	@Override
 	public Asignatura save(Asignatura dao) {
 
 		String sql = "INSERT INTO asignaturas (nombre, curso ) VALUES(?,?)";
@@ -39,12 +40,9 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		return asignatura;
 	}
 
-	@Override
-	public Asignatura findById(String id) {
-		return null;
-	}
 
-	public Asignatura findById(int id) {
+	@Override
+	public Asignatura findById(Integer id) {
 
 		ArrayList<Asignatura> asignaturas = null;
 		String sql = "SELECT idasignatura ,nombre, curso FROM asignaturas  WHERE  idasignatura = ?";
@@ -66,6 +64,7 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		}
 	}
 
+	@Override
 	public boolean update(Asignatura dao) {
 
 		String sql = "UPDATE asignaturas SET nombre = ?, curso = ?  WHERE idasignatura= ?";
@@ -87,12 +86,9 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		return exito;
 	}
 
-	@Override
-	public boolean delete(String id) {
-		return false;
-	}
 
-	public boolean delete(int id) {
+	@Override
+	public boolean delete(Integer id) {
 		Boolean exito=false;
 		 String sql = "DELETE FROM asignaturas  WHERE  idasignatura = ?";
 
@@ -111,6 +107,7 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		return exito;
 	}
 
+	@Override
 	public ArrayList<Asignatura> findAll() {
 
 		ArrayList<Asignatura> asignaturas = null;
@@ -126,6 +123,7 @@ public class AsignaturaDAO implements Crud<Asignatura, String> {
 		}
 		return asignaturas;
 	}
+
 
 	public ArrayList<Asignatura> findAsignaturasAlumnoByIdAndYear(String dni , int year) {
 

@@ -7,6 +7,8 @@ import es.iespuertodelacruz.adrian.instituto.dao.MatriculaDAO;
 import es.iespuertodelacruz.adrian.instituto.modelo.Alumno;
 import es.iespuertodelacruz.adrian.instituto.modelo.Asignatura;
 import es.iespuertodelacruz.adrian.instituto.modelo.Matricula;
+import es.iespuertodelacruz.adrian.instituto.modelo.Mensaje;
+import es.iespuertodelacruz.adrian.instituto.utils.Mensajes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class GestorMatricula extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getSession().setAttribute("matricula", null);
+        request.getSession().setAttribute("matriculas", null);
+        request.getSession().setAttribute("mensaje", null);
         request.getRequestDispatcher("matriculas.jsp").forward(request, response);
     }
 
@@ -71,8 +76,6 @@ public class GestorMatricula extends HttpServlet {
     }
 
     private void agregarMatricula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("matricula", null);
-        request.getSession().setAttribute("matriculas", null);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         MatriculaDAO matriculaDAO = new MatriculaDAO(gc);
 
@@ -101,12 +104,30 @@ public class GestorMatricula extends HttpServlet {
                 }
 
                 if (asignaturas.size() > 0) {
-                    Matricula matricula = new Matricula(alumno, Integer.parseInt(anioParameter), asignaturas);
-                    matricula = matriculaDAO.save(matricula);
-                    request.getSession().setAttribute("matricula", matricula);
+                    Matricula matriculaPrev = new Matricula(alumno, Integer.parseInt(anioParameter), asignaturas);
+                    Matricula matricula = matriculaDAO.save(matriculaPrev);
+                    if (matricula != null) {
+                        request.getSession().setAttribute("matricula", matricula);
+                        request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_SAVE_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+                    } else {
+                        System.out.println(matriculaPrev);
+                        System.out.println(matriculaDAO.findEquals(dniParameter, Integer.parseInt(anioParameter)));
+                        if (matriculaPrev.equals(matriculaDAO.findEquals(dniParameter, Integer.parseInt(anioParameter)))) {
+                            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_SAVE_ERROR_DUPLICATE, Mensaje.tipoMensaje.ERROR));
+                        } else {
+                            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_SAVE_ERROR, Mensaje.tipoMensaje.ERROR));
+                        }
+                    }
+
+                } else {
+                    request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_SAVE_ERROR_NOT_FOUND_SUBJECT, Mensaje.tipoMensaje.ERROR));
                 }
+            } else {
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_SAVE_ERROR_NOT_FOUND_STUDENT, Mensaje.tipoMensaje.ERROR));
             }
 
+        } else {
+            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_SAVE_INCOMPLETE, Mensaje.tipoMensaje.WARNING));
         }
     }
 
@@ -143,11 +164,26 @@ public class GestorMatricula extends HttpServlet {
 
                 if (asignaturas.size() > 0) {
                     Matricula matricula = new Matricula(Integer.parseInt(idParameter), alumno, Integer.parseInt(anioParameter), asignaturas);
-                    System.out.println(matricula);
-                    matriculaDAO.update(matricula);
 
+                    boolean exito = matriculaDAO.update(matricula);
+                    if (exito) {
+                        request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_UPDATE_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+                    } else {
+
+                        if (matricula.equals(matriculaDAO.findEquals(dniParameter, Integer.parseInt(anioParameter)))) {
+                            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_UPDATE_ERROR_DUPLICATE, Mensaje.tipoMensaje.ERROR));
+                        } else {
+                            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_UPDATE_ERROR, Mensaje.tipoMensaje.ERROR));
+                        }
+                    }
+                } else {
+                    request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_UPDATE_ERROR_NOT_FOUND_SUBJECT, Mensaje.tipoMensaje.ERROR));
                 }
+            } else {
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_UPDATE_ERROR_NOT_FOUND_STUDENT, Mensaje.tipoMensaje.ERROR));
             }
+        } else {
+            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_UPDATE_INCOMPLETE, Mensaje.tipoMensaje.WARNING));
         }
     }
 
@@ -157,13 +193,23 @@ public class GestorMatricula extends HttpServlet {
 
         String idParameter = request.getParameter("idMatriculaBorrar");
         if (idParameter != null && !idParameter.trim().isEmpty()) {
-            matriculaDAO.delete(Integer.parseInt(idParameter));
+           boolean exito = matriculaDAO.delete(Integer.parseInt(idParameter));
+           if (exito) {
+               request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_DELETE_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+           }else{
+               if (matriculaDAO.findById(Integer.parseInt(idParameter)) == null) {
+                   request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_DELETE_ERROR_NOT_FOUND, Mensaje.tipoMensaje.ERROR));
+               }else{
+                   request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_DELETE_ERROR, Mensaje.tipoMensaje.ERROR));
+               }
+           }
+        }else{
+            request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_DELETE_INCOMPLETE, Mensaje.tipoMensaje.WARNING));
         }
     }
 
     private void buscarMatricula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("matricula", null);
-        request.getSession().setAttribute("matriculas", null);
+
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         MatriculaDAO matriculaDAO = new MatriculaDAO(gc);
 
@@ -173,9 +219,10 @@ public class GestorMatricula extends HttpServlet {
         if (anioParameter != null && !anioParameter.trim().isEmpty() && dniParameter != null
                 && !dniParameter.trim().isEmpty()) {
 
-            Matricula matricula = matriculaDAO.findById(dniParameter, Integer.parseInt(anioParameter));
+            Matricula matricula = matriculaDAO.findByDniAnio(dniParameter, Integer.parseInt(anioParameter));
             if (matricula != null) {
                 request.getSession().setAttribute("matricula", matricula);
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_FIND_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
             }
 
         } else if (anioParameter != null && !anioParameter.trim().isEmpty()) {
@@ -183,6 +230,9 @@ public class GestorMatricula extends HttpServlet {
             ArrayList<Matricula> matriculas = matriculaDAO.findByAnio(Integer.parseInt(anioParameter));
             if (matriculas != null) {
                 request.getSession().setAttribute("matriculas", matriculas);
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_FIND_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+            } else {
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_FIND_NOT_FOUND, Mensaje.tipoMensaje.ERROR));
             }
 
         } else if (dniParameter != null && !dniParameter.trim().isEmpty()) {
@@ -190,6 +240,9 @@ public class GestorMatricula extends HttpServlet {
             ArrayList<Matricula> matriculas = matriculaDAO.findByDni(dniParameter);
             if (matriculas != null) {
                 request.getSession().setAttribute("matriculas", matriculas);
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.SUBJECT_FIND_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+            } else {
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_FIND_NOT_FOUND, Mensaje.tipoMensaje.ERROR));
             }
 
         } else {
@@ -197,6 +250,9 @@ public class GestorMatricula extends HttpServlet {
             ArrayList<Matricula> matriculas = matriculaDAO.findAll();
             if (matriculas != null) {
                 request.getSession().setAttribute("matriculas", matriculas);
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.SUBJECT_FIND_SUCCESS, Mensaje.tipoMensaje.SUCCESS));
+            } else {
+                request.getSession().setAttribute("mensaje", new Mensaje(Mensajes.TUITION_FIND_NOT_FOUND, Mensaje.tipoMensaje.ERROR));
             }
 
         }

@@ -18,6 +18,7 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
         this.gc = gc;
     }
 
+    @Override
     public Matricula save(Matricula dao) {
 
         AlumnoDAO alumnoDao = new AlumnoDAO(gc);
@@ -81,30 +82,28 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
         return matricula;
     }
 
-  
+    @Override
+    public Matricula findById(Integer id) {
 
-    public Matricula findById(String dni, int year) {
-
-        String sql = " SELECT idmatricula , year FROM matriculas WHERE dni = ? and year = ?";
+        String sql = " SELECT dni , year FROM matriculas WHERE idmatricula = ?";
 
         AlumnoDAO alumnoDAO = new AlumnoDAO(gc);
         AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
         Matricula matricula = null;
 
         try (Connection conn = gc.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, dni);
-            pstmt.setInt(2, year);
+            pstmt.setInt(1, id);
 
             ResultSet resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
                 matricula = new Matricula();
-                matricula.setIdmatricula(resultSet.getInt(1));
+                matricula.setIdmatricula(id);
+                matricula.setAlumno(alumnoDAO.findById(resultSet.getString(1)));
                 matricula.setYear(resultSet.getInt(2));
 
             }
-            matricula.setAlumno(alumnoDAO.findById(dni));
-            matricula.setAsignaturas(asignaturaDAO.findAsignaturasAlumnoByIdAndYear(dni, year));
+            matricula.setAsignaturas(asignaturaDAO.findAsignaturasAlumnoByIdAndYear(matricula.getAlumno().getDni(), matricula.getYear()));
 
         } catch (SQLException e) {
             System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
@@ -113,6 +112,7 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
         return matricula;
     }
 
+    @Override
     public boolean update(Matricula dao) {
 
         String queryDelete = "DELETE FROM asignatura_matricula WHERE idmatricula = ? ";
@@ -165,8 +165,7 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
         return ok;
     }
 
-  
-
+    @Override
     public boolean delete(Integer id) {
         String sqlDeleteRelacion = "DELETE FROM asignatura_matricula WHERE idmatricula = ? ";
         String sqlDelete = "DELETE FROM matriculas WHERE idmatricula = ? ";
@@ -203,6 +202,7 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
         return exito;
     }
 
+    @Override
     public ArrayList<Matricula> findAll() {
     	
     	 String sql = "SELECT dni, year   FROM matriculas";
@@ -222,7 +222,7 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
                  
              }
              for (int i=0; i < listadoDni.size() ; i++) {
-            	 	matriculas.add(findById( listadoDni.get(i),listadoYears.get(i)));	
+            	 	matriculas.add(findByDniAnio( listadoDni.get(i),listadoYears.get(i)));
              }
             		
             
@@ -235,6 +235,7 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
 
          return matriculas;
     }
+
 
     public ArrayList<Matricula> findByDni(String id) {
 
@@ -254,7 +255,7 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
                 years.add(Integer.parseInt(resultSet.getString(1)));
             }
             for (int year : years) {
-                matriculas.add(findById(id, year));
+                matriculas.add(findByDniAnio(id, year));
             }
         } catch (SQLException e) {
             System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
@@ -280,7 +281,7 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
                 dnis.add(resultSet.getString(1));
             }
             for (String dni : dnis) {
-                matriculas.add(findById(dni, anio));
+                matriculas.add(findByDniAnio(dni, anio));
             }
         } catch (SQLException e) {
             System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
@@ -289,11 +290,61 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
         return matriculas;
     }
 
-	@Override
-	public Matricula findById(Integer id) {
-		
-		return null;
-	}
+    public Matricula findByDniAnio(String dni, int year) {
 
+        String sql = " SELECT idmatricula , year FROM matriculas WHERE dni = ? and year = ?";
+
+        AlumnoDAO alumnoDAO = new AlumnoDAO(gc);
+        AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
+        Matricula matricula = null;
+
+        try (Connection conn = gc.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, dni);
+            pstmt.setInt(2, year);
+
+            ResultSet resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                matricula = new Matricula();
+                matricula.setIdmatricula(resultSet.getInt(1));
+                matricula.setYear(resultSet.getInt(2));
+
+            }
+            matricula.setAlumno(alumnoDAO.findById(dni));
+            matricula.setAsignaturas(asignaturaDAO.findAsignaturasAlumnoByIdAndYear(dni, year));
+
+        } catch (SQLException e) {
+            System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
+        }
+
+        return matricula;
+    }
+
+    public Matricula findEquals( String dni , int year ){
+
+    	String sql = " SELECT idmatricula , year, dni FROM matriculas WHERE dni = ? and year = ?";
+
+    	Matricula matricula = null;
+
+    	try (Connection conn = gc.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, dni);
+            pstmt.setInt(2, year);
+
+            ResultSet resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                matricula = new Matricula();
+                matricula.setIdmatricula(resultSet.getInt(1));
+                matricula.setYear(resultSet.getInt(2));
+                matricula.setAlumno(new AlumnoDAO(gc).findById(resultSet.getString(3)));
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
+        }
+
+    	return matricula;
+    }
 
 }
