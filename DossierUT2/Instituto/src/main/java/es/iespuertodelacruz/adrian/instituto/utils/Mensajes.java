@@ -51,18 +51,20 @@ public abstract class Mensajes {
      */
 
     public static final String TUITION_SAVE_SUCCESS = "La Matricula se ha guardado en la base de datos correctamente.";
-    public static final String TUITION_SAVE_ERROR = "La Matricula no se ha guardado en la base de datos correctamente.";
     public static final String TUITION_SAVE_INCOMPLETE= "La Matricula no se ha podido guardar en la base de datos. Faltan datos.";
     public static final String TUITION_SAVE_ERROR_DUPLICATE = "La Matricula ya existe en la base de datos.";
     public static final String TUITION_SAVE_ERROR_NOT_FOUND_STUDENT = "La Matricula no se ha podido guardar en la base de datos. No existe el alumno.";
     public static final String TUITION_SAVE_ERROR_NOT_FOUND_SUBJECT = "La Matricula no se ha podido guardar en la base de datos. No existe la asignatura asosiadas.";
+    public static final String TUITION_SAVE_ERROR_FORMAT_SUBJECT = "La Matrícula no se podido guardar en la base de datos. Revisa el campo de las asignaturas , es incorrecto.";
 
     public static final String TUITION_UPDATE_SUCCESS = "La Matricula se ha actualizado correctamente.";
-    public static final String TUITION_UPDATE_ERROR = "La Matricula no se ha podido actualizar.";
     public static final String TUITION_UPDATE_INCOMPLETE = "La Matricula no se ha podido actualizar. Faltan datos.";
     public static final String TUITION_UPDATE_ERROR_DUPLICATE = "La Matricula no se ha podido actualizar. Ya existe en la base de datos.";
     public static final String TUITION_UPDATE_ERROR_NOT_FOUND_STUDENT = "La Matricula no se ha podido actualizar. No existe el alumno.";
     public static final String TUITION_UPDATE_ERROR_NOT_FOUND_SUBJECT = "La Matricula no se ha podido actualizar. No existe la asignatura asosiadas.";
+    public static final String TUITION_UPDATE_ERROR_NOT_FOUND_TUITION = "La Matricula no se ha podido actualizar. No existe en la base de datos.";
+    public static final String TUITION_UPDATE_ERROR = "La Matricula no se ha podido actualizar.";
+    public static final String TUITION_UPDATE_ERROR_FORMAT_SUBJECT = "La Matrícula no se podido guardar en la base de datos. Revisa el campo de las asignaturas , es incorrecto.";
 
     public static final String TUITION_DELETE_SUCCESS = "La Matricula se ha eliminado correctamente.";
     public static final String TUITION_DELETE_ERROR = "La Matricula no se ha podido eliminar.";

@@ -32,9 +32,7 @@ public class GestorAsignatura extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("mensaje", null);
-        request.getSession().setAttribute("asignatura", null);
-        request.getSession().setAttribute("asignaturas", null);
+        cleanSession(request);
         request.getRequestDispatcher("asignaturas.jsp").forward(request, response);
     }
 
@@ -70,7 +68,7 @@ public class GestorAsignatura extends HttpServlet {
 
 	private void agregarAsignatura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        cleanSession(request);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
 
@@ -101,6 +99,7 @@ public class GestorAsignatura extends HttpServlet {
     }
 
     private void editarAsignatura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        cleanSession(request);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
 
@@ -131,7 +130,7 @@ public class GestorAsignatura extends HttpServlet {
     }
 
     private void borrarAsignatura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        cleanSession(request);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
 
@@ -157,7 +156,7 @@ public class GestorAsignatura extends HttpServlet {
     }
 
     private void buscarAsignatura(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        cleanSession(request);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AsignaturaDAO asignaturaDAO = new AsignaturaDAO(gc);
         String idParameter = request.getParameter("idBuscar");
@@ -195,6 +194,10 @@ public class GestorAsignatura extends HttpServlet {
 
     }
 
-
+    private void cleanSession(HttpServletRequest request){
+        request.getSession().removeAttribute("asignatura");
+        request.getSession().removeAttribute("asignaturas");
+        request.getSession().removeAttribute("mensaje");
+    }
 }
 

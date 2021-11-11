@@ -36,9 +36,7 @@ public class GestorAlumno extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        request.getSession().setAttribute("alumno", null);
-        request.getSession().setAttribute("alumnos", null);
-        request.getSession().setAttribute("mensaje", null);
+        cleanSession(request);
         request.getRequestDispatcher("alumno.jsp").forward(request, response);
     }
 
@@ -71,7 +69,7 @@ public class GestorAlumno extends HttpServlet {
     }
 
     private void agregarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        cleanSession(request);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AlumnoDAO alumnoDao = new AlumnoDAO(gc);
 
@@ -109,7 +107,7 @@ public class GestorAlumno extends HttpServlet {
     }
 
     private void editarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        cleanSession(request);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AlumnoDAO alumnoDao = new AlumnoDAO(gc);
 
@@ -146,6 +144,7 @@ public class GestorAlumno extends HttpServlet {
     }
 
     private void borrarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        cleanSession(request);
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AlumnoDAO alumnoDao = new AlumnoDAO(gc);
 
@@ -174,7 +173,7 @@ public class GestorAlumno extends HttpServlet {
     private void buscarAlumno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GestorConexionDDBB gc = (GestorConexionDDBB) request.getServletContext().getAttribute("gc");
         AlumnoDAO alumnoDao = new AlumnoDAO(gc);
-
+        cleanSession(request);
 
         String dniParameter = request.getParameter("dniBuscar");
         String nombreParameter = request.getParameter("nombreBuscar");
@@ -205,6 +204,14 @@ public class GestorAlumno extends HttpServlet {
             }
         }
     }
+
+    private void cleanSession(HttpServletRequest request){
+        request.getSession().removeAttribute("alumno");
+        request.getSession().removeAttribute("alumnos");
+        request.getSession().removeAttribute("mensaje");
+    }
+
+
 
 
 }

@@ -97,13 +97,16 @@ public class MatriculaDAO implements Crud<Matricula, Integer> {
             ResultSet resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
-                matricula = new Matricula();
-                matricula.setIdmatricula(id);
-                matricula.setAlumno(alumnoDAO.findById(resultSet.getString(1)));
-                matricula.setYear(resultSet.getInt(2));
+                if(alumnoDAO.findById(resultSet.getString(1))!=null){
+                    matricula = new Matricula();
+                    matricula.setIdmatricula(id);
+                    matricula.setAlumno(alumnoDAO.findById(resultSet.getString(1)));
+                    matricula.setYear(resultSet.getInt(2));
+                    matricula.setAsignaturas(asignaturaDAO.findAsignaturasAlumnoByIdAndYear(matricula.getAlumno().getDni(), matricula.getYear()));
+                }
 
             }
-            matricula.setAsignaturas(asignaturaDAO.findAsignaturasAlumnoByIdAndYear(matricula.getAlumno().getDni(), matricula.getYear()));
+
 
         } catch (SQLException e) {
             System.out.println("Se ha producido un error realizando la consulta en la BBDD:" + e.getMessage());
