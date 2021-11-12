@@ -37,6 +37,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
 
             if (dao.getFechanacimiento() != null && dao.getFechanacimiento().getTime()>0) {
                 pstmt.setLong(4, dao.getFechanacimiento().getTime());
+
             } else {
                 pstmt.setNull(4, java.sql.Types.DATE);
             }
@@ -190,7 +191,7 @@ public class AlumnoDAO implements Crud<Alumno, String> {
                                 resultSet.getString(1),
                                 resultSet.getString(2),
                                 resultSet.getString(3),
-                                new Date(resultSet.getLong(4))
+                                resultSet.getLong(4)==0? null: new Date(resultSet.getLong(4))
                         ));
             }
         } catch (SQLException sqlException) {
