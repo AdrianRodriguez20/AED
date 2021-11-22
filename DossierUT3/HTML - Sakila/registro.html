@@ -1,0 +1,57 @@
+<html lang="es">
+
+<head>
+    <title>Sakila</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Adrián Rodríguez Fuentes">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="icon" href="https://icon-library.com/images/film-icon/film-icon-0.jpg">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+    <link href="style/registro.css" rel="stylesheet">
+    <link href="style/login.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="modal-login">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="avatar">
+                            <img src="/img/inicio/logo_login.png" alt="Avatar">
+                        </div>
+                        <h4 class="modal-title">Iniciar Sesión</h4>
+                        <button type="button" class="close" onclick="window.location.href='/Inicio.html'" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="user" placeholder="Usuario" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="Contraseña" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="passwordConfirmation" placeholder="Confirma la Contraseña" required="required">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Registrarme</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/Inicio.html">Regresar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
