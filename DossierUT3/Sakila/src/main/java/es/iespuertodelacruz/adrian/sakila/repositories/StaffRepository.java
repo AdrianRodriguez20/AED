@@ -46,7 +46,6 @@ public class StaffRepository implements Crud<Staff, Integer> {
 		}catch (NoResultException nre){
 				//Ignore this because as per your logic this is ok!
 		}
-	
 
 		em.getTransaction().commit();
 		em.close();
@@ -56,8 +55,10 @@ public class StaffRepository implements Crud<Staff, Integer> {
 	@Override
 	public Staff save(Staff obj) {
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction();
+		em.getTransaction().begin();
 		em.persist(obj);
+		em.getTransaction().commit();
+		em.close();
 		return null;
 	}
 
