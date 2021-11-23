@@ -1,211 +1,231 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package es.iespuertodelacruz.adrian.sakila.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * The persistent class for the staff database table.
- * 
+ *
+ * @author Adrián Rodríguez Fuentes
  */
 @Entity
-@NamedQuery(name="Staff.findAll", query="SELECT s FROM Staff s")
+@Table(name = "staff", catalog = "sakila", schema = "")
+@NamedQueries({
+    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s")
+    , @NamedQuery(name = "Staff.findByStaffId", query = "SELECT s FROM Staff s WHERE s.staffId = :staffId")
+    , @NamedQuery(name = "Staff.findByFirstName", query = "SELECT s FROM Staff s WHERE s.firstName = :firstName")
+    , @NamedQuery(name = "Staff.findByLastName", query = "SELECT s FROM Staff s WHERE s.lastName = :lastName")
+    , @NamedQuery(name = "Staff.findByEmail", query = "SELECT s FROM Staff s WHERE s.email = :email")
+    , @NamedQuery(name = "Staff.findByActive", query = "SELECT s FROM Staff s WHERE s.active = :active")
+    , @NamedQuery(name = "Staff.findByUsername", query = "SELECT s FROM Staff s WHERE s.username = :username")
+    , @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password")
+    , @NamedQuery(name = "Staff.findByLastUpdate", query = "SELECT s FROM Staff s WHERE s.lastUpdate = :lastUpdate")})
 public class Staff implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="staff_id")
-	private byte staffId;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "staff_id", nullable = false)
+    private Short staffId;
+    @Basic(optional = false)
+    @Column(name = "first_name", nullable = false, length = 45)
+    private String firstName;
+    @Basic(optional = false)
+    @Column(name = "last_name", nullable = false, length = 45)
+    private String lastName;
+    @Column(name = "email", length = 50)
+    private String email;
+    @Basic(optional = false)
+    @Column(name = "active", nullable = false)
+    private boolean active;
+    @Basic(optional = false)
+    @Column(name = "username", nullable = false, length = 16)
+    private String username;
+    @Column(name = "password", length = 200)
+    private String password;
+    @Basic(optional = false)
+    @Column(name = "last_update", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Address addressId;
+    @JoinColumn(name = "store_id", referencedColumnName = "store_id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Store storeId;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "managerStaffId", fetch = FetchType.LAZY)
+    private Store store;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffId", fetch = FetchType.LAZY)
+    private List<Rental> rentalList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffId", fetch = FetchType.LAZY)
+    private List<Payment> paymentList;
 
-	private byte active;
+    public Staff() {
+    }
 
-	private String email;
+    public Staff(Short staffId) {
+        this.staffId = staffId;
+    }
 
-	@Column(name="first_name")
-	private String firstName;
+    public Staff(Short staffId, String firstName, String lastName, boolean active, String username, Date lastUpdate) {
+        this.staffId = staffId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.active = active;
+        this.username = username;
+        this.lastUpdate = lastUpdate;
+    }
 
-	@Column(name="last_name")
-	private String lastName;
+    public Short getStaffId() {
+        return staffId;
+    }
 
-	@Column(name="last_update")
-	private Timestamp lastUpdate;
+    public void setStaffId(Short staffId) {
+        this.staffId = staffId;
+    }
 
-	private String password;
+    public String getFirstName() {
+        return firstName;
+    }
 
-	private String username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	//bi-directional many-to-one association to Payment
-	@OneToMany(mappedBy="staff")
-	private List<Payment> payments;
+    public String getLastName() {
+        return lastName;
+    }
 
-	//bi-directional many-to-one association to Rental
-	@OneToMany(mappedBy="staff")
-	private List<Rental> rentals;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	//bi-directional many-to-one association to Address
-	@ManyToOne
-	@JoinColumn(name="address_id")
-	private Address address;
+    public String getEmail() {
+        return email;
+    }
 
-	//bi-directional many-to-one association to Store
-	@ManyToOne
-	@JoinColumn(name="store_id")
-	private Store store;
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	//bi-directional many-to-one association to Store
-	@OneToMany(mappedBy="staff")
-	private List<Store> stores;
+    public boolean getActive() {
+        return active;
+    }
 
-	public Staff() {
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public byte getStaffId() {
-		return this.staffId;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setStaffId(byte staffId) {
-		this.staffId = staffId;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public byte getActive() {
-		return this.active;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setActive(byte active) {
-		this.active = active;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getEmail() {
-		return this.email;
-	}
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 
-	public String getFirstName() {
-		return this.firstName;
-	}
+    public Address getAddressId() {
+        return addressId;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setAddressId(Address addressId) {
+        this.addressId = addressId;
+    }
 
-	public String getLastName() {
-		return this.lastName;
-	}
+    public Store getStoreId() {
+        return storeId;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setStoreId(Store storeId) {
+        this.storeId = storeId;
+    }
 
-	public Timestamp getLastUpdate() {
-		return this.lastUpdate;
-	}
+    public Store getStore() {
+        return store;
+    }
 
-	public void setLastUpdate(Timestamp lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+    public void setStore(Store store) {
+        this.store = store;
+    }
 
-	public String getPassword() {
-		return this.password;
-	}
+    public List<Rental> getRentalList() {
+        return rentalList;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setRentalList(List<Rental> rentalList) {
+        this.rentalList = rentalList;
+    }
 
-	public String getUsername() {
-		return this.username;
-	}
+    public List<Payment> getPaymentList() {
+        return paymentList;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setPaymentList(List<Payment> paymentList) {
+        this.paymentList = paymentList;
+    }
 
-	public List<Payment> getPayments() {
-		return this.payments;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (staffId != null ? staffId.hashCode() : 0);
+        return hash;
+    }
 
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Staff)) {
+            return false;
+        }
+        Staff other = (Staff) object;
+        if ((this.staffId == null && other.staffId != null) || (this.staffId != null && !this.staffId.equals(other.staffId))) {
+            return false;
+        }
+        return true;
+    }
 
-	public Payment addPayment(Payment payment) {
-		getPayments().add(payment);
-		payment.setStaff(this);
-
-		return payment;
-	}
-
-	public Payment removePayment(Payment payment) {
-		getPayments().remove(payment);
-		payment.setStaff(null);
-
-		return payment;
-	}
-
-	public List<Rental> getRentals() {
-		return this.rentals;
-	}
-
-	public void setRentals(List<Rental> rentals) {
-		this.rentals = rentals;
-	}
-
-	public Rental addRental(Rental rental) {
-		getRentals().add(rental);
-		rental.setStaff(this);
-
-		return rental;
-	}
-
-	public Rental removeRental(Rental rental) {
-		getRentals().remove(rental);
-		rental.setStaff(null);
-
-		return rental;
-	}
-
-	public Address getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Store getStore() {
-		return this.store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
-	}
-
-	public List<Store> getStores() {
-		return this.stores;
-	}
-
-	public void setStores(List<Store> stores) {
-		this.stores = stores;
-	}
-
-	public Store addStore(Store store) {
-		getStores().add(store);
-		store.setStaff(this);
-
-		return store;
-	}
-
-	public Store removeStore(Store store) {
-		getStores().remove(store);
-		store.setStaff(null);
-
-		return store;
-	}
-
+    @Override
+    public String toString() {
+        return "es.iespuertodelacruz.adrian.sakila.entities.Staff[ staffId=" + staffId + " ]";
+    }
+    
 }

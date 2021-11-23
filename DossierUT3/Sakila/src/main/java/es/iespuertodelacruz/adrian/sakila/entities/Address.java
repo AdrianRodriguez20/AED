@@ -1,187 +1,206 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package es.iespuertodelacruz.adrian.sakila.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * The persistent class for the address database table.
- * 
+ *
+ * @author Adrián Rodríguez Fuentes
  */
 @Entity
-@NamedQuery(name="Address.findAll", query="SELECT a FROM Address a")
+@Table(name = "address", catalog = "sakila", schema = "")
+@NamedQueries({
+    @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a")
+    , @NamedQuery(name = "Address.findByAddressId", query = "SELECT a FROM Address a WHERE a.addressId = :addressId")
+    , @NamedQuery(name = "Address.findByAddress", query = "SELECT a FROM Address a WHERE a.address = :address")
+    , @NamedQuery(name = "Address.findByAddress2", query = "SELECT a FROM Address a WHERE a.address2 = :address2")
+    , @NamedQuery(name = "Address.findByDistrict", query = "SELECT a FROM Address a WHERE a.district = :district")
+    , @NamedQuery(name = "Address.findByPostalCode", query = "SELECT a FROM Address a WHERE a.postalCode = :postalCode")
+    , @NamedQuery(name = "Address.findByPhone", query = "SELECT a FROM Address a WHERE a.phone = :phone")
+    , @NamedQuery(name = "Address.findByLastUpdate", query = "SELECT a FROM Address a WHERE a.lastUpdate = :lastUpdate")})
 public class Address implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="address_id")
-	private int addressId;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "address_id", nullable = false)
+    private Short addressId;
+    @Basic(optional = false)
+    @Column(name = "address", nullable = false, length = 50)
+    private String address;
+    @Column(name = "address2", length = 50)
+    private String address2;
+    @Basic(optional = false)
+    @Column(name = "district", nullable = false, length = 20)
+    private String district;
+    @Column(name = "postal_code", length = 10)
+    private String postalCode;
+    @Basic(optional = false)
+    @Column(name = "phone", nullable = false, length = 20)
+    private String phone;
+    @Basic(optional = false)
+    @Column(name = "last_update", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+    @JoinColumn(name = "city_id", referencedColumnName = "city_id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private City cityId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId", fetch = FetchType.LAZY)
+    private List<Staff> staffList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId", fetch = FetchType.LAZY)
+    private List<Store> storeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId", fetch = FetchType.LAZY)
+    private List<Customer> customerList;
 
-	private String address;
+    public Address() {
+    }
 
-	private String address2;
+    public Address(Short addressId) {
+        this.addressId = addressId;
+    }
 
-	private String district;
+    public Address(Short addressId, String address, String district, String phone, Date lastUpdate) {
+        this.addressId = addressId;
+        this.address = address;
+        this.district = district;
+        this.phone = phone;
+        this.lastUpdate = lastUpdate;
+    }
 
-	@Column(name="last_update")
-	private Timestamp lastUpdate;
+    public Short getAddressId() {
+        return addressId;
+    }
 
-	private String phone;
+    public void setAddressId(Short addressId) {
+        this.addressId = addressId;
+    }
 
-	@Column(name="postal_code")
-	private String postalCode;
+    public String getAddress() {
+        return address;
+    }
 
-	//bi-directional many-to-one association to City
-	@ManyToOne
-	@JoinColumn(name="city_id")
-	private City city;
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	//bi-directional many-to-one association to Customer
-	@OneToMany(mappedBy="address")
-	private List<Customer> customers;
+    public String getAddress2() {
+        return address2;
+    }
 
-	//bi-directional many-to-one association to Staff
-	@OneToMany(mappedBy="address")
-	private List<Staff> staffs;
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
 
-	//bi-directional many-to-one association to Store
-	@OneToMany(mappedBy="address")
-	private List<Store> stores;
+    public String getDistrict() {
+        return district;
+    }
 
-	public Address() {
-	}
+    public void setDistrict(String district) {
+        this.district = district;
+    }
 
-	public int getAddressId() {
-		return this.addressId;
-	}
+    public String getPostalCode() {
+        return postalCode;
+    }
 
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
-	}
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
 
-	public String getAddress() {
-		return this.address;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public String getAddress2() {
-		return this.address2;
-	}
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
 
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 
-	public String getDistrict() {
-		return this.district;
-	}
+    public City getCityId() {
+        return cityId;
+    }
 
-	public void setDistrict(String district) {
-		this.district = district;
-	}
+    public void setCityId(City cityId) {
+        this.cityId = cityId;
+    }
 
-	public Timestamp getLastUpdate() {
-		return this.lastUpdate;
-	}
+    public List<Staff> getStaffList() {
+        return staffList;
+    }
 
-	public void setLastUpdate(Timestamp lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+    public void setStaffList(List<Staff> staffList) {
+        this.staffList = staffList;
+    }
 
-	public String getPhone() {
-		return this.phone;
-	}
+    public List<Store> getStoreList() {
+        return storeList;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setStoreList(List<Store> storeList) {
+        this.storeList = storeList;
+    }
 
-	public String getPostalCode() {
-		return this.postalCode;
-	}
+    public List<Customer> getCustomerList() {
+        return customerList;
+    }
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
+    public void setCustomerList(List<Customer> customerList) {
+        this.customerList = customerList;
+    }
 
-	public City getCity() {
-		return this.city;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (addressId != null ? addressId.hashCode() : 0);
+        return hash;
+    }
 
-	public void setCity(City city) {
-		this.city = city;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Address)) {
+            return false;
+        }
+        Address other = (Address) object;
+        if ((this.addressId == null && other.addressId != null) || (this.addressId != null && !this.addressId.equals(other.addressId))) {
+            return false;
+        }
+        return true;
+    }
 
-	public List<Customer> getCustomers() {
-		return this.customers;
-	}
-
-	public void setCustomers(List<Customer> customers) {
-		this.customers = customers;
-	}
-
-	public Customer addCustomer(Customer customer) {
-		getCustomers().add(customer);
-		customer.setAddress(this);
-
-		return customer;
-	}
-
-	public Customer removeCustomer(Customer customer) {
-		getCustomers().remove(customer);
-		customer.setAddress(null);
-
-		return customer;
-	}
-
-	public List<Staff> getStaffs() {
-		return this.staffs;
-	}
-
-	public void setStaffs(List<Staff> staffs) {
-		this.staffs = staffs;
-	}
-
-	public Staff addStaff(Staff staff) {
-		getStaffs().add(staff);
-		staff.setAddress(this);
-
-		return staff;
-	}
-
-	public Staff removeStaff(Staff staff) {
-		getStaffs().remove(staff);
-		staff.setAddress(null);
-
-		return staff;
-	}
-
-	public List<Store> getStores() {
-		return this.stores;
-	}
-
-	public void setStores(List<Store> stores) {
-		this.stores = stores;
-	}
-
-	public Store addStore(Store store) {
-		getStores().add(store);
-		store.setAddress(this);
-
-		return store;
-	}
-
-	public Store removeStore(Store store) {
-		getStores().remove(store);
-		store.setAddress(null);
-
-		return store;
-	}
-
+    @Override
+    public String toString() {
+        return "es.iespuertodelacruz.adrian.sakila.entities.Address[ addressId=" + addressId + " ]";
+    }
+    
 }

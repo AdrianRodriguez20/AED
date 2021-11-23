@@ -1,178 +1,208 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package es.iespuertodelacruz.adrian.sakila.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-import java.sql.Timestamp;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * The persistent class for the customer database table.
- * 
+ *
+ * @author Adrián Rodríguez Fuentes
  */
 @Entity
-@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
+@Table(name = "customer", catalog = "sakila", schema = "")
+@NamedQueries({
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
+    , @NamedQuery(name = "Customer.findByCustomerId", query = "SELECT c FROM Customer c WHERE c.customerId = :customerId")
+    , @NamedQuery(name = "Customer.findByFirstName", query = "SELECT c FROM Customer c WHERE c.firstName = :firstName")
+    , @NamedQuery(name = "Customer.findByLastName", query = "SELECT c FROM Customer c WHERE c.lastName = :lastName")
+    , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")
+    , @NamedQuery(name = "Customer.findByActive", query = "SELECT c FROM Customer c WHERE c.active = :active")
+    , @NamedQuery(name = "Customer.findByCreateDate", query = "SELECT c FROM Customer c WHERE c.createDate = :createDate")
+    , @NamedQuery(name = "Customer.findByLastUpdate", query = "SELECT c FROM Customer c WHERE c.lastUpdate = :lastUpdate")})
 public class Customer implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="customer_id")
-	private int customerId;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "customer_id", nullable = false)
+    private Short customerId;
+    @Basic(optional = false)
+    @Column(name = "first_name", nullable = false, length = 45)
+    private String firstName;
+    @Basic(optional = false)
+    @Column(name = "last_name", nullable = false, length = 45)
+    private String lastName;
+    @Column(name = "email", length = 50)
+    private String email;
+    @Basic(optional = false)
+    @Column(name = "active", nullable = false)
+    private boolean active;
+    @Basic(optional = false)
+    @Column(name = "create_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    @Column(name = "last_update")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId", fetch = FetchType.LAZY)
+    private List<Rental> rentalList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId", fetch = FetchType.LAZY)
+    private List<Payment> paymentList;
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Address addressId;
+    @JoinColumn(name = "store_id", referencedColumnName = "store_id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Store storeId;
 
-	private byte active;
+    public Customer() {
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_date")
-	private Date createDate;
+    public Customer(Short customerId) {
+        this.customerId = customerId;
+    }
 
-	private String email;
+    public Customer(Short customerId, String firstName, String lastName, boolean active, Date createDate) {
+        this.customerId = customerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.active = active;
+        this.createDate = createDate;
+    }
 
-	@Column(name="first_name")
-	private String firstName;
+    public Short getCustomerId() {
+        return customerId;
+    }
 
-	@Column(name="last_name")
-	private String lastName;
+    public void setCustomerId(Short customerId) {
+        this.customerId = customerId;
+    }
 
-	@Column(name="last_update")
-	private Timestamp lastUpdate;
+    public String getFirstName() {
+        return firstName;
+    }
 
-	//bi-directional many-to-one association to Address
-	@ManyToOne
-	@JoinColumn(name="address_id")
-	private Address address;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	//bi-directional many-to-one association to Store
-	@ManyToOne
-	@JoinColumn(name="store_id")
-	private Store store;
+    public String getLastName() {
+        return lastName;
+    }
 
-	//bi-directional many-to-one association to Payment
-	@OneToMany(mappedBy="customer")
-	private List<Payment> payments;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	//bi-directional many-to-one association to Rental
-	@OneToMany(mappedBy="customer")
-	private List<Rental> rentals;
+    public String getEmail() {
+        return email;
+    }
 
-	public Customer() {
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public int getCustomerId() {
-		return this.customerId;
-	}
+    public boolean getActive() {
+        return active;
+    }
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public byte getActive() {
-		return this.active;
-	}
+    public Date getCreateDate() {
+        return createDate;
+    }
 
-	public void setActive(byte active) {
-		this.active = active;
-	}
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
-	public Date getCreateDate() {
-		return this.createDate;
-	}
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 
-	public String getEmail() {
-		return this.email;
-	}
+    public List<Rental> getRentalList() {
+        return rentalList;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setRentalList(List<Rental> rentalList) {
+        this.rentalList = rentalList;
+    }
 
-	public String getFirstName() {
-		return this.firstName;
-	}
+    public List<Payment> getPaymentList() {
+        return paymentList;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setPaymentList(List<Payment> paymentList) {
+        this.paymentList = paymentList;
+    }
 
-	public String getLastName() {
-		return this.lastName;
-	}
+    public Address getAddressId() {
+        return addressId;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setAddressId(Address addressId) {
+        this.addressId = addressId;
+    }
 
-	public Timestamp getLastUpdate() {
-		return this.lastUpdate;
-	}
+    public Store getStoreId() {
+        return storeId;
+    }
 
-	public void setLastUpdate(Timestamp lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+    public void setStoreId(Store storeId) {
+        this.storeId = storeId;
+    }
 
-	public Address getAddress() {
-		return this.address;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (customerId != null ? customerId.hashCode() : 0);
+        return hash;
+    }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Customer)) {
+            return false;
+        }
+        Customer other = (Customer) object;
+        if ((this.customerId == null && other.customerId != null) || (this.customerId != null && !this.customerId.equals(other.customerId))) {
+            return false;
+        }
+        return true;
+    }
 
-	public Store getStore() {
-		return this.store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
-	}
-
-	public List<Payment> getPayments() {
-		return this.payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
-	}
-
-	public Payment addPayment(Payment payment) {
-		getPayments().add(payment);
-		payment.setCustomer(this);
-
-		return payment;
-	}
-
-	public Payment removePayment(Payment payment) {
-		getPayments().remove(payment);
-		payment.setCustomer(null);
-
-		return payment;
-	}
-
-	public List<Rental> getRentals() {
-		return this.rentals;
-	}
-
-	public void setRentals(List<Rental> rentals) {
-		this.rentals = rentals;
-	}
-
-	public Rental addRental(Rental rental) {
-		getRentals().add(rental);
-		rental.setCustomer(this);
-
-		return rental;
-	}
-
-	public Rental removeRental(Rental rental) {
-		getRentals().remove(rental);
-		rental.setCustomer(null);
-
-		return rental;
-	}
-
+    @Override
+    public String toString() {
+        return "es.iespuertodelacruz.adrian.sakila.entities.Customer[ customerId=" + customerId + " ]";
+    }
+    
 }

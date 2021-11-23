@@ -1,57 +1,80 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package es.iespuertodelacruz.adrian.sakila.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
- * The primary key class for the film_category database table.
- * 
+ *
+ * @author Adrián Rodríguez Fuentes
  */
 @Embeddable
 public class FilmCategoryPK implements Serializable {
-	//default serial version id, required for serializable classes.
-	private static final long serialVersionUID = 1L;
 
-	@Column(name="film_id", insertable=false, updatable=false)
-	private int filmId;
+    @Basic(optional = false)
+    @Column(name = "film_id", nullable = false)
+    private short filmId;
+    @Basic(optional = false)
+    @Column(name = "category_id", nullable = false)
+    private short categoryId;
 
-	@Column(name="category_id", insertable=false, updatable=false)
-	private byte categoryId;
+    public FilmCategoryPK() {
+    }
 
-	public FilmCategoryPK() {
-	}
-	public int getFilmId() {
-		return this.filmId;
-	}
-	public void setFilmId(int filmId) {
-		this.filmId = filmId;
-	}
-	public byte getCategoryId() {
-		return this.categoryId;
-	}
-	public void setCategoryId(byte categoryId) {
-		this.categoryId = categoryId;
-	}
+    public FilmCategoryPK(short filmId, short categoryId) {
+        this.filmId = filmId;
+        this.categoryId = categoryId;
+    }
 
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof FilmCategoryPK)) {
-			return false;
-		}
-		FilmCategoryPK castOther = (FilmCategoryPK)other;
-		return 
-			(this.filmId == castOther.filmId)
-			&& (this.categoryId == castOther.categoryId);
-	}
+    public short getFilmId() {
+        return filmId;
+    }
 
-	public int hashCode() {
-		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.filmId;
-		hash = hash * prime + ((int) this.categoryId);
-		
-		return hash;
-	}
+    public void setFilmId(short filmId) {
+        this.filmId = filmId;
+    }
+
+    public short getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(short categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (int) filmId;
+        hash += (int) categoryId;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof FilmCategoryPK)) {
+            return false;
+        }
+        FilmCategoryPK other = (FilmCategoryPK) object;
+        if (this.filmId != other.filmId) {
+            return false;
+        }
+        if (this.categoryId != other.categoryId) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "es.iespuertodelacruz.adrian.sakila.entities.FilmCategoryPK[ filmId=" + filmId + ", categoryId=" + categoryId + " ]";
+    }
+    
 }

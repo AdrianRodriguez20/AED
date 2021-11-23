@@ -11,6 +11,7 @@
 	<name>sakila</name>
 	<url>http://maven.apache.org</url>
 
+
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -82,19 +83,20 @@
 			<artifactId>javax.persistence-api</artifactId>
 			<version>2.2</version>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.4</version>
+		</dependency>
+	 <dependency>
+	  <groupId>javax.annotation</groupId>
+	  <artifactId>jsr250-api</artifactId>
+	  <version>1.0</version>
+	  <scope>provided</scope>
+	 </dependency>
 	</dependencies>
-
-
-
-
-
-
-
-
-
-
-
-
 
 	<build>
 		<plugins>
@@ -103,8 +105,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.6.0</version>
 				<configuration>
-					<source>11</source>
-					<target>11</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>

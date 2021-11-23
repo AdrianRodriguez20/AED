@@ -1,94 +1,138 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package es.iespuertodelacruz.adrian.sakila.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * The persistent class for the city database table.
- * 
+ *
+ * @author Adrián Rodríguez Fuentes
  */
 @Entity
-@NamedQuery(name="City.findAll", query="SELECT c FROM City c")
+@Table(name = "city", catalog = "sakila", schema = "")
+@NamedQueries({
+    @NamedQuery(name = "City.findAll", query = "SELECT c FROM City c")
+    , @NamedQuery(name = "City.findByCityId", query = "SELECT c FROM City c WHERE c.cityId = :cityId")
+    , @NamedQuery(name = "City.findByCity", query = "SELECT c FROM City c WHERE c.city = :city")
+    , @NamedQuery(name = "City.findByLastUpdate", query = "SELECT c FROM City c WHERE c.lastUpdate = :lastUpdate")})
 public class City implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="city_id")
-	private int cityId;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "city_id", nullable = false)
+    private Short cityId;
+    @Basic(optional = false)
+    @Column(name = "city", nullable = false, length = 50)
+    private String city;
+    @Basic(optional = false)
+    @Column(name = "last_update", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId", fetch = FetchType.LAZY)
+    private List<Address> addressList;
+    @JoinColumn(name = "country_id", referencedColumnName = "country_id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Country countryId;
 
-	private String city;
+    public City() {
+    }
 
-	@Column(name="last_update")
-	private Timestamp lastUpdate;
+    public City(Short cityId) {
+        this.cityId = cityId;
+    }
 
-	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="city")
-	private List<Address> addresses;
+    public City(Short cityId, String city, Date lastUpdate) {
+        this.cityId = cityId;
+        this.city = city;
+        this.lastUpdate = lastUpdate;
+    }
 
-	//bi-directional many-to-one association to Country
-	@ManyToOne
-	@JoinColumn(name="country_id")
-	private Country country;
+    public Short getCityId() {
+        return cityId;
+    }
 
-	public City() {
-	}
+    public void setCityId(Short cityId) {
+        this.cityId = cityId;
+    }
 
-	public int getCityId() {
-		return this.cityId;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getCity() {
-		return this.city;
-	}
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 
-	public Timestamp getLastUpdate() {
-		return this.lastUpdate;
-	}
+    public List<Address> getAddressList() {
+        return addressList;
+    }
 
-	public void setLastUpdate(Timestamp lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
 
-	public List<Address> getAddresses() {
-		return this.addresses;
-	}
+    public Country getCountryId() {
+        return countryId;
+    }
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
+    public void setCountryId(Country countryId) {
+        this.countryId = countryId;
+    }
 
-	public Address addAddress(Address address) {
-		getAddresses().add(address);
-		address.setCity(this);
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (cityId != null ? cityId.hashCode() : 0);
+        return hash;
+    }
 
-		return address;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof City)) {
+            return false;
+        }
+        City other = (City) object;
+        if ((this.cityId == null && other.cityId != null) || (this.cityId != null && !this.cityId.equals(other.cityId))) {
+            return false;
+        }
+        return true;
+    }
 
-	public Address removeAddress(Address address) {
-		getAddresses().remove(address);
-		address.setCity(null);
-
-		return address;
-	}
-
-	public Country getCountry() {
-		return this.country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
+    @Override
+    public String toString() {
+        return "es.iespuertodelacruz.adrian.sakila.entities.City[ cityId=" + cityId + " ]";
+    }
+    
 }
