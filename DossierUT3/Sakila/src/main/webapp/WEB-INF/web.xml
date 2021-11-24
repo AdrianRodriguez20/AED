@@ -18,6 +18,13 @@
 		<servlet-name>Registro</servlet-name>
 		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.Registro</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>GestionPeliculas</display-name>
+		<servlet-name>GestionPeliculas</servlet-name>
+		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.GestionPeliculas</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
                 <url-pattern>/Login</url-pattern>
@@ -26,6 +33,10 @@
 	<servlet-mapping>
 		<servlet-name>Registro</servlet-name>
 		<url-pattern>/Registro</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GestionPeliculas</servlet-name>
+		<url-pattern>/GestionPeliculas</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>

@@ -48,7 +48,8 @@
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-4">
+        <c:forEach items="${peliculas}" var="pelicula">
+            <div class="col-md-4 mt-3">
                 <div class="card card-custom bg-white border-white border-0">
                     <div class="card-custom-img" style="background-image: url(../img/inicio/viudanegra.jpg);">
                     </div>
@@ -56,9 +57,8 @@
                         <img class="img-fluid" src="../img/inicio/logo_login.png" alt="Avatar" />
                     </div>
                     <div class="card-body" style="overflow-y: auto">
-                        <h4 class="card-title">Black Widow</h4>
-                        <p class="card-text text-justify">Al nacer, la Viuda Negra, también conocida como Natasha Romanova, se entrega a la KGB para convertirse en su agente definitivo. Cuando la URSS se separa, el gobierno intenta matarla mientras la acción se traslada a la actual Nueva
-                            York.
+                        <h4 class="card-title">${pelicula.getTitle()}</h4>
+                        <p class="card-text text-justify">${pelicula.getDescription()}
                         </p>
                     </div>
                     <div class="card-footer text-center" style="background: inherit; border-color: inherit;">
@@ -67,13 +67,10 @@
                 </div>
 
             </div>
+		</c:forEach>
 
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4">
-            </div>
         </div>
     </div>
-
+    
 
 </body>

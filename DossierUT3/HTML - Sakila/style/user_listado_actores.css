@@ -14,7 +14,7 @@
     z-index: 1;
     border-radius: 15px 15px 0 0;
     margin: 0 auto;
-    padding: 30px50px 0 30px;
+    padding: 30px 50px 0px 0px;
     background-image: linear-gradient(to right bottom, #ff0000, #c20023, #820327, #420f1d, #000000);
     overflow: hidden;
 }

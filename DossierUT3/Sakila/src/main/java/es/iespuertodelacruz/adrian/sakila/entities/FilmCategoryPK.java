@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Adri·n RodrÌguez Fuentes
+ * @author Adri√°n Rodr√≠guez Fuentes
  */
 @Embeddable
 public class FilmCategoryPK implements Serializable {
