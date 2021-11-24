@@ -57,7 +57,7 @@ public class Login extends HttpServlet {
 				boolean okLogin = BCrypt.checkpw(paramPassword,staff.getPassword());
 
 				if( okLogin) {
-					request.getSession().setAttribute("user", staff);
+					request.getSession().setAttribute("staff", staff);
 					redirect="admin/menu_admin.jsp";
 				}
 				

@@ -8,11 +8,15 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import es.iespuertodelacruz.adrian.sakila.entities.Staff;
 
 /**
  * Servlet Filter implementation class Autententicacion
  */
-@WebFilter("/admin")
+@WebFilter("/admin/*")
 public class Autententicacion implements Filter {
 
     /**
@@ -33,11 +37,18 @@ public class Autententicacion implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
 
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		HttpServletRequest req = (HttpServletRequest)request;
+		HttpServletResponse res = (HttpServletResponse)response;
+		
+		Staff staff =(Staff)req.getSession().getAttribute("staff");
+		
+		if (staff != null) {
+			chain.doFilter(request, response);
+		}else {
+			res.sendRedirect("../inicio.html");
+		}
+	
 	}
 
 	/**
