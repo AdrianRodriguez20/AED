@@ -37,6 +37,7 @@
 	<servlet-mapping>
 		<servlet-name>GestionPeliculas</servlet-name>
 		<url-pattern>/GestionPeliculas</url-pattern>
+		<url-pattern>/user/GestionPeliculas</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>

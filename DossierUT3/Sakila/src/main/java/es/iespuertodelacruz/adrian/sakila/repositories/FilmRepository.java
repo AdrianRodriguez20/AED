@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 import es.iespuertodelacruz.adrian.sakila.entities.Film;
+import es.iespuertodelacruz.adrian.sakila.entities.Staff;
 
 
-public class FilmRepository implements Crud<Film, Integer> {
+public class FilmRepository implements Crud<Film, Short> {
 
 	private EntityManagerFactory emf;
 
@@ -27,9 +29,22 @@ public class FilmRepository implements Crud<Film, Integer> {
 	}
 
 	@Override
-	public Film findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Film findById(Short id) {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+
+		Film film =null;
+		try {
+			film = em.createNamedQuery("Film.findByFilmId", Film.class).setParameter("filmId",id)
+					.getSingleResult();
+		}catch (NoResultException nre){
+				//Ignore this because as per your logic this is ok!
+		}
+
+
+		em.getTransaction().commit();
+		em.close();
+		return film ;
 	}
 
 	@Override
@@ -44,8 +59,10 @@ public class FilmRepository implements Crud<Film, Integer> {
 		return null;
 	}
 
+
+
 	@Override
-	public boolean delete(Integer id) {
+	public boolean delete(Short id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -2,7 +2,7 @@
          pageEncoding="ISO-8859-1" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!DOCTYPE html>
-        <html lang="es">
+        <html>
 
         <head>
             <title>Sakila</title>
@@ -17,7 +17,7 @@
             <link rel="icon" href="https://icon-library.com/images/film-icon/film-icon-0.jpg">
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
             <link href="../style/navbar_user.css" rel="stylesheet">
-            <link href="../style/user_listado_actores.css" rel="stylesheet">
+            <link href="../style/pelicula.css" rel="stylesheet">
 
         </head>
 
@@ -34,36 +34,47 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/sakila/user/listado_peliculas.html">Peliculas</a>
+                            <a class="nav-link active" href="/sakila/user/listado_peliculas.jsp">Peliculas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="/sakila/user/listado_category.html">Categorias</a>
+                            <a class="nav-link" href="/sakila/user/listado_category.jsp">Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/sakila/user/listado_actores.html">Actores</a>
+                            <a class="nav-link" href="/sakila/user/listado_actores.jsp">Actores</a>
                         </li>
                     </ul>
                 </div>
             </nav>
 
-            <div class="container mt-3">
-                <div class="row justify-content-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
 
-                    <!-- Actor-->
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                        <div class="feature-box-1">
+                            <div class="feature-content">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img class="img-fluid" src="../img/inicio/cartelera.jpg" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h5>${pelicula.getTitle()}</h5>
+                                        <p class="card-text text-justify">${pelicula.getDescription()}</p>
+										 <c:forEach items="${pelicula.getFilmCategoryList()}" var="categoria">
+												${categoria.getCategory().getName()} <br>
+										 </c:forEach>
+										
+                                    </div>
+                                </div>
 
-                            <div class="advisor_thumb"><img src="../img/Actores/adrian.png" alt="">
 
-                            </div>
-                            <div class="single_advisor_details_info">
-                                <h6>Adrián</h6>
-                                <p class="designation">Rodríguez</p>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
+
             </div>
+
+        </body>
 
         </html>

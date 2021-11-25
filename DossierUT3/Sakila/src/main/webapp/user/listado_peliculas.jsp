@@ -62,7 +62,7 @@
                         </p>
                     </div>
                     <div class="card-footer text-center" style="background: inherit; border-color: inherit;">
-                        <a href="#" class="btn btn-dark">Ver más</a>
+                        <a href="GestionPeliculas?film=${pelicula.getFilmId()}" class="btn btn-dark">Ver más</a>
                     </div>
                 </div>
 

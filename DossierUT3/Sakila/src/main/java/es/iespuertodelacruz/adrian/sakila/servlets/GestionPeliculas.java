@@ -35,10 +35,25 @@ public class GestionPeliculas extends HttpServlet {
 		// TODO Auto-generated method stub
 		EntityManagerFactory emf =(EntityManagerFactory)request.getServletContext().getAttribute("emf");
 		FilmRepository filmR = new FilmRepository(emf);
-		List<Film>peliculas = filmR.findAll();
-		request.getSession().setAttribute("peliculas", peliculas);
+	
+		String redirect="";
+		if (request.getParameter("film")!=null) {
+			int filmId = Integer.parseInt(request.getParameter("film"));
+			Film pelicula = filmR.findById((short) filmId);
+			request.getSession().setAttribute("pelicula", pelicula);
+			redirect="pelicula.jsp";
+		
+		
+		}else {
+			List<Film>peliculas = filmR.findAll();
+			request.getSession().setAttribute("peliculas", peliculas);
+			System.out.println("Me quedo aquí");
+			redirect="user/listado_peliculas.jsp";
+		
+		}
+
 	//	request.getRequestDispatcher("/user/listado_peliculas.jsp").forward(request, response);
-		response.sendRedirect("user/listado_peliculas.jsp");
+		response.sendRedirect(redirect);
 	}
 
 	/**
