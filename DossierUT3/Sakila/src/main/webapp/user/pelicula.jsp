@@ -26,7 +26,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-                <a class="navbar-brand" href="/sakila/inicio.html">SAKILA</a>
+                <a class="navbar-brand" href="/sakila">SAKILA</a>
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -59,10 +59,14 @@
                                     <div class="col-md-8">
                                         <h5>${pelicula.getTitle()}</h5>
                                         <p class="card-text text-justify">${pelicula.getDescription()}</p>
-										 <c:forEach items="${pelicula.getFilmCategoryList()}" var="categoria">
-												${categoria.getCategory().getName()} <br>
-										 </c:forEach>
-										
+                                        <c:forEach items="${pelicula.getFilmCategoryList()}" var="categoria">
+                                            <span class="badge badge-primary">	${categoria.getCategory().getName()}</span> <br>
+                                        </c:forEach>
+
+                                        <c:forEach items="${pelicula.getFilmActorList()}" var="actor">
+                                            ${actor.getActor().getFirstName()} <br>
+                                        </c:forEach>
+
                                     </div>
                                 </div>
 

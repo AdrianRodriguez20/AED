@@ -25,6 +25,13 @@
 		<servlet-name>GestionPeliculas</servlet-name>
 		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.GestionPeliculas</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Pelicula</display-name>
+		<servlet-name>Pelicula</servlet-name>
+		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.Pelicula</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
                 <url-pattern>/Login</url-pattern>
@@ -37,7 +44,11 @@
 	<servlet-mapping>
 		<servlet-name>GestionPeliculas</servlet-name>
 		<url-pattern>/GestionPeliculas</url-pattern>
-		<url-pattern>/user/GestionPeliculas</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Pelicula</servlet-name>
+		<url-pattern>/Pelicula</url-pattern>
+		<url-pattern>/user/Pelicula</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>
