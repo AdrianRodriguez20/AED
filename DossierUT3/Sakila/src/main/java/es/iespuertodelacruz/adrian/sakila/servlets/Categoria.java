@@ -1,7 +1,6 @@
 package es.iespuertodelacruz.adrian.sakila.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -10,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.iespuertodelacruz.adrian.sakila.entities.Film;
-import es.iespuertodelacruz.adrian.sakila.repositories.FilmRepository;
-import es.iespuertodelacruz.adrian.sakila.repositories.StaffRepository;
+import es.iespuertodelacruz.adrian.sakila.entities.Category;
+import es.iespuertodelacruz.adrian.sakila.repositories.CategoryRepository;
+
+
 
 /**
- * Servlet implementation class GestionPeliculas
+ * Servlet implementation class Categoria
  */
-public class GestionPeliculas extends HttpServlet {
+public class Categoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GestionPeliculas() {
+    public Categoria() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +32,27 @@ public class GestionPeliculas extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		EntityManagerFactory emf =(EntityManagerFactory)request.getServletContext().getAttribute("emf");
-		FilmRepository filmR = new FilmRepository(emf);
-
+		CategoryRepository categoryR = new CategoryRepository(emf);
+	
 		String redirect="";
-		if (request.getParameter("film")!=null) {
-			int filmId = Integer.parseInt(request.getParameter("film"));
-			Film pelicula = filmR.findById((short) filmId);
-			request.getSession().setAttribute("pelicula", pelicula);
-			redirect="pelicula.jsp";
+		if (request.getParameter("category")!=null) {
+			int categoryId = Integer.parseInt(request.getParameter("category"));
+			Category categoria = categoryR.findById((short) categoryId);
+			request.getSession().setAttribute("categoria", categoria);
+			redirect="categoria.jsp";
 		
 		
 		}else {
-			List<Film>peliculas = filmR.findAll();
-			request.getSession().setAttribute("peliculas", peliculas);
-			redirect="admin/listado_peliculas.jsp";
+			List<Category>categorias = categoryR.findAll();
+			request.getSession().setAttribute("categorias", categorias);
+			redirect="user/listado_categorias.jsp";
 		
 		}
 
+	//	request.getRequestDispatcher("/user/listado_peliculas.jsp").forward(request, response);
 		response.sendRedirect(redirect);
-
 	}
 
 	/**

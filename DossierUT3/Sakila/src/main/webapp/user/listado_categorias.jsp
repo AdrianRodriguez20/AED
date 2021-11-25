@@ -56,6 +56,7 @@
                 <section id="minimal-statistics ">
 
                     <div class="row  m-3">
+                     <c:forEach items="${categorias}" var="categoria">
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="card">
                                 <div class="card-content">
@@ -65,7 +66,7 @@
                                                 <i class="fas fa-theater-masks red font-large-2 float-left"></i>
                                             </div>
                                             <div class="media-body text-right">
-                                                <h3>Teatro</h3>
+                                                <h3>${categoria.getName()}</h3>
                                                 <span>35 peliculas</span>
                                             </div>
                                         </div>
@@ -73,6 +74,7 @@
                                 </div>
                             </div>
                         </div>
+                        </c:forEach>
                     </div>
         </body>
 

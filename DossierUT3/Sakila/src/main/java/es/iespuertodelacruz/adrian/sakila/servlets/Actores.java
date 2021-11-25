@@ -1,7 +1,6 @@
 package es.iespuertodelacruz.adrian.sakila.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -10,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.iespuertodelacruz.adrian.sakila.entities.Film;
-import es.iespuertodelacruz.adrian.sakila.repositories.FilmRepository;
-import es.iespuertodelacruz.adrian.sakila.repositories.StaffRepository;
+import es.iespuertodelacruz.adrian.sakila.repositories.ActorRepository;
+import es.iespuertodelacruz.adrian.sakila.entities.Actor;
+
 
 /**
- * Servlet implementation class GestionPeliculas
+ * Servlet implementation class Actores
  */
-public class GestionPeliculas extends HttpServlet {
+public class Actores extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GestionPeliculas() {
+    public Actores() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +31,28 @@ public class GestionPeliculas extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		EntityManagerFactory emf =(EntityManagerFactory)request.getServletContext().getAttribute("emf");
-		FilmRepository filmR = new FilmRepository(emf);
+	
 
+		EntityManagerFactory emf =(EntityManagerFactory)request.getServletContext().getAttribute("emf");
+		ActorRepository actorR = new ActorRepository(emf);
+	
 		String redirect="";
-		if (request.getParameter("film")!=null) {
-			int filmId = Integer.parseInt(request.getParameter("film"));
-			Film pelicula = filmR.findById((short) filmId);
-			request.getSession().setAttribute("pelicula", pelicula);
-			redirect="pelicula.jsp";
+		if (request.getParameter("actor")!=null) {
+			int actorId = Integer.parseInt(request.getParameter("actor"));
+			Actor actor = actorR.findById((short) actorId);
+			request.getSession().setAttribute("actor", actor);
+			redirect="actor.jsp";
 		
 		
 		}else {
-			List<Film>peliculas = filmR.findAll();
-			request.getSession().setAttribute("peliculas", peliculas);
-			redirect="admin/listado_peliculas.jsp";
+			List<Actor>actores = actorR.findAll();
+			request.getSession().setAttribute("actores", actores);
+			redirect="user/listado_actores.jsp";
 		
 		}
 
+	//	request.getRequestDispatcher("/user/listado_peliculas.jsp").forward(request, response);
 		response.sendRedirect(redirect);
-
 	}
 
 	/**

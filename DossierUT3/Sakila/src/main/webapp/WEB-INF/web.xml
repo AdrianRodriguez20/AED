@@ -32,6 +32,34 @@
 		<servlet-name>Pelicula</servlet-name>
 		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.Pelicula</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>GestionActores</display-name>
+		<servlet-name>GestionActores</servlet-name>
+		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.GestionActores</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>GestionCategorias</display-name>
+		<servlet-name>GestionCategorias</servlet-name>
+		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.GestionCategorias</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Actores</display-name>
+		<servlet-name>Actores</servlet-name>
+		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.Actores</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Categoria</display-name>
+		<servlet-name>Categoria</servlet-name>
+		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.Categoria</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
                 <url-pattern>/Login</url-pattern>
@@ -44,11 +72,30 @@
 	<servlet-mapping>
 		<servlet-name>GestionPeliculas</servlet-name>
 		<url-pattern>/GestionPeliculas</url-pattern>
+		<url-pattern>/admin/Pelicula</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Pelicula</servlet-name>
 		<url-pattern>/Pelicula</url-pattern>
 		<url-pattern>/user/Pelicula</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GestionActores</servlet-name>
+		<url-pattern>/GestionActores</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GestionCategorias</servlet-name>
+		<url-pattern>/GestionCategorias</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Actores</servlet-name>
+		<url-pattern>/Actores</url-pattern>
+		<url-pattern>/user/Actores</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Categoria</servlet-name>
+		<url-pattern>/Categoria</url-pattern>
+		<url-pattern>/user/Categoria</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>

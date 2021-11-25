@@ -58,11 +58,14 @@
                                     </div>
                                     <div class="col-md-8">
                                         <h5>${pelicula.getTitle()}</h5>
+                                        <Strong >Sinopsis</Strong></br>
                                         <p class="card-text text-justify">${pelicula.getDescription()}</p>
+                                        <Strong >Categorias</Strong></br>
                                         <c:forEach items="${pelicula.getFilmCategoryList()}" var="categoria">
-                                            <span class="badge badge-primary">	${categoria.getCategory().getName()}</span> <br>
+                                            <span class="badge badge-primary">	${categoria.getCategory().getName()}</span>
                                         </c:forEach>
-
+										</br>
+										<Strong >Actores</Strong></br>
                                         <c:forEach items="${pelicula.getFilmActorList()}" var="actor">
                                             ${actor.getActor().getFirstName()} <br>
                                         </c:forEach>

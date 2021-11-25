@@ -48,7 +48,7 @@
 
             <div class="container mt-3">
                 <div class="row justify-content-center">
-
+                    <c:forEach items="${actores}" var="actor">
                     <!-- Actor-->
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
@@ -57,12 +57,12 @@
 
                             </div>
                             <div class="single_advisor_details_info">
-                                <h6>Adrián</h6>
-                                <p class="designation">Rodríguez</p>
+                                <h6>${actor.getFirstName() }</h6>
+                                <p class="designation">${actor.getLastName()} </p>
                             </div>
                         </div>
                     </div>
-
+			</c:forEach>
                 </div>
             </div>
 

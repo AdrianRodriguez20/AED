@@ -63,8 +63,8 @@
                             <thead>
                                 <tr class="row100 head">
                                     <th class="column1">ID</th>
-                                    <th class="column2">Título</th>
-                                    <th class="column3">Categoría</th>
+                                    <th class="column2">Ti�tulo</th>
+                                    <th class="column3">Estreno</th>
                                     <th class="column4">Ver</th>
                                     <th class="column5">Editar</th>
                                     <th class="column6">Eliminar</th>
@@ -76,27 +76,26 @@
                     <div class="table100-body js-pscroll">
                         <table>
                             <tbody>
+                              <c:forEach items="${peliculas}" var="pelicula">
                                 <tr class="row100 body">
-                                    <td class="column1">1</td>
-                                    <td class="column2">Black Widow</td>
-                                    <td class="column3">Acción</td>
+                                    <td class="column1">${pelicula.getFilmId()}</td>
+                                    <td class="column2">${pelicula.getTitle()}</td>
+                          
+                                    <td class="column3">${pelicula.getReleaseYear()}</td>
                                     <td class="column4">
-                                        <form action="" method='GET'>
-                                            <button type="submit" class="btn btn-primary" name="estado" value="1">
-                                                <i class="far fa-eye" style="color:white"></i></button>
+                                      
+                                    <a href="GestionPeliculas?film=${pelicula.getFilmId()}" class="btn btn-primary"> <i class="far fa-eye" style="color:white"></i></a>
                                     </td>
                                     <td class="column5">
-                                        <button type="submit" class="btn btn-info" name="estado" value="1">
-                                            <i class="fas fa-edit" style="color:white"></i>
-                                            </button>
+                                       <a href="GestionPeliculas?film=${pelicula.getFilmId()}" class="btn btn-warning"> <i class="far fa-edit" style="color:white"></i></a>                                 
                                     </td>
                                     <td class="column6">
-                                        <button type="submit" class="btn btn-danger" name="estado" value="1">
-                                            <i class="fas fa-trash" style="color:white"></i>
-                                        </button>
+                                       <a href="Pelicula?film=${pelicula.getFilmId()}" class="btn btn-danger"><i class="fas fa-trash" style="color:white"></i></a>
+                                    
                                     </td>
-                                </tr>
 
+                                </tr>
+   							</c:forEach>
                             </tbody>
                         </table>
                     </div>

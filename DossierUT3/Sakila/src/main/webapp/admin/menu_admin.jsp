@@ -30,13 +30,13 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/sakila/admin/listado_peliculas.jsp">Gestión Peliculas</a>
+                    <a class="nav-link" href="/sakila/admin/listado_peliculas.jsp">Gestion Peliculas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/sakila/admin/listado_categorias.jsp">Gestión Categorias</a>
+                    <a class="nav-link" href="/sakila/admin/listado_categorias.jsp">Gestion Categorias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/sakila/admin/listado_actores.jsp">Gestión Actores</a>
+                    <a class="nav-link" href="/sakila/admin/listado_actores.jsp">Gestion Actores</a>
                 </li>
             </ul>
             <!-- USER -->
@@ -54,11 +54,11 @@
             <div class="row">
 
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/admin/listado_peliculas.jsp">
+                    <a id="link" href="/sakila/GestionPeliculas">
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fas fa-film"></i></div>
                             <div class="feature-content">
-                                <h5>Gestión Peliculas</h5>
+                                <h5>Gestion Peliculas</h5>
                                 <p>Vamos de brunch, yo cubro la cuenta, t� pide a gusto, Mimosa, champa�a, nuestro desayuno.</p>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fa fa-th"></i></div>
                             <div class="feature-content">
-                                <h5>Gestión Categor�as</h5>
+                                <h5>Gestion Categorias</h5>
                                 <p>Vamos de brunch, yo cubro la cuenta, t� pide a gusto, Mimosa, champa�a, nuestro desayuno.</p>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fas fa-theater-masks"></i></div>
                             <div class="feature-content">
-                                <h5>Gestión Actores</h5>
+                                <h5>Gestion Actores</h5>
                                 <p>Vamos de brunch, yo cubro la cuenta, t� pide a gusto, Mimosa, champa�a, nuestro desayuno.</p>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fas fa-film"></i></div>
                             <div class="feature-content">
-                                <h5>Películas</h5>
+                                <h5>Peli�culas</h5>
                                 <p>Vamos de brunch, yo cubro la cuenta, t� pide a gusto, Mimosa, champa�a, nuestro desayuno.</p>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fa fa-th"></i></div>
                             <div class="feature-content">
-                                <h5>Categorías</h5>
+                                <h5>Categorias</h5>
                                 <p>Vamos de brunch, yo cubro la cuenta, t� pide a gusto, Mimosa, champa�a, nuestro desayuno.</p>
                             </div>
                         </div>
