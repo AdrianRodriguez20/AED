@@ -1,0 +1,46 @@
+body {
+    background-image: linear-gradient(to right top, #000000, #0d0c0d, #151516, #1c1c1d, #222324, #27282a, #2d2e2f, #323335, #38383a, #3f3d3f, #464243, #4c4747);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+.feature-box-1 {
+    background-color: #f3f3f3;
+    padding: 32px;
+    box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
+    margin: 15px 0;
+    position: relative;
+    z-index: 1;
+    border-radius: 10px;
+    top: 0;
+}
+
+
+
+.feature-box-1 .icon i {
+    line-height: 70px;
+}
+
+.feature-box-1 h5 {
+    color: #000000;
+    font-weight: 600;
+}
+
+.feature-box-1 p {
+    margin: 0;
+}
+
+
+.section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.section-title {
+    padding-bottom: 45px;
+}
+
+img {
+    border-radius: 15px;
+}

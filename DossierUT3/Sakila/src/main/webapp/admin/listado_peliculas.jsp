@@ -51,8 +51,8 @@
         </div>
     </nav>
     <div class="container mt-3 text-right">
-        <button class="btn btn-secondary addfilm">
-        Add Film</i> </button>
+        <a class="btn btn-danger addfilm" href="GestionPeliculas?create=film">
+        Add Film</a>
     </div>
     <div class="limiter">
         <div class="container-table100">

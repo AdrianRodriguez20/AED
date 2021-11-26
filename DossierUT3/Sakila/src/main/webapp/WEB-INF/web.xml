@@ -73,6 +73,7 @@
 		<servlet-name>GestionPeliculas</servlet-name>
 		<url-pattern>/GestionPeliculas</url-pattern>
 		<url-pattern>/admin/Pelicula</url-pattern>
+		<url-pattern>/admin/GestionPeliculas</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Pelicula</servlet-name>

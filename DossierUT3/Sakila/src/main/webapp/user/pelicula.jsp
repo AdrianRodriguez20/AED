@@ -8,7 +8,7 @@
             <title>Sakila</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta name="author" content="AdriÃ¡n RodrÃ­guez Fuentes">
+            <meta name="author" content="Adrián Rodríguez Fuentes">
 
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -60,6 +60,8 @@
                                         <h5>${pelicula.getTitle()}</h5>
                                         <Strong >Sinopsis</Strong></br>
                                         <p class="card-text text-justify">${pelicula.getDescription()}</p>
+                                        <Strong >Idioma</Strong></br>
+                                        <p class="card-text text-justify">${pelicula.getLanguageId().getName()}</p>
                                         <Strong >Categorias</Strong></br>
                                         <c:forEach items="${pelicula.getFilmCategoryList()}" var="categoria">
                                             <span class="badge badge-primary">	${categoria.getCategory().getName()}</span>
