@@ -110,6 +110,12 @@ public class Actor implements Serializable {
         this.filmActorList = filmActorList;
     }
 
+    public FilmActor compareFilmActor(Short filmId) {
+        return  new FilmActor( actorId, filmId);
+    }
+
+
+
     @Override
     public int hashCode() {
         int hash = 0;

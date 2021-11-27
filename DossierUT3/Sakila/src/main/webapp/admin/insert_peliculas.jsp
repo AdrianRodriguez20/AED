@@ -117,7 +117,8 @@
 									</c:forEach>
 								</select>
 							</div>
-							<button type="submit" class="btn btn-primary">Insertar</button>
+							<button type="submit" class="btn btn-primary"    name="submit"
+									value="insertar">Insertar</button>
 						</form>
 					</div>
 				</div>

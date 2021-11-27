@@ -43,11 +43,19 @@ public class GestionPeliculas extends HttpServlet {
 
 		String redirect="";
 		if (request.getParameter("film")!=null) {
+
+			List<Actor>actors = actorR.findAll();
+			request.getSession().setAttribute("actors", actors);
+			List<Category>categories = categoryR.findAll();
+			request.getSession().setAttribute("categories", categories);
+			List<Language>languages = languageR.findAll();
+			request.getSession().setAttribute("languages", languages);
+
 			int filmId = Integer.parseInt(request.getParameter("film"));
 			Film pelicula = filmR.findById((short) filmId);
 			request.getSession().setAttribute("pelicula", pelicula);
-			redirect="pelicula.jsp";
-		
+			redirect="update_peliculas.jsp";
+
 		
 		}else if (request.getParameter("create")!=null) {
 			List<Actor>actors = actorR.findAll();
@@ -58,7 +66,7 @@ public class GestionPeliculas extends HttpServlet {
 			request.getSession().setAttribute("languages", languages);
 			redirect="insert_peliculas.jsp";
 			
-		}else {
+		}else if (request.getParameter("getAll")!=null) {
 			List<Film>peliculas = filmR.findAll();
 			request.getSession().setAttribute("peliculas", peliculas);
 			redirect="admin/listado_peliculas.jsp";
@@ -73,7 +81,31 @@ public class GestionPeliculas extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+		String valuePelicula = request.getParameter("submit");
+
+
+		switch (valuePelicula) {
+			case "insertar":
+				agregarPelicula(request, response);
+				break;
+			case "editar":
+				editarPelicula(request, response);
+				break;
+			case "borrar":
+				eliminarPelicula(request, response);
+				break;
+			case "buscar":
+				//buscarPelicula(request, response);
+				break;
+			default:
+				break;
+		}
+	}
+
+
+	private void agregarPelicula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String titulo = request.getParameter("title");
 		String descripcion = request.getParameter("description");
 		String releaseYear = request.getParameter("releaseYear");
@@ -81,9 +113,7 @@ public class GestionPeliculas extends HttpServlet {
 		String length = request.getParameter("length");
 		String[] actores = request.getParameterValues("actors");
 		String[] categorias = request.getParameterValues("categories");
-		System.out.println("Idiomas " +languageId);
 
-	//
 
 		if(titulo!=null && !titulo.isEmpty() &&
 				descripcion!=null && !descripcion.isEmpty() &&
@@ -98,9 +128,6 @@ public class GestionPeliculas extends HttpServlet {
 			Film pelicula = new Film();
 			pelicula.setTitle(titulo);
 			pelicula.setDescription(descripcion);
-			//cast releaseYear to Date
-
-
 			pelicula.setReleaseYear(releaseYear);
 			pelicula.setLanguageId(new Language((short)Integer.parseInt(languageId)));
 			pelicula.setOriginalLanguageId(null);
@@ -125,16 +152,81 @@ public class GestionPeliculas extends HttpServlet {
 			pelicula.setFilmActorList(actors);
 			pelicula.setFilmCategoryList(categories);
 			pelicula.setInventoryList(null);
-			
+
 			filmR.save(pelicula);
 
 
+		}
 
-			//pelicula.setFilmActorList(actors);
-		//	pelicula.setFilmCategoryList(null);
-			
+		response.sendRedirect("listado_peliculas.jsp");
+	}
 
+	private void editarPelicula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String titulo = request.getParameter("title");
+		String descripcion = request.getParameter("description");
+		String releaseYear = request.getParameter("releaseYear");
+		String languageId = request.getParameter("languageId");
+		String length = request.getParameter("length");
+		String[] actores = request.getParameterValues("actors");
+		String[] categorias = request.getParameterValues("categories");
+		String id = request.getParameter("id");
+
+
+		if(titulo!=null && !titulo.isEmpty() &&
+				descripcion!=null && !descripcion.isEmpty() &&
+				releaseYear!=null && !releaseYear.isEmpty() &&
+				languageId!=null && !languageId.isEmpty() &&
+				length!=null && !length.isEmpty() &&  actores!=null &&
+				actores.length>0 &&  categorias!=null &&  categorias.length>0 ) {
+
+			EntityManagerFactory emf = (EntityManagerFactory) request.getServletContext().getAttribute("emf");
+			FilmRepository filmR = new FilmRepository(emf);
+
+
+			Film pelicula = new Film();
+			pelicula.setFilmId((short) Integer.parseInt(id));
+			pelicula.setTitle(titulo);
+			pelicula.setDescription(descripcion);
+			pelicula.setReleaseYear(releaseYear);
+			pelicula.setLanguageId(new Language((short) Integer.parseInt(languageId)));
+			pelicula.setOriginalLanguageId(null);
+			pelicula.setRentalDuration((short) 7);
+			pelicula.setRentalRate(new java.math.BigDecimal(1));
+			pelicula.setLength((short) Integer.parseInt(length));
+			pelicula.setReplacementCost(new java.math.BigDecimal(10.99));
+			pelicula.setLastUpdate(new Date());
+
+			List<FilmActor> actors = new ArrayList<>(actores.length);
+
+			for (String actorId : actores) {
+				actors.add(new FilmActor(new FilmActorPK((short) Integer.parseInt(actorId), (short) Integer.parseInt(id)), new Date()));
+			}
+
+			List<FilmCategory> categories = new ArrayList<>(categorias.length);
+
+			for (String categoryId : categorias) {
+				categories.add(new FilmCategory(new FilmCategoryPK((short) Integer.parseInt(id), (short) Integer.parseInt(categoryId)), new Date()));
+			}
+
+			pelicula.setFilmActorList(actors);
+			pelicula.setFilmCategoryList(categories);
+			pelicula.setInventoryList(null);
+
+			filmR.update(pelicula);
 		}
 	}
+
+	private void eliminarPelicula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String id = request.getParameter("id");
+		System.out.println("Id"+id);
+		EntityManagerFactory emf = (EntityManagerFactory) request.getServletContext().getAttribute("emf");
+		FilmRepository filmR = new FilmRepository(emf);
+		filmR.delete((short) Integer.parseInt(id));
+
+
+    }
+
 
 }

@@ -97,6 +97,12 @@ public class Category implements Serializable {
         this.filmCategoryList = filmCategoryList;
     }
 
+    public FilmCategory compareFilmCategory(Short filmId) {
+        return  new FilmCategory(filmId, categoryId);
+    }
+
+
+
     @Override
     public int hashCode() {
         int hash = 0;

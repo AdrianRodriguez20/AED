@@ -54,12 +54,12 @@
             <div class="row">
 
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/GestionPeliculas">
+                    <a id="link" href="/sakila/GestionPeliculas?getAll=true">
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fas fa-film"></i></div>
                             <div class="feature-content">
                                 <h5>Gestion Peliculas</h5>
-                                <p>Vamos de brunch, yo cubro la cuenta, tï¿½ pide a gusto, Mimosa, champaï¿½a, nuestro desayuno.</p>
+                                <p>Vamos de brunch, yo cubro la cuenta, tu pide a gusto, Mimosa, champaÃ±a, nuestro desayuno.</p>
                             </div>
                         </div>
                     </a>
@@ -94,7 +94,7 @@
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fas fa-film"></i></div>
                             <div class="feature-content">
-                                <h5>Peli­culas</h5>
+                                <h5>Peliï¿½culas</h5>
                                 <p>Vamos de brunch, yo cubro la cuenta, tï¿½ pide a gusto, Mimosa, champaï¿½a, nuestro desayuno.</p>
                             </div>
                         </div>

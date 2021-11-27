@@ -84,14 +84,16 @@
                                     <td class="column3">${pelicula.getReleaseYear()}</td>
                                     <td class="column4">
                                       
-                                    <a href="GestionPeliculas?film=${pelicula.getFilmId()}" class="btn btn-primary"> <i class="far fa-eye" style="color:white"></i></a>
+                                    <a href="Pelicula?film=${pelicula.getFilmId()}" class="btn btn-primary"> <i class="far fa-eye" style="color:white"></i></a>
                                     </td>
                                     <td class="column5">
                                        <a href="GestionPeliculas?film=${pelicula.getFilmId()}" class="btn btn-warning"> <i class="far fa-edit" style="color:white"></i></a>                                 
                                     </td>
                                     <td class="column6">
-                                       <a href="Pelicula?film=${pelicula.getFilmId()}" class="btn btn-danger"><i class="fas fa-trash" style="color:white"></i></a>
-                                    
+                                        <form action="GestionPeliculas" method="post" >
+                                            <input type="hidden" name="id" value="${pelicula.getFilmId()}">
+                                            <button type="submit" class="btn btn-danger"  name="submit" value="borrar" onclick="return confirm('Are you sure you want to delete this item?');"> <i class="far fa-trash-alt" style="color:white"></i></button>
+                                        </form>
                                     </td>
 
                                 </tr>

@@ -74,6 +74,10 @@ public class FilmRepository implements Crud<Film, Short> {
     public Film update(Film obj) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
+        String sql= "DELETE FROM film_actor WHERE film_id = ? ";
+        em.createNativeQuery(sql).setParameter(1, obj.getFilmId()).executeUpdate();
+        String sql2= "DELETE FROM film_category WHERE film_id = ? ";
+        em.createNativeQuery(sql2).setParameter(1, obj.getFilmId()).executeUpdate();
         em.merge(obj);
         em.getTransaction().commit();
         em.close();
@@ -88,6 +92,10 @@ public class FilmRepository implements Crud<Film, Short> {
         em.getTransaction().begin();
 
         Film film = em.find(Film.class, id);
+        String sql= "DELETE FROM film_actor WHERE film_id = ? ";
+        em.createNativeQuery(sql).setParameter(1, film.getFilmId()).executeUpdate();
+        String sql2= "DELETE FROM film_category WHERE film_id = ? ";
+        em.createNativeQuery(sql2).setParameter(1, film.getFilmId()).executeUpdate();
         em.remove(film);
 
         em.getTransaction().commit();
