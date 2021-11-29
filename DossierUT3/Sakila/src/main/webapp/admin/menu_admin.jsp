@@ -67,7 +67,7 @@
 
 
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/admin/listado_categorias.jsp">
+                    <a id="link" href="/sakila/GestionCategorias?getAll=true">
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fa fa-th"></i></div>
                             <div class="feature-content">

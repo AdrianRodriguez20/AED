@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 
 import es.iespuertodelacruz.adrian.sakila.entities.Category;
 import es.iespuertodelacruz.adrian.sakila.entities.Film;
+import es.iespuertodelacruz.adrian.sakila.servlets.Categoria;
 
 
 
@@ -36,7 +37,7 @@ public class CategoryRepository implements Crud<Category, Short> {
 
 		Category category =null;
 		try {
-			category  = em.createNamedQuery("Film.findByCategoryId", Category.class).setParameter("categoryId",id)
+			category  = em.createNamedQuery("Category.findByCategoryId", Category.class).setParameter("categoryId",id)
 					.getSingleResult();
 		}catch (NoResultException nre){
 				//Ignore this because as per your logic this is ok!
@@ -50,19 +51,32 @@ public class CategoryRepository implements Crud<Category, Short> {
 
 	@Override
 	public Category save(Category obj) {
-		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
+		em.close();
 		return null;
 	}
 
 	@Override
 	public Category update(Category obj) {
-		// TODO Auto-generated method stub
-		return null;
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(obj);
+        em.getTransaction().commit();
+        em.close();
+        return null;
 	}
 
 	@Override
 	public boolean delete(Short id) {
-		// TODO Auto-generated method stub
-		return false;
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Category categoria = em.find(Category.class, id);
+        em.remove(categoria);
+        em.getTransaction().commit();
+        em.close();
+        return false;
 	}
 }

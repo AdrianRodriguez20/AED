@@ -25,7 +25,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/Inicio.html">SAKILA</a>
+        <a class="navbar-brand" href="/sakila/inicio.html">SAKILA</a>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -33,13 +33,13 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " href="/admin/listado_peliculas.html">GestiÃ³n Peliculas</a>
+                    <a class="nav-link  " href="/sakila/admin/listado_peliculas.jsp">Gestión Peliculas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/admin/listado_categorias.html">GestiÃ³n Categorias</a>
+                    <a class="nav-link active " href="/sakila/admin/listado_categorias.jsp">Gestión Categorias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/admin/listado_actores.html">GestiÃ³n Actores</a>
+                    <a class="nav-link " href="/sakila/admin/listado_actores.jsp">Gestión Actores</a>
                 </li>
             </ul>
             <!-- USER -->
@@ -50,3 +50,58 @@
             </ul>
         </div>
     </nav>
+    <div class="container mt-3 text-right">
+        <a class="btn btn-danger addfilm" href="GestionCategorias?create=category">
+        Add Film</a>
+    </div>
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                    <div class="table100-head">
+                        <table>
+                            <thead>
+                                <tr class="row100 head">
+                                    <th class="column1">ID</th>
+                                    <th class="column2">Categoría</th>
+                                    <th class="column3">Ver</th>
+                                    <th class="column4">Editar</th>
+                                    <th class="column5">Eliminar</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="table100-body js-pscroll">
+                        <table>
+                            <tbody>
+                              <c:forEach items="${categorias}" var="categoria">
+                                <tr class="row100 body">
+                                    <td class="column1">${categoria.getCategoryId()}</td>
+                                    <td class="column2">${categoria.getName()}</td>
+                                    <td class="column3">
+                                      
+                                    <a href="Categoria?categoria=${categoria.getCategoryId()}" class="btn btn-primary"> <i class="far fa-eye" style="color:white"></i></a>
+                                    </td>
+                                    <td class="column4">
+                                       <a href="GestionCategorias?categoria=${categoria.getCategoryId()}" class="btn btn-warning"> <i class="far fa-edit" style="color:white"></i></a>                                 
+                                    </td>
+                                    <td class="column5">
+                                        <form action="GestionCategorias" method="post" >
+                                            <input type="hidden" name="id" value="${categoria.getCategoryId()}">
+                                            <button type="submit" class="btn btn-danger"  name="submit" value="borrar" onclick="return confirm('Are you sure you want to delete this item?');"> <i class="far fa-trash-alt" style="color:white"></i></button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+   							</c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

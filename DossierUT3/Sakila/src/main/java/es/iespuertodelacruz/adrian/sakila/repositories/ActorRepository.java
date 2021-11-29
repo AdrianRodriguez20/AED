@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 import es.iespuertodelacruz.adrian.sakila.entities.Actor;
+import es.iespuertodelacruz.adrian.sakila.entities.Category;
+import es.iespuertodelacruz.adrian.sakila.servlets.Categoria;
 
 public class ActorRepository  implements Crud<Actor, Short> {
 
@@ -27,26 +30,52 @@ public class ActorRepository  implements Crud<Actor, Short> {
 
 	@Override
 	public Actor findById(Short id) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+
+		Actor actor =null;
+		try {
+			actor  = em.createNamedQuery("Actor.findByActorId", Actor.class).setParameter("actorId",id)
+					.getSingleResult();
+		}catch (NoResultException nre){
+				//Ignore this because as per your logic this is ok!
+		}
+
+
+		em.getTransaction().commit();
+		em.close();
+		return actor ;
 	}
 
 	@Override
 	public Actor save(Actor obj) {
-		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
+		em.close();
 		return null;
 	}
 
 	@Override
 	public Actor update(Actor obj) {
-		// TODO Auto-generated method stub
-		return null;
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(obj);
+        em.getTransaction().commit();
+        em.close();
+        return null;
 	}
 
 	@Override
 	public boolean delete(Short id) {
-		// TODO Auto-generated method stub
-		return false;
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Actor actor = em.find(Actor.class, id);
+        em.remove(actor);
+        em.getTransaction().commit();
+        em.close();
+        return false;
 	}
 
 }

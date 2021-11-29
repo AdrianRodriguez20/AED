@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+         pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,7 +17,7 @@
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
     <script
             src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script
@@ -70,18 +70,25 @@
                 <div class="feature-content">
                     <form action="GestionCategorias" method="POST">
                         <div class="form-group">
+                            <label for="id"><strong>ID</strong></label> <input
+                                type="text" class="form-control" id="id" name="id"
+                                value="${categoria.getCategoryId()}" readonly >
+                        </div>
+                        <div class="form-group">
                             <label for="nombre"><strong>Categoría</strong></label> <input
                                 type="text" class="form-control" id="nombre" name="nombre"
-                                placeholder="Accion">
+                                placeholder="Titulo" value="${categoria.getName()}">
                         </div>
-                        <button type="submit" class="btn btn-primary"    name="submit"
-                                value="insertar">Insertar</button>
+
+                        <div class="text-center">
+                            <button type="submit" name="submit" value="editar" class="btn btn-primary">Actualizar</button>
+                        </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

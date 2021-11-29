@@ -72,7 +72,6 @@
 	<servlet-mapping>
 		<servlet-name>GestionPeliculas</servlet-name>
 		<url-pattern>/GestionPeliculas</url-pattern>
-		<!--<url-pattern>/admin/Pelicula</url-pattern>-->
 		<url-pattern>/admin/GestionPeliculas</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
@@ -83,10 +82,12 @@
 	<servlet-mapping>
 		<servlet-name>GestionActores</servlet-name>
 		<url-pattern>/GestionActores</url-pattern>
+		<url-pattern>/admin/GestionActores</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GestionCategorias</servlet-name>
 		<url-pattern>/GestionCategorias</url-pattern>
+		<url-pattern>/admin/GestionCategorias</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Actores</servlet-name>
