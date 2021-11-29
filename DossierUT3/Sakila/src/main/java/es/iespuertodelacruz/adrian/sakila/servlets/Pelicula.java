@@ -63,7 +63,7 @@ public class Pelicula extends HttpServlet {
 			redirect="user/listado_peliculas.jsp";
 
 		}
-		
+
 		response.sendRedirect(redirect);
 	}
 
