@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import es.iespuertodelacruz.adrian.sakila.repositories.ActorRepository;
 import es.iespuertodelacruz.adrian.sakila.entities.Actor;
+import es.iespuertodelacruz.adrian.sakila.entities.Film;
 
 
 /**
@@ -36,22 +37,12 @@ public class Actores extends HttpServlet {
 		EntityManagerFactory emf =(EntityManagerFactory)request.getServletContext().getAttribute("emf");
 		ActorRepository actorR = new ActorRepository(emf);
 	
-		String redirect="";
-		if (request.getParameter("actor")!=null) {
-			int actorId = Integer.parseInt(request.getParameter("actor"));
-			Actor actor = actorR.findById((short) actorId);
-			request.getSession().setAttribute("actor", actor);
-			redirect="actor.jsp";
-		
-		
-		}else {
+
 			List<Actor>actores = actorR.findAll();
 			request.getSession().setAttribute("actores", actores);
-			redirect="user/listado_actores.jsp";
+			String	redirect="user/listado_actores.jsp";
 		
-		}
 
-	//	request.getRequestDispatcher("/user/listado_peliculas.jsp").forward(request, response);
 		response.sendRedirect(redirect);
 	}
 

@@ -79,4 +79,14 @@ public class CategoryRepository implements Crud<Category, Short> {
         em.close();
         return false;
 	}
+	
+	public List<Film> findFilmsByCategory(Short id){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+		String sql = "SELECT f FROM Film f JOIN f.filmCategoryList a WHERE a.category.categoryId= :id";
+		List<Film> lista = em.createQuery(sql, Film.class).setParameter("id", id).getResultList();
+        em.getTransaction().commit();
+        em.close();
+        return lista;
+    }
 }

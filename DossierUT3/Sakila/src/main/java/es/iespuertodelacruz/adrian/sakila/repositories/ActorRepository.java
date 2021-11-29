@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 
 import es.iespuertodelacruz.adrian.sakila.entities.Actor;
 import es.iespuertodelacruz.adrian.sakila.entities.Category;
+import es.iespuertodelacruz.adrian.sakila.entities.Film;
 import es.iespuertodelacruz.adrian.sakila.servlets.Categoria;
 
 public class ActorRepository  implements Crud<Actor, Short> {
@@ -77,5 +78,15 @@ public class ActorRepository  implements Crud<Actor, Short> {
         em.close();
         return false;
 	}
+
+	public List<Film> findFilmsByActor(Short id){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+		String sql = "SELECT f FROM Film f JOIN f.filmActorList a WHERE a.actor.actorId = :id";
+		List<Film> lista = em.createQuery(sql, Film.class).setParameter("id", id).getResultList();
+        em.getTransaction().commit();
+        em.close();
+        return lista;
+    }
 
 }

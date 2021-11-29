@@ -1,3 +1,17 @@
+.link {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.link:active {
+    color: black !important;
+    text-decoration: none !important;
+}
+.link:hover{
+	color: black !important;
+    text-decoration: none !important;
+}
+
 .single_advisor_profile {
     position: relative;
     margin-bottom: 50px;

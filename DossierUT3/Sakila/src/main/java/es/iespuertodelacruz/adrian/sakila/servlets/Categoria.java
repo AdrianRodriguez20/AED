@@ -13,13 +13,12 @@ import es.iespuertodelacruz.adrian.sakila.entities.Category;
 import es.iespuertodelacruz.adrian.sakila.repositories.CategoryRepository;
 
 
-
 /**
  * Servlet implementation class Categoria
  */
 public class Categoria extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -28,39 +27,29 @@ public class Categoria extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		EntityManagerFactory emf =(EntityManagerFactory)request.getServletContext().getAttribute("emf");
-		CategoryRepository categoryR = new CategoryRepository(emf);
-	
-		String redirect="";
-		if (request.getParameter("category")!=null) {
-			int categoryId = Integer.parseInt(request.getParameter("category"));
-			Category categoria = categoryR.findById((short) categoryId);
-			request.getSession().setAttribute("categoria", categoria);
-			redirect="categoria.jsp";
-		
-		
-		}else {
-			List<Category>categorias = categoryR.findAll();
-			request.getSession().setAttribute("categorias", categorias);
-			redirect="user/listado_categorias.jsp";
-		
-		}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	//	request.getRequestDispatcher("/user/listado_peliculas.jsp").forward(request, response);
-		response.sendRedirect(redirect);
-	}
+        EntityManagerFactory emf = (EntityManagerFactory) request.getServletContext().getAttribute("emf");
+        CategoryRepository categoryR = new CategoryRepository(emf);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+
+        List<Category> categorias = categoryR.findAll();
+        request.getSession().setAttribute("categorias", categorias);
+        String redirect = "user/listado_categorias.jsp";
+
+
+        response.sendRedirect(redirect);
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doGet(request, response);
+    }
 
 }

@@ -8,7 +8,7 @@
             <title>Sakila</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta name="author" content="AdriÃ¡n RodrÃ­guez Fuentes">
+            <meta name="author" content="Adrián Rodríguez Fuentes">
 
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,7 +24,7 @@
             <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
 
             <link href="../style/navbar_user.css" rel="stylesheet">
-            <link href="../style/user_listado_peliculas.css" rel="stylesheet">
+            <link href="../style/user_listado_categorias.css" rel="stylesheet">
         </head>
 
         <body>
@@ -59,6 +59,7 @@
                      <c:forEach items="${categorias}" var="categoria">
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="card">
+                                <a class="link" href="Pelicula?categoria=${categoria.getCategoryId()}">
                                 <div class="card-content">
                                     <div class="card-body">
                                         <div class="media d-flex">

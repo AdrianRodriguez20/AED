@@ -1,0 +1,13 @@
+.link {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.link:active {
+    color: black !important;
+    text-decoration: none !important;
+}
+.link:hover{
+    color: black !important;
+    text-decoration: none !important;
+}

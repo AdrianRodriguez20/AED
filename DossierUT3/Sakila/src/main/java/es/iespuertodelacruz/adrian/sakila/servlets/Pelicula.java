@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.iespuertodelacruz.adrian.sakila.entities.Film;
+import es.iespuertodelacruz.adrian.sakila.repositories.ActorRepository;
+import es.iespuertodelacruz.adrian.sakila.repositories.CategoryRepository;
 import es.iespuertodelacruz.adrian.sakila.repositories.FilmRepository;
 
 /**
@@ -42,14 +44,26 @@ public class Pelicula extends HttpServlet {
 			redirect="pelicula.jsp";
 		
 		
-		}else {
+		}else if(request.getParameter("actor")!=null) {
+			ActorRepository actorR = new ActorRepository(emf);
+			int actorId = Integer.parseInt(request.getParameter("actor"));
+			List<Film> peliculas = actorR.findFilmsByActor((short) actorId);
+			request.getSession().setAttribute("peliculas", peliculas);
+			redirect = "listado_peliculas.jsp";
+
+		}else if (request.getParameter("categoria")!=null) {
+			CategoryRepository categoryR = new CategoryRepository(emf);
+			int categoryId = Integer.parseInt(request.getParameter("categoria"));
+			List<Film> peliculas = categoryR.findFilmsByCategory((short) categoryId);
+			request.getSession().setAttribute("peliculas", peliculas);
+			redirect = "listado_peliculas.jsp";
+		}else  {
 			List<Film>peliculas = filmR.findAll();
 			request.getSession().setAttribute("peliculas", peliculas);
 			redirect="user/listado_peliculas.jsp";
-		
-		}
 
-	//	request.getRequestDispatcher("/user/listado_peliculas.jsp").forward(request, response);
+		}
+		
 		response.sendRedirect(redirect);
 	}
 
