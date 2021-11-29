@@ -30,13 +30,13 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/sakila/admin/listado_peliculas.jsp">Gestion Peliculas</a>
+                    <a class="nav-link" href="/sakila/GestionPeliculas?getAll=true">Gestion Peliculas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/sakila/admin/listado_categorias.jsp">Gestion Categorias</a>
+                    <a class="nav-link" href="/sakila/GestionCategorias?getAll=true">Gestion Categorias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/sakila/admin/listado_actores.jsp">Gestion Actores</a>
+                    <a class="nav-link" href="/sakila/GestionActores?getAll=true">Gestion Actores</a>
                 </li>
             </ul>
             <!-- USER -->
@@ -54,12 +54,12 @@
             <div class="row">
 
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/GestionPeliculas?getAll=true">
+                    <a class="link" href="/sakila/GestionPeliculas?getAll=true">
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fas fa-film"></i></div>
                             <div class="feature-content">
                                 <h5>Gestion Peliculas</h5>
-                                <p>Vamos de brunch, yo cubro la cuenta, tu pide a gusto, Mimosa, champaÃ±a, nuestro desayuno.</p>
+                                <p>Gestionar peliculas , aquí podrás añadir peliculas a la lista del videoclub , editarlas, ...etc.</p>
                             </div>
                         </div>
                     </a>
@@ -67,58 +67,58 @@
 
 
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/GestionCategorias?getAll=true">
+                    <a class="link" href="/sakila/GestionCategorias?getAll=true">
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fa fa-th"></i></div>
                             <div class="feature-content">
                                 <h5>Gestion Categorias</h5>
-                                <p>Vamos de brunch, yo cubro la cuenta, tï¿½ pide a gusto, Mimosa, champaï¿½a, nuestro desayuno.</p>
+                                <p>Gestionar categorias , aquí podrás añadir categorias a la lista del videoclub , editarlas, ...etc.</p>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/admin/listado_actores.jsp">
+                    <a class="link" href="/sakila/GestionActores?getAll=true">
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fas fa-theater-masks"></i></div>
                             <div class="feature-content">
                                 <h5>Gestion Actores</h5>
-                                <p>Vamos de brunch, yo cubro la cuenta, tï¿½ pide a gusto, Mimosa, champaï¿½a, nuestro desayuno.</p>
+                                <p>Gestionar actores , aquí podrás añadir actores a la lista del videoclub , editarlas, ...etc.</p>
                             </div>
                         </div>
                     </a>
                 </div>
 
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/user/listado_peliculas.jsp">
+                    <a class="link" href="/sakila/Pelicula">
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fas fa-film"></i></div>
                             <div class="feature-content">
-                                <h5>Peliï¿½culas</h5>
-                                <p>Vamos de brunch, yo cubro la cuenta, tï¿½ pide a gusto, Mimosa, champaï¿½a, nuestro desayuno.</p>
+                                <h5>Películas</h5>
+                                <p>Desde aquí podrás acceder a las peliculas , desde la vista del cliente para tener una visión general.</p>
                             </div>
                         </div>
                     </a>
                 </div>
 
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/user/listado_category.jsp">
+                    <a class="link" href="/sakila/Categoria">
                         <div class="feature-box-1">
                             <div class="icon"> <i class="fa fa-th"></i></div>
                             <div class="feature-content">
                                 <h5>Categorias</h5>
-                                <p>Vamos de brunch, yo cubro la cuenta, tï¿½ pide a gusto, Mimosa, champaï¿½a, nuestro desayuno.</p>
+                              <p>Desde aquí podrás acceder a las categorias , desde la vista del cliente para tener una visión general.</p>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-4">
-                    <a id="link" href="/sakila/user/listado_actores.jsp">
+                    <a class="link" href="/sakila/Actor">
                         <div class="feature-box-1">
                             <div class="icon"><i class="fas fa-theater-masks"></i></div>
                             <div class="feature-content">
                                 <h5>Actores</h5>
-                                <p>Vamos de brunch, yo cubro la cuenta, tï¿½ pide a gusto, Mimosa, champaï¿½a, nuestro desayuno.</p>
+                              <p>Desde aquí podrás acceder a los actores , desde la vista del cliente para tener una visión general.</p>
                             </div>
                         </div>
                     </a>

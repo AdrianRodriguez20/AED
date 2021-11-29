@@ -92,7 +92,7 @@ public class GestionCategorias extends HttpServlet {
 		EntityManagerFactory emf =(EntityManagerFactory)request.getServletContext().getAttribute("emf");
 		CategoryRepository categoryR = new CategoryRepository(emf);
 		categoryR.delete((short) Integer.parseInt(id));
-		
+		response.sendRedirect("/sakila/GestionCategorias?getAll=true");
 	}
 
 	private void editarCategoria(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -108,7 +108,7 @@ public class GestionCategorias extends HttpServlet {
 			category.setLastUpdate(new Date());
 			categoryR.update(category);
 		}
-		
+		response.sendRedirect("/sakila/GestionCategorias?getAll=true");
 	}
 
 	private void agregarCategoria(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -124,7 +124,7 @@ public class GestionCategorias extends HttpServlet {
 
 
 		}
-		response.sendRedirect("listado_categorias.jsp");
+		response.sendRedirect("/sakila/GestionCategorias?getAll=true");
 	}
 	
 	

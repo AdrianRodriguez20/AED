@@ -33,19 +33,19 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link  active" href="/sakila/admin/listado_peliculas.jsp">Gestión Peliculas</a>
+                    <a class="nav-link active" href="/sakila/GestionPeliculas?getAll=true" >Gestion Peliculas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/sakila/admin/listado_categorias.jsp">Gestión Categorias</a>
+                    <a class="nav-link" href="/sakila/GestionCategorias?getAll=true">Gestion Categorias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/sakila/admin/listado_actores.jsp">Gestión Actores</a>
+                    <a class="nav-link" href="/sakila/GestionActores?getAll=true">Gestion Actores</a>
                 </li>
             </ul>
             <!-- USER -->
             <ul class="navbar-nav ">
                 <a class="nav-link logo" href="">
-                    <img src="/img/inicio/user.png" class="img-fluid rounded-circle z-depth-0 img-user">
+                    <img src="../img/inicio/user.png" class="img-fluid rounded-circle z-depth-0 img-user">
                 </a>
             </ul>
         </div>

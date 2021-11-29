@@ -34,13 +34,13 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/sakila/user/listado_peliculas.jsp">Peliculas</a>
+                            <a class="nav-link active" href="/sakila/Pelicula">Peliculas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/sakila/user/listado_category.jsp">Categorias</a>
+                            <a class="nav-link" href="/sakila/Actores">Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/sakila/user/listado_actores.jsp">Actores</a>
+                            <a class="nav-link" href="/sakila/Categoria">Actores</a>
                         </li>
                     </ul>
                 </div>

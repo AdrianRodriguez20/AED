@@ -158,7 +158,7 @@ public class GestionPeliculas extends HttpServlet {
 
 		}
 
-		response.sendRedirect("listado_peliculas.jsp");
+		response.sendRedirect("/sakila/GestionPeliculas?getAll=true");
 	}
 
 	private void editarPelicula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -215,6 +215,8 @@ public class GestionPeliculas extends HttpServlet {
 
 			filmR.update(pelicula);
 		}
+		
+		response.sendRedirect("/sakila/GestionPeliculas?getAll=true");
 	}
 
 	private void eliminarPelicula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -225,7 +227,7 @@ public class GestionPeliculas extends HttpServlet {
 		FilmRepository filmR = new FilmRepository(emf);
 		filmR.delete((short) Integer.parseInt(id));
 
-
+		response.sendRedirect("/sakila/GestionPeliculas?getAll=true");
     }
 
 

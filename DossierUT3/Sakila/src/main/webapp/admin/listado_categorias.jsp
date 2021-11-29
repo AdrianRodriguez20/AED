@@ -17,7 +17,7 @@
     <link rel="icon" href="https://icon-library.com/images/film-icon/film-icon-0.jpg">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link href="../style/navbar_admin.css" rel="stylesheet">
-    <link href="../style/admin_listado_peliculas.css" rel="stylesheet">
+    <link href="../style/admin_listado_categorias.css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,26 +33,26 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link  " href="/sakila/admin/listado_peliculas.jsp">Gestión Peliculas</a>
+                    <a class="nav-link" href="/sakila/GestionPeliculas?getAll=true">Gestion Peliculas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="/sakila/admin/listado_categorias.jsp">Gestión Categorias</a>
+                    <a class="nav-link active" href="/sakila/GestionCategorias?getAll=true">Gestion Categorias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/sakila/admin/listado_actores.jsp">Gestión Actores</a>
+                    <a class="nav-link" href="/sakila/GestionActores?getAll=true">Gestion Actores</a>
                 </li>
             </ul>
             <!-- USER -->
             <ul class="navbar-nav ">
                 <a class="nav-link logo" href="">
-                    <img src="/img/inicio/user.png" class="img-fluid rounded-circle z-depth-0 img-user">
+                    <img src="../img/inicio/user.png" class="img-fluid rounded-circle z-depth-0 img-user">
                 </a>
             </ul>
         </div>
     </nav>
     <div class="container mt-3 text-right">
         <a class="btn btn-danger addfilm" href="GestionCategorias?create=category">
-        Add Film</a>
+        Añadir Categoría</a>
     </div>
     <div class="limiter">
         <div class="container-table100">
@@ -101,7 +101,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
 </body>
 
 </html>

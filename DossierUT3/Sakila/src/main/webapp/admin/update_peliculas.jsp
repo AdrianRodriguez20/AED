@@ -44,13 +44,15 @@
 
         </ul>
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link "
-                                    href="/sakila/admin/listado_peliculas.jsp">Gestión Peliculas</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    href="/sakila/admin/listado_categorias.jsp">Gestión Categorias</a>
+            <li class="nav-item">
+                <a class="nav-link active" href="/sakila/GestionPeliculas?getAll=true">Gestion Peliculas</a>
             </li>
-            <li class="nav-item"><a class="nav-link active"
-                                    href="/sakila/admin/listado_actores.jsp">Gestión Actores</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="/sakila/GestionCategorias?getAll=true">Gestion Categorias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/sakila/GestionActores?getAll=true">Gestion Actores</a>
+            </li>
         </ul>
         <!-- USER -->
         <ul class="navbar-nav ">

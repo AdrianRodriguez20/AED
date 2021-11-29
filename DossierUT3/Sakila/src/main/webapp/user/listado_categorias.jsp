@@ -24,7 +24,7 @@
             <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
 
             <link href="../style/navbar_user.css" rel="stylesheet">
-            <link href="../style/" rel="stylesheet">
+            <link href="../style/user_listado_peliculas.css" rel="stylesheet">
         </head>
 
         <body>
@@ -40,13 +40,13 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/sakila/user/listado_peliculas.html">Peliculas</a>
+                            <a class="nav-link " href="/sakila/Pelicula">Peliculas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/sakila/user/listado_category.html">Categorias</a>
+                            <a class="nav-link active" href="/sakila/Categoria">Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/sakila/user/listado_actores.html">Actores</a>
+                            <a class="nav-link" href="/sakila/Actores">Actores</a>
                         </li>
                     </ul>
                 </div>
