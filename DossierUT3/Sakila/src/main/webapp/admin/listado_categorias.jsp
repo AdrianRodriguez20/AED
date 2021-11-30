@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link href="../style/navbar_admin.css" rel="stylesheet">
     <link href="../style/admin_listado_categorias.css" rel="stylesheet">
+    <link href="../style/search.css" rel="stylesheet">
+<link href="../style/btnAdd.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="../js/buscador.js"></script>
 </head>
 
 <body>
@@ -51,8 +55,20 @@
         </div>
     </nav>
     <div class="container mt-3 text-right">
-        <a class="btn btn-danger addfilm" href="GestionCategorias?create=category">
-        Añadir Categoría</a>
+
+        
+        		<div class="container h-100">
+			<div class="d-flex justify-content-center h-100">
+				<div class="searchbar">
+					<input class="search_input" type="text" id="search"
+						placeholder="Search..."> <a href="" class="search_icon"><i
+						class="fas fa-search"></i></a>
+				</div>
+			</div>
+					<a class="btn btn-danger btn-circle btn-lg "
+					href="GestionCategorias?create=category"><i class="fas fa-plus"></i></a>
+		</div>
+        
     </div>
     <div class="limiter">
         <div class="container-table100">
@@ -73,7 +89,7 @@
                     </div>
 
                     <div class="table100-body js-pscroll">
-                        <table>
+                        <table id="mytable">
                             <tbody>
                               <c:forEach items="${categorias}" var="categoria">
                                 <tr class="row100 body">

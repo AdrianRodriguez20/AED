@@ -26,26 +26,9 @@
 <link href="../style/admin_listado_peliculas.css" rel="stylesheet">
 <link href="../style/search.css" rel="stylesheet">
 <link href="../style/btnAdd.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script>
-	// Write on keyup event of keyword input element
-	$(document).ready(
-			function() {
-				$("#search").keyup(
-						function() {
-							_this = this;
-							// Show only matching TR, hide rest of them
-							$.each($("#mytable tbody tr "), function() {
-								if ($(this).text().toLowerCase().indexOf(
-										$(_this).val().toLowerCase()) === -1)
-									$(this).hide();
-								else
-									$(this).show();
-							});
-						});
-			});
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="../js/buscador.js"></script>
+
 </head>
 
 <body>

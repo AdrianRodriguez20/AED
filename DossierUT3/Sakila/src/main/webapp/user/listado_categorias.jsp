@@ -25,6 +25,9 @@
 
             <link href="../style/navbar_user.css" rel="stylesheet">
             <link href="../style/user_listado_categorias.css" rel="stylesheet">
+            <link href="../style/search.css" rel="stylesheet">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+			<script src="../js/buscador_user.js"></script>
         </head>
 
         <body>
@@ -51,13 +54,20 @@
                     </ul>
                 </div>
             </nav>
-
+		<div class="container mt-4">
+			<div class="d-flex justify-content-center h-100">
+				<div class="searchbar">
+					<input class="search_input" type="text" id="search"
+						placeholder="Search..."> <a href="" class="search_icon"><i
+						class="fas fa-search"></i></a>
+				</div>
+			</div>
+		</div>
             <div class="container">
                 <section id="minimal-statistics ">
-
-                    <div class="row  m-3">
+                    <div id="myDiv" class="row  m-3">
                      <c:forEach items="${categorias}" var="categoria">
-                        <div class="col-xl-3 col-sm-6 col-12">
+                        <div class=" object col-xl-3 col-sm-6 col-12">
                             <div class="card">
                                 <a class="link" href="Pelicula?categoria=${categoria.getCategoryId()}">
                                 <div class="card-content">
@@ -73,9 +83,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                             </div>
                         </div>
                         </c:forEach>
+                    </div>
+                    </section>
                     </div>
         </body>
 

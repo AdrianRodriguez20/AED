@@ -24,7 +24,9 @@
 	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 <link href="../style/navbar_user.css" rel="stylesheet">
 <link href="../style/user_listado_actores.css" rel="stylesheet">
-
+<link href="../style/search.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="../js/buscador_user.js"></script>
 </head>
 
 <body>
@@ -51,32 +53,42 @@
 			</ul>
 		</div>
 	</nav>
+	<div class="container mt-3 text-right">
 
-	<div class="container mt-3">
-		<div class="row justify-content-center">
-			<c:forEach items="${actores}" var="actor">
-				<!-- Actor-->
-
-				<div class="col-12 col-sm-6 col-lg-3">
-					<a class="link" href="Pelicula?actor=${actor.getActorId()}">
-						<div class="single_advisor_profile wow fadeInUp"
-							data-wow-delay="0.3s"
-							style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-
-							<div class="advisor_thumb">
-								<img src="../img/Actores/adrian.png" alt="">
-
-							</div>
-							<div class="single_advisor_details_info">
-								<h6>${actor.getFirstName() }</h6>
-								<p class="designation">${actor.getLastName()}</p>
-							</div>
-						</div>
-					</a>
+		<div class="container h-100">
+			<div class="d-flex justify-content-center h-100">
+				<div class="searchbar">
+					<input class="search_input" type="text" id="search"
+						placeholder="Search..."> <a href="" class="search_icon"><i
+						class="fas fa-search"></i></a>
 				</div>
-
-			</c:forEach>
+			</div>
 		</div>
-	</div>
+		<div class="container mt-3">
+			<div id="myDiv" class=" row justify-content-center">
+				<c:forEach items="${actores}" var="actor">
+					<!-- Actor-->
+
+					<div class="object col-12 col-sm-6 col-lg-3">
+						<a class="link" href="Pelicula?actor=${actor.getActorId()}">
+							<div class="single_advisor_profile wow fadeInUp"
+								data-wow-delay="0.3s"
+								style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+
+								<div class="advisor_thumb">
+									<img src="../img/Actores/adrian.png" alt="">
+
+								</div>
+								<div class="single_advisor_details_info">
+									<h6 >${actor.getFirstName() }</h6>
+									<p class="designation">${actor.getLastName()}</p>
+								</div>
+							</div>
+						</a>
+					</div>
+
+				</c:forEach>
+			</div>
+		</div>
 </body>
 </html>

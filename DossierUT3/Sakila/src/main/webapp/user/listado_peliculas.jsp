@@ -18,6 +18,9 @@
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
             <link href="../style/navbar_user.css" rel="stylesheet">
             <link href="../style/user_listado_peliculas.css" rel="stylesheet">
+            <link href="../style/search.css" rel="stylesheet">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+			<script src="../js/buscador_user.js"></script>
 
         </head>
 
@@ -45,11 +48,19 @@
                     </ul>
                 </div>
             </nav>
-
+		<div class="container mt-4">
+			<div class="d-flex justify-content-center h-100">
+				<div class="searchbar">
+					<input class="search_input" type="text" id="search"
+						placeholder="Search..."> <a href="" class="search_icon"><i
+						class="fas fa-search"></i></a>
+				</div>
+			</div>
+		</div>
             <div class="container mt-5">
-                <div class="row">
+                <div id="myDiv" class="row">
                     <c:forEach items="${peliculas}" var="pelicula">
-                        <div class="col-md-4 mt-3">
+                        <div class="object col-md-4 mt-3">
                             <div class="card card-custom bg-white border-white border-0">
                                 <div class="card-custom-img" style="background-image: url(../img/inicio/viudanegra.jpg);">
                                 </div>

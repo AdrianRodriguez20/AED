@@ -113,7 +113,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-4">
-                    <a class="link" href="/sakila/Actor">
+                    <a class="link" href="/sakila/Actores">
                         <div class="feature-box-1">
                             <div class="icon"><i class="fas fa-theater-masks"></i></div>
                             <div class="feature-content">
