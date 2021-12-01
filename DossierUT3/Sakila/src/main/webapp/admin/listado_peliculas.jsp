@@ -108,7 +108,7 @@
 
 										<td class="column3">${pelicula.getReleaseYear()}</td>
 										<td class="column4"><a
-											href="Pelicula?film=${pelicula.getFilmId()}"
+											href="../user/Pelicula?film=${pelicula.getFilmId()}"
 											class="btn btn-primary"> <i class="far fa-eye"
 												style="color: white"></i></a></td>
 										<td class="column5"><a

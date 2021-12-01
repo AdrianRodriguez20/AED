@@ -72,14 +72,14 @@
                 <div class="feature-content">
                     <form action="GestionActores" method="POST">
                         <div class="form-group">
-                            <label for="nombre"><strong>Categoría</strong></label> <input
+                            <label for="nombre"><strong>Nombre</strong></label> <input
                                 type="text" class="form-control" id="nombre" name="nombre"
-                                placeholder="Nombre">
+                                placeholder="Patrick">
                         </div>
                         <div class="form-group">
-                            <label for="apellidos"><strong>Descripción</strong></label> <input
+                            <label for="apellidos"><strong>Apellidos</strong></label> <input
                                 type="text" class="form-control" id="apellidos" name="apellidos"
-                                placeholder="Apellidos">
+                                placeholder="Janse">
                         </div>
                         <button type="submit" class="btn btn-primary" name="submit"
                                 value="insertar">Insertar

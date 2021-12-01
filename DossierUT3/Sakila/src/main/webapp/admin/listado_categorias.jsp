@@ -80,9 +80,8 @@
                                 <tr class="row100 head">
                                     <th class="column1">ID</th>
                                     <th class="column2">Categoría</th>
-                                    <th class="column3">Ver</th>
-                                    <th class="column4">Editar</th>
-                                    <th class="column5">Eliminar</th>
+                                    <th class="column3">Editar</th>
+                                    <th class="column4">Eliminar</th>
                                 </tr>
                             </thead>
                         </table>
@@ -96,13 +95,9 @@
                                     <td class="column1">${categoria.getCategoryId()}</td>
                                     <td class="column2">${categoria.getName()}</td>
                                     <td class="column3">
-                                      
-                                    <a href="Categoria?categoria=${categoria.getCategoryId()}" class="btn btn-primary"> <i class="far fa-eye" style="color:white"></i></a>
-                                    </td>
-                                    <td class="column4">
                                        <a href="GestionCategorias?categoria=${categoria.getCategoryId()}" class="btn btn-warning"> <i class="far fa-edit" style="color:white"></i></a>                                 
                                     </td>
-                                    <td class="column5">
+                                    <td class="column4">
                                         <form action="GestionCategorias" method="post" >
                                             <input type="hidden" name="id" value="${categoria.getCategoryId()}">
                                             <button type="submit" class="btn btn-danger"  name="submit" value="borrar" onclick="return confirm('Are you sure you want to delete this item?');"> <i class="far fa-trash-alt" style="color:white"></i></button>

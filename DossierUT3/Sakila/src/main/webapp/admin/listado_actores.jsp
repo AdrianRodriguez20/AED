@@ -88,9 +88,8 @@
 									<th class="column1">ID</th>
 									<th class="column2">Nombre</th>
 									<th class="column3">Apellidos</th>
-									<th class="column4">Ver</th>
-									<th class="column5">Editar</th>
-									<th class="column6">Eliminar</th>
+									<th class="column4">Editar</th>
+									<th class="column5">Eliminar</th>
 								</tr>
 							</thead>
 						</table>
@@ -105,14 +104,10 @@
 										<td class="column2">${actor.getFirstName()}</td>
 										<td class="column3">${actor.getLastName()}</td>
 										<td class="column4"><a
-											href="Actor?actor=${actor.getActorId()}"
-											class="btn btn-primary"> <i class="far fa-eye"
-												style="color: white"></i></a></td>
-										<td class="column5"><a
 											href="GestionActores?actor=${actor.getActorId()}"
 											class="btn btn-warning"> <i class="far fa-edit"
 												style="color: white"></i></a></td>
-										<td class="column6">
+										<td class="column5">
 											<form action="GestionActores" method="post">
 												<input type="hidden" name="id" value="${actor.getActorId()}">
 												<button type="submit" class="btn btn-danger" name="submit"

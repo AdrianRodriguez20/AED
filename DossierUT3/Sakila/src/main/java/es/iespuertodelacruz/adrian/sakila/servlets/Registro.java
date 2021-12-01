@@ -68,6 +68,7 @@ public class Registro extends HttpServlet implements Servlet {
 				staffR.save(staff);
 			}
 		}
+		response.sendRedirect("/sakila/inicio.html");
 
 	}
 
