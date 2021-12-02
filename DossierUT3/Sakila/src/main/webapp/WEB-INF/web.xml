@@ -60,6 +60,13 @@
 		<servlet-name>Categoria</servlet-name>
 		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.Categoria</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Logout</display-name>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>es.iespuertodelacruz.adrian.sakila.servlets.Logout</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
                 <url-pattern>/Login</url-pattern>
@@ -98,6 +105,10 @@
 		<servlet-name>Categoria</servlet-name>
 		<url-pattern>/Categoria</url-pattern>
 		<url-pattern>/user/Categoria</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/Logout</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>

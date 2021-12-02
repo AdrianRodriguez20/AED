@@ -48,7 +48,7 @@
             </ul>
             <!-- USER -->
             <ul class="navbar-nav ">
-                <a class="nav-link logo" href="">
+                <a class="nav-link logo" href="/sakila/Logout">
                     <img src="../img/inicio/user.png" class="img-fluid rounded-circle z-depth-0 img-user">
                 </a>
             </ul>
