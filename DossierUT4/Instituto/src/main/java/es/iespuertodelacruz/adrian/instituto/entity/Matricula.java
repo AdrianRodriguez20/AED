@@ -2,6 +2,10 @@ package es.iespuertodelacruz.adrian.instituto.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 
@@ -27,12 +31,7 @@ public class Matricula implements Serializable {
 	private Alumno alumno;
 
 	//bi-directional many-to-many association to Asignatura
-	@ManyToMany
-	@JoinTable( name="asignatura_matricula",
-	joinColumns = @JoinColumn(name="idasignatura"),
-	inverseJoinColumns = @JoinColumn(name="idmatricula")
-	)
-
+	@ManyToMany(mappedBy="matriculas")
 	private List<Asignatura> asignaturas;
 
 	public Matricula() {
