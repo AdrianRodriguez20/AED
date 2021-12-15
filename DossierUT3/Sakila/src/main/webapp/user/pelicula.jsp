@@ -37,10 +37,10 @@
                             <a class="nav-link active" href="/sakila/Pelicula">Peliculas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/sakila/Actores">Categorias</a>
+                            <a class="nav-link" href="/sakila/Categoria">Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/sakila/Categoria">Actores</a>
+                            <a class="nav-link" href="/sakila/Actores">Actores</a>
                         </li>
                     </ul>
                 </div>

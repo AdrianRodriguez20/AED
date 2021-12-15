@@ -106,7 +106,7 @@
 										<td class="column1">${pelicula.getFilmId()}</td>
 										<td class="column2">${pelicula.getTitle()}</td>
 
-										<td class="column3">${pelicula.getReleaseYear()}</td>
+										<td class="column3">${pelicula.getReleaseYear().substring(0,4)}</td>
 										<td class="column4"><a
 											href="../user/Pelicula?film=${pelicula.getFilmId()}"
 											class="btn btn-primary"> <i class="far fa-eye"
