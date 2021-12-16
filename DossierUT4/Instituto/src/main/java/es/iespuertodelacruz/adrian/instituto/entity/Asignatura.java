@@ -25,6 +25,7 @@ public class Asignatura implements Serializable {
 	private String curso;
 
 	private String nombre;
+	
 
 	@ManyToMany
 	@JoinTable( name="asignatura_matricula",
@@ -36,6 +37,16 @@ public class Asignatura implements Serializable {
 
 	public Asignatura() {
 	}
+	
+	
+
+	public Asignatura(int idasignatura, String curso, String nombre) {
+		this.idasignatura = idasignatura;
+		this.curso = curso;
+		this.nombre = nombre;
+	}
+
+
 
 	public int getIdasignatura() {
 		return this.idasignatura;

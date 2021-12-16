@@ -1,6 +1,10 @@
 package es.iespuertodelacruz.adrian.instituto.dto;
 
 import java.math.BigInteger;
+import java.util.List;
+
+import es.iespuertodelacruz.adrian.instituto.entity.Alumno;
+import es.iespuertodelacruz.adrian.instituto.entity.Matricula;
 
 /**
  * @author dama
@@ -12,16 +16,18 @@ public class AlumnoDTO {
 	private String apellidos;
 	private BigInteger fechanacimiento;
 	private String nombre;
+	private List<MatriculaDTO> matriculas;
 	
 	public AlumnoDTO() {
 		
 	}
 
-	public AlumnoDTO(String dni, String apellidos, BigInteger fechanacimiento, String nombre) {
-		this.dni = dni;
-		this.apellidos = apellidos;
-		this.fechanacimiento = fechanacimiento;
-		this.nombre = nombre;
+	public AlumnoDTO(Alumno a) {
+		this.dni = a.getDni();
+		this.apellidos = a.getApellidos();
+		this.fechanacimiento = a.getFechanacimiento();
+		this.nombre = a.getNombre();
+		this.matriculas = MatriculaDTO.toMatriculaDTO(a.getMatriculas());
 	}
 
 	public String getDni() {
@@ -55,6 +61,17 @@ public class AlumnoDTO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public List<MatriculaDTO> getMatriculas() {
+		return matriculas;
+	}
+
+	public Alumno toAlumno() {
+		return new Alumno(dni,apellidos,fechanacimiento,nombre);
+		
+	}
+	
+
 	
 	
 	
