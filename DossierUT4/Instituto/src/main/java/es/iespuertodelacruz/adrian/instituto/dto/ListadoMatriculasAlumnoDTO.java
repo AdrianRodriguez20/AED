@@ -23,8 +23,10 @@ public class ListadoMatriculasAlumnoDTO {
 
     public static List<ListadoMatriculasAlumnoDTO> toListadoMatriculasAlumnoDTO(List<Matricula> matriculas) {
         List<ListadoMatriculasAlumnoDTO> listadoMatriculasAlumnoDTO = new ArrayList<>();
-        for (Matricula m : matriculas) {
-            listadoMatriculasAlumnoDTO.add(new ListadoMatriculasAlumnoDTO(m));
+        if (matriculas!=null) {
+            for (Matricula m : matriculas) {
+                listadoMatriculasAlumnoDTO.add(new ListadoMatriculasAlumnoDTO(m));
+            }
         }
         return listadoMatriculasAlumnoDTO;
     }

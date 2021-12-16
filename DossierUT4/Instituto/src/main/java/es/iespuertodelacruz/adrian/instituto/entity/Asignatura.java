@@ -27,12 +27,7 @@ public class Asignatura implements Serializable {
 	private String nombre;
 	
 
-	@ManyToMany
-	@JoinTable( name="asignatura_matricula",
-	joinColumns = @JoinColumn(name="idasignatura"),
-	inverseJoinColumns = @JoinColumn(name="idmatricula")
-	)
-	@JsonIgnore
+	@ManyToMany(mappedBy="asignaturas")
 	private List<Matricula> matriculas;
 
 	public Asignatura() {

@@ -31,13 +31,26 @@ public class Matricula implements Serializable {
 	private Alumno alumno;
 
 	//bi-directional many-to-many association to Asignatura
-	@ManyToMany(mappedBy="matriculas")
+	//
+	@ManyToMany
+	@JoinTable( name="asignatura_matricula",
+	joinColumns = @JoinColumn(name="idmatricula"),
+	inverseJoinColumns = @JoinColumn(name="idasignatura")
+	)
 	private List<Asignatura> asignaturas;
 
 	public Matricula() {
 	}
 	
 	
+
+	public Matricula(int year, Alumno alumno, List<Asignatura> asignaturas) {
+		this.year = year;
+		this.alumno = alumno;
+		this.asignaturas = asignaturas;
+	}
+
+
 
 	public Matricula(int year, List<Asignatura> asignaturas) {
 		this.year = year;

@@ -4,30 +4,22 @@ import java.math.BigInteger;
 import java.util.List;
 
 import es.iespuertodelacruz.adrian.instituto.entity.Alumno;
-import es.iespuertodelacruz.adrian.instituto.entity.Matricula;
 
-/**
- * @author dama
- *
- */
-public class AlumnoDTO {
-
+public class ListadoAlumnosDTO {
 	private String dni;
 	private String apellidos;
 	private BigInteger fechanacimiento;
 	private String nombre;
-	private List<ListadoMatriculasAlumnoDTO> matriculas;
 	
-	public AlumnoDTO() {
+	public ListadoAlumnosDTO() {
 		
 	}
 
-	public AlumnoDTO(Alumno a) {
+	public ListadoAlumnosDTO (Alumno a) {
 		this.dni = a.getDni();
 		this.apellidos = a.getApellidos();
 		this.fechanacimiento = a.getFechanacimiento();
 		this.nombre = a.getNombre();
-		this.matriculas = ListadoMatriculasAlumnoDTO.toListadoMatriculasAlumnoDTO(a.getMatriculas());
 			
 	}
 
@@ -63,9 +55,6 @@ public class AlumnoDTO {
 		this.nombre = nombre;
 	}
 
-	public List<ListadoMatriculasAlumnoDTO> getMatriculas() {
-		return matriculas;
-	}
 
 	public Alumno toAlumno() {
 		return new Alumno(dni,apellidos,fechanacimiento,nombre);
