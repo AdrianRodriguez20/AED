@@ -1,5 +1,7 @@
 package es.iespuertodelacruz.adrian.instituto.controller;
 
+import es.iespuertodelacruz.adrian.instituto.dto.ListadoAlumnosDTO;
+import es.iespuertodelacruz.adrian.instituto.dto.MatriculaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -39,50 +41,24 @@ public class MatriculasREST {
 	AlumnoService alumnoService;
 	@Autowired
 	AsignaturaService asignaturaService;
-	
-	@GetMapping
-	public List<Matricula> getAll() {
-		ArrayList<Matricula> matriculas = new ArrayList<Matricula>();
-		matriculaService.findAll().forEach(p -> matriculas.add((Matricula) p));
-		return matriculas;
-	}
+
+
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getById(@PathVariable("id") String id) {
 		Optional<Matricula> optM = matriculaService.findById(Integer.parseInt(id));
-		return ResponseEntity.ok().body(optM);
-	}
-	
-	@PostMapping
-	public ResponseEntity<?> save(@RequestBody Matricula matricula) {
-		Optional<Alumno> optA = alumnoService.findById(matricula.getAlumno().getDni());
-		if (optA.isPresent()) {
-			
-			Matricula m = new Matricula();
-			ArrayList<Asignatura> asignaturas = new ArrayList<Asignatura>();
-			for(Asignatura a : matricula.getAsignaturas()) {
-				
-				Optional<Asignatura> optAsig = asignaturaService.findById(a.getIdasignatura());
-				if (optAsig.isPresent()) {
-					asignaturas.add(a);
-				}
-			}
-			if (asignaturas.size()>0 && asignaturas.size()==matricula.getAsignaturas().size()) {
-				m.setYear(matricula.getYear());
-				m.setAlumno(matricula.getAlumno());
-				m.setAsignaturas(matricula.getAsignaturas());
-				matriculaService.save(m);
-				return ResponseEntity.ok().body(m);
-			
-			}else {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no se ha matriculado de ninguna asignatura");
-			}
-			
-			
-		}else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("EL Alumno no existe");
-		}
-		
+		return ResponseEntity.ok().body(new MatriculaDTO(optM.get()));
 	}
 
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+		Optional<Matricula> optM = matriculaService.findById(id);
+		if (optM.isPresent()) {
+			matriculaService.deleteById(id);
+			return ResponseEntity.ok("Matricula borrada");
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El id del registro no existe");
+		}
+	}
 }

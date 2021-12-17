@@ -51,5 +51,9 @@ public class AsignaturaService implements GenericService<Asignatura,Integer> {
 		asignaturasRepository.delete(obj);
 		
 	}
+	@Transactional(readOnly=true)
+	public Optional<Asignatura> findEquals(String nombre, String curso) {
+		return asignaturasRepository.findEquals( nombre, curso);
+	}
 
 }

@@ -52,5 +52,10 @@ public class MatriculaService implements GenericService<Matricula,Integer> {
 		
 	}
 
+	@Transactional(readOnly=true)
+	public Optional<Matricula> findEquals(String dni, Integer idCurso) {
+        return matriculasRepository.findByEquals(dni, idCurso);
+    }
+
 }
 

@@ -57,11 +57,11 @@ public class AsignaturasREST {
 
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Asignatura a) {
-		Optional<Asignatura> optA = null;
-		if ((Boolean) null) {
+		Optional<Asignatura> optA = asignaturaService.findEquals(a.getNombre(),a.getCurso());
+		if (!optA.isPresent()) {
 			AsignaturaDTO aDTO = new AsignaturaDTO(a);
-			asignaturaService.save(aDTO.toAsignatura());
-			return ResponseEntity.ok().body(a);
+
+			return ResponseEntity.ok().body(new AsignaturaDTO(asignaturaService.save(aDTO.toAsignatura())));
 		}else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La Asignatura  ya existe");
 		}
@@ -84,10 +84,15 @@ public class AsignaturasREST {
 		Optional<Asignatura> optA = asignaturaService.findById(id);
 		if (optA.isPresent()) {
 			AsignaturaDTO aDTO = new AsignaturaDTO(a);
-			asignaturaService.save(aDTO.toAsignatura());
-			return ResponseEntity.ok(asignaturaService.save(a));
+			Optional<Asignatura> optAs = asignaturaService.findEquals(a.getNombre(),a.getCurso());
+			if (!optAs.isPresent()) {
+				return ResponseEntity.ok().body(new AsignaturaDTO(asignaturaService.save(aDTO.toAsignatura())));
+			}else{
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La Asignatura  ya existe");
+			}
+
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("el id del registro no existe");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El id del registro no existe");
 		}
 	}
 }

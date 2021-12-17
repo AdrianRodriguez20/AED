@@ -17,7 +17,7 @@ public class AlumnoDTO {
 	private BigInteger fechanacimiento;
 	private String nombre;
 	private List<ListadoMatriculasAlumnoDTO> matriculas;
-	
+	private ListadoMatriculasAlumnoDTO listadoMatriculasAlumnoDTO = new ListadoMatriculasAlumnoDTO();
 	public AlumnoDTO() {
 		
 	}
@@ -27,7 +27,7 @@ public class AlumnoDTO {
 		this.apellidos = a.getApellidos();
 		this.fechanacimiento = a.getFechanacimiento();
 		this.nombre = a.getNombre();
-		this.matriculas = ListadoMatriculasAlumnoDTO.toListadoMatriculasAlumnoDTO(a.getMatriculas());
+		this.matriculas = listadoMatriculasAlumnoDTO.toListadoMatriculasAlumnoDTO(a.getMatriculas());
 			
 	}
 

@@ -21,7 +21,7 @@ public class ListadoMatriculasAlumnoDTO {
         this.year = m.getYear();
     }
 
-    public static List<ListadoMatriculasAlumnoDTO> toListadoMatriculasAlumnoDTO(List<Matricula> matriculas) {
+    public  List<ListadoMatriculasAlumnoDTO> toListadoMatriculasAlumnoDTO(List<Matricula> matriculas) {
         List<ListadoMatriculasAlumnoDTO> listadoMatriculasAlumnoDTO = new ArrayList<>();
         if (matriculas!=null) {
             for (Matricula m : matriculas) {

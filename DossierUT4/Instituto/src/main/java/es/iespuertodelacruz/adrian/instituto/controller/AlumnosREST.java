@@ -70,8 +70,7 @@ public class AlumnosREST {
 		Optional<Alumno> optA = alumnoService.findById(a.getDni());
 		if (!optA.isPresent()) {
 			AlumnoDTO aDTO = new AlumnoDTO(a);
-			alumnoService.save(aDTO.toAlumno());
-			return ResponseEntity.ok().body(a);
+			return ResponseEntity.ok().body(alumnoService.save(aDTO.toAlumno()));
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El usuario ya existe");
 		}
@@ -123,30 +122,78 @@ public class AlumnosREST {
 	public ResponseEntity<?> saveMatricula(@PathVariable("idA") String idA, @RequestBody Matricula matricula) {
 		Optional<Alumno> optA = alumnoService.findById(idA);
 		if (optA.isPresent()) {
-			matricula.setAlumno(optA.get());
-			
-			ArrayList<Asignatura> asignaturas = new ArrayList<Asignatura>();
-			for(Asignatura a : matricula.getAsignaturas()) {
-				
-				Optional<Asignatura> optAsig = asignaturaService.findById(a.getIdasignatura());
-				if (optAsig.isPresent()) {
-					asignaturas.add(a);
+			Optional<Matricula> optM = matriculaService.findEquals(idA, matricula.getYear());
+			if (!optM.isPresent()) {
+				matricula.setAlumno(optA.get());
+
+				ArrayList<Asignatura> asignaturas = new ArrayList<Asignatura>();
+				for(Asignatura a : matricula.getAsignaturas()) {
+
+					Optional<Asignatura> optAsig = asignaturaService.findById(a.getIdasignatura());
+					if (optAsig.isPresent()) {
+						asignaturas.add(optAsig.get());
+					}
 				}
+				if (asignaturas.size()>0 && asignaturas.size()==matricula.getAsignaturas().size()) {
+					matricula.setAsignaturas(asignaturas);
+					MatriculaDTO mDTO = new MatriculaDTO(matricula);
+
+					return ResponseEntity.ok().body(new MatriculaDTO(matriculaService.save(mDTO.toMatricula())));
+
+				}else {
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no se ha matriculado de ninguna asignatura");
+				}
+
+			}else{
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno ya se encuentra matriculado");
 			}
-			if (asignaturas.size()>0 && asignaturas.size()==matricula.getAsignaturas().size()) {
-				MatriculaDTO mDTO = new MatriculaDTO(matricula);
-				matriculaService.save(mDTO.toMatricula());
-				return ResponseEntity.ok().body(mDTO);
-			
-			}else {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no se ha matriculado de ninguna asignatura");
-			}
-			
+
 			
 		}else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("EL Alumno no existe");
 		}
 		
 	}
+
+
+	@PutMapping("/{idA}/matriculas/{idM}")
+	public ResponseEntity<?> update(@PathVariable("idA") String idA, @PathVariable Integer idM, @RequestBody Matricula matricula) {
+		Optional<Alumno> optA = alumnoService.findById(idA);
+		if (optA.isPresent()) {
+			Optional<Matricula> optM = matriculaService.findById(idM);
+			if (optM.isPresent() && optM.get().getAlumno().getDni().equals(idA)) {
+				Optional<Matricula> optMEq = matriculaService.findEquals(idA, matricula.getYear());
+				if (!optMEq.isPresent()) {
+
+					ArrayList<Asignatura> asignaturas = new ArrayList<Asignatura>();
+					for (Asignatura a : matricula.getAsignaturas()) {
+						Optional<Asignatura> optAsig = asignaturaService.findById(a.getIdasignatura());
+						if (optAsig.isPresent()) {
+							asignaturas.add(optAsig.get());
+
+						}
+					}
+					if (asignaturas.size() > 0 && asignaturas.size() == matricula.getAsignaturas().size()) {
+						matricula.setIdmatricula(idM);
+						matricula.setAlumno(alumnoService.findById(idA).get());
+						matricula.setAsignaturas(asignaturas);
+						//MatriculaDTO mDTO = new MatriculaDTO(matricula);
+						return ResponseEntity.ok().body(new MatriculaDTO(matriculaService.save(matricula)));
+
+					} else {
+						return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no se ha matriculado de ninguna asignatura");
+					}
+				}else{
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ya existe una matricula para este año");
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El id del registro no existe");
+			}
+
+		}else{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no existe.");
+		}
+	}
+
 
 }
