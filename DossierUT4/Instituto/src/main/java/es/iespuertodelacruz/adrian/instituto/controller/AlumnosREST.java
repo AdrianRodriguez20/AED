@@ -1,11 +1,9 @@
 package es.iespuertodelacruz.adrian.instituto.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import es.iespuertodelacruz.adrian.instituto.dto.ListadoAlumnosDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.adrian.instituto.dto.AlumnoDTO;
-import es.iespuertodelacruz.adrian.instituto.dto.ListadoAlumnosDTO;
 import es.iespuertodelacruz.adrian.instituto.dto.MatriculaDTO;
 import es.iespuertodelacruz.adrian.instituto.entity.Alumno;
 import es.iespuertodelacruz.adrian.instituto.entity.Asignatura;
@@ -41,8 +38,8 @@ public class AlumnosREST {
 	MatriculaService matriculaService;
 	@Autowired
 	AsignaturaService asignaturaService;
-	
-	@GetMapping
+
+	@GetMapping()
 	public ArrayList<ListadoAlumnosDTO> getAll() {
 		ArrayList<ListadoAlumnosDTO> alumnos = new ArrayList<ListadoAlumnosDTO>();
 		alumnoService.findAll().forEach(p -> {
@@ -163,7 +160,7 @@ public class AlumnosREST {
 			Optional<Matricula> optM = matriculaService.findById(idM);
 			if (optM.isPresent() && optM.get().getAlumno().getDni().equals(idA)) {
 				Optional<Matricula> optMEq = matriculaService.findEquals(idA, matricula.getYear());
-				if (!optMEq.isPresent()) {
+				if (!optMEq.isPresent() || optMEq.isPresent() && optMEq.get().getIdmatricula()==optM.get().getIdmatricula()) {
 
 					ArrayList<Asignatura> asignaturas = new ArrayList<Asignatura>();
 					for (Asignatura a : matricula.getAsignaturas()) {

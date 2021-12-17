@@ -6,6 +6,7 @@ import es.iespuertodelacruz.adrian.instituto.entity.Matricula;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.NamedNativeQuery;
+import java.util.List;
 import java.util.Optional;
 
 public interface MatriculasRepository  extends JpaRepository<Matricula,Integer> {
@@ -13,5 +14,6 @@ public interface MatriculasRepository  extends JpaRepository<Matricula,Integer> 
     @Query("select m from Matricula m where m.alumno.dni =?1 and m.year = ?2")
     Optional<Matricula> findByEquals(String dni, int year);
 
-
+    @Query ("select m from Matricula m where m.year = ?1")
+    List<Matricula> findByYear(int year);
 }

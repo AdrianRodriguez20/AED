@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.adrian.instituto.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,11 @@ public class MatriculaService implements GenericService<Matricula,Integer> {
 	public Optional<Matricula> findEquals(String dni, Integer idCurso) {
         return matriculasRepository.findByEquals(dni, idCurso);
     }
+
+	@Transactional(readOnly=true)
+	public List<Matricula> findByYear(Integer year) {
+		return matriculasRepository.findByYear(year);
+	}
 
 }
 

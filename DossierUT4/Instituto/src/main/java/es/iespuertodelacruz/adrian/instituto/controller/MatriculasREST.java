@@ -1,6 +1,8 @@
 package es.iespuertodelacruz.adrian.instituto.controller;
 
 import es.iespuertodelacruz.adrian.instituto.dto.ListadoAlumnosDTO;
+import es.iespuertodelacruz.adrian.instituto.dto.ListadoMatriculasByYearDTO;
+import es.iespuertodelacruz.adrian.instituto.dto.ListadoMatriculasDTO;
 import es.iespuertodelacruz.adrian.instituto.dto.MatriculaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,14 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import es.iespuertodelacruz.adrian.instituto.entity.Alumno;
 import es.iespuertodelacruz.adrian.instituto.entity.Asignatura;
@@ -43,12 +38,44 @@ public class MatriculasREST {
 	AsignaturaService asignaturaService;
 
 
+	@GetMapping
+	public ResponseEntity<?> getAll(@RequestParam(required=false, name="year") Integer year) {
+
+		if(year == null) {
+			ArrayList<ListadoMatriculasDTO> matriculas= new ArrayList<>();
+			matriculaService.findAll().forEach(p -> {
+				Matricula m = (Matricula) p;
+				ListadoMatriculasDTO mDTO = new ListadoMatriculasDTO(m);
+				matriculas.add(mDTO);
+
+			});
+			return ResponseEntity.ok().body(matriculas);
+		}else{
+			ArrayList<ListadoMatriculasByYearDTO> matriculas= new ArrayList<>();
+			matriculaService.findByYear(year).forEach(p -> {
+				Matricula m = p;
+				ListadoMatriculasByYearDTO mDTO = new ListadoMatriculasByYearDTO(m);
+
+				matriculas.add(mDTO);
+			});
+			return ResponseEntity.ok().body(matriculas);
+		}
+
+
+	}
+
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getById(@PathVariable("id") String id) {
 		Optional<Matricula> optM = matriculaService.findById(Integer.parseInt(id));
-		return ResponseEntity.ok().body(new MatriculaDTO(optM.get()));
+		if (optM.isPresent()) {
+			return ResponseEntity.ok().body(new ListadoMatriculasDTO(optM.get()));
+		}else{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El id del registro no existe");
+		}
+
 	}
+
 
 
 	@DeleteMapping("/{id}")

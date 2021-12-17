@@ -10,9 +10,8 @@ public class ListadoAlumnosDTO {
 	private String apellidos;
 	private BigInteger fechanacimiento;
 	private String nombre;
-	
+
 	public ListadoAlumnosDTO() {
-		
 	}
 
 	public ListadoAlumnosDTO (Alumno a) {
