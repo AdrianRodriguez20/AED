@@ -57,12 +57,12 @@ public class AsignaturasREST {
 
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Asignatura a) {
-		Optional<Asignatura> optA = asignaturaService.findEquals(a.getNombre(),a.getCurso());
+		Optional<Asignatura> optA = asignaturaService.findEquals(a.getNombre(), a.getCurso());
 		if (!optA.isPresent()) {
 			AsignaturaDTO aDTO = new AsignaturaDTO(a);
 
 			return ResponseEntity.ok().body(new AsignaturaDTO(asignaturaService.save(aDTO.toAsignatura())));
-		}else {
+		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La Asignatura  ya existe");
 		}
 
@@ -72,8 +72,14 @@ public class AsignaturasREST {
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
 		Optional<Asignatura> optA = asignaturaService.findById(id);
 		if (optA.isPresent()) {
-			asignaturaService.deleteById(id);
-			return ResponseEntity.ok("Asignatura borrado");
+			try {
+
+				asignaturaService.deleteById(id);
+				return ResponseEntity.ok("Asignatura borrado");
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+						.body("No se puede eliminar esta asignatura , debido a que está asociada a otras matriculas");
+			}
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El id del registro no existe");
 		}
@@ -84,10 +90,10 @@ public class AsignaturasREST {
 		Optional<Asignatura> optA = asignaturaService.findById(id);
 		if (optA.isPresent()) {
 			AsignaturaDTO aDTO = new AsignaturaDTO(a);
-			Optional<Asignatura> optAs = asignaturaService.findEquals(a.getNombre(),a.getCurso());
+			Optional<Asignatura> optAs = asignaturaService.findEquals(a.getNombre(), a.getCurso());
 			if (!optAs.isPresent()) {
 				return ResponseEntity.ok().body(new AsignaturaDTO(asignaturaService.save(aDTO.toAsignatura())));
-			}else{
+			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La Asignatura  ya existe");
 			}
 

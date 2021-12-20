@@ -128,6 +128,7 @@ public class AlumnosREST {
 	@PostMapping("/{idA}/matriculas")
 	public ResponseEntity<?> saveMatricula(@PathVariable("idA") String idA, @RequestBody Matricula matricula) {
 		Optional<Alumno> optA = alumnoService.findById(idA);
+		String message="";
 		if (optA.isPresent()) {
 			Optional<Matricula> optM = matriculaService.findEquals(idA, matricula.getYear());
 			if (!optM.isPresent()) {
@@ -139,6 +140,8 @@ public class AlumnosREST {
 					Optional<Asignatura> optAsig = asignaturaService.findById(a.getIdasignatura());
 					if (optAsig.isPresent()) {
 						asignaturas.add(optAsig.get());
+					}else {
+						message+="La Asignatura "+a.getIdasignatura()+" no existe."+"\n";
 					}
 				}
 				if (asignaturas.size()>0 && asignaturas.size()==matricula.getAsignaturas().size()) {
@@ -148,7 +151,7 @@ public class AlumnosREST {
 					return ResponseEntity.ok().body(new MatriculaDTO(matriculaService.save(mDTO.toMatricula())));
 
 				}else {
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no se ha matriculado de ninguna asignatura");
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no se ha matriculado de ninguna asignatura."+message);
 				}
 
 			}else{
