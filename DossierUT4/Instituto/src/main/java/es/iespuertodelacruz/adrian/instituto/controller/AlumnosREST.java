@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iespuertodelacruz.adrian.instituto.dto.AlumnoDTO;
@@ -40,13 +41,22 @@ public class AlumnosREST {
 	AsignaturaService asignaturaService;
 
 	@GetMapping()
-	public ArrayList<ListadoAlumnosDTO> getAll() {
+	public ArrayList<ListadoAlumnosDTO> getAll(@RequestParam(required=false, name="nombre") String nombre) {
 		ArrayList<ListadoAlumnosDTO> alumnos = new ArrayList<ListadoAlumnosDTO>();
-		alumnoService.findAll().forEach(p -> {
-			Alumno a = (Alumno) p;
-			ListadoAlumnosDTO uDTO = new ListadoAlumnosDTO(a);
-			alumnos.add(uDTO);
-		});
+		if (nombre==null) {
+			alumnoService.findAll().forEach(p -> {
+				Alumno a = (Alumno) p;
+				ListadoAlumnosDTO uDTO = new ListadoAlumnosDTO(a);
+				alumnos.add(uDTO);
+			});
+		}else {
+			alumnoService.findByName(nombre).forEach(p -> {
+				Alumno a = (Alumno) p;
+				ListadoAlumnosDTO uDTO = new ListadoAlumnosDTO(a);
+				alumnos.add(uDTO);
+			});
+		}
+
 		return alumnos;
 	}
 
@@ -118,6 +128,7 @@ public class AlumnosREST {
 	@PostMapping("/{idA}/matriculas")
 	public ResponseEntity<?> saveMatricula(@PathVariable("idA") String idA, @RequestBody Matricula matricula) {
 		Optional<Alumno> optA = alumnoService.findById(idA);
+		String message="";
 		if (optA.isPresent()) {
 			Optional<Matricula> optM = matriculaService.findEquals(idA, matricula.getYear());
 			if (!optM.isPresent()) {
@@ -129,6 +140,8 @@ public class AlumnosREST {
 					Optional<Asignatura> optAsig = asignaturaService.findById(a.getIdasignatura());
 					if (optAsig.isPresent()) {
 						asignaturas.add(optAsig.get());
+					}else {
+						message+="La Asignatura "+a.getIdasignatura()+" no existe."+"\n";
 					}
 				}
 				if (asignaturas.size()>0 && asignaturas.size()==matricula.getAsignaturas().size()) {
@@ -138,7 +151,7 @@ public class AlumnosREST {
 					return ResponseEntity.ok().body(new MatriculaDTO(matriculaService.save(mDTO.toMatricula())));
 
 				}else {
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no se ha matriculado de ninguna asignatura");
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no se ha matriculado de ninguna asignatura."+message);
 				}
 
 			}else{

@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.adrian.instituto.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,9 @@ public class AlumnoService implements GenericService<Alumno,String> {
 	public void delete(Alumno obj) {
 		alumnosRepository.delete(obj);
 		
+	}
+	public List<Alumno> findByName(String nombre){
+		return alumnosRepository.findByName("%"+nombre+"%");
 	}
 
 

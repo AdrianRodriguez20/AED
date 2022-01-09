@@ -11,7 +11,7 @@ public class ListadoMatriculasDTO {
     private int year;
     private List<AsignaturaDTO> asignaturas;
     AsignaturaDTO asignaturaDTO = new AsignaturaDTO();
-    private AlumnoDTO alumnoDTO;
+    private ListadoAlumnosDTO alumnoDTO;
 
     public ListadoMatriculasDTO () {
 
@@ -20,7 +20,7 @@ public class ListadoMatriculasDTO {
     public ListadoMatriculasDTO (Matricula m) {
         this.year = m.getYear();
         this.asignaturas = asignaturaDTO.toAsignaturaDTO(m.getAsignaturas());
-        this.alumnoDTO=new AlumnoDTO(m.getAlumno());
+        this.alumnoDTO=new ListadoAlumnosDTO(m.getAlumno());
 
     }
 
@@ -47,13 +47,14 @@ public class ListadoMatriculasDTO {
         this.asignaturas = asignaturas;
     }
 
-    public AlumnoDTO getAlumno() {
+    public ListadoAlumnosDTO getAlumno() {
         return alumnoDTO;
     }
 
-    public void setAlumno(AlumnoDTO alumnoDTO) {
+    public void setAlumno(ListadoAlumnosDTO alumnoDTO) {
         this.alumnoDTO = alumnoDTO;
     }
+
 
 
     public List<Asignatura> toAsignaturas(){
