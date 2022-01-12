@@ -29,7 +29,7 @@ import es.iespuertodelacruz.adrian.instituto.service.MatriculaService;
 @RestController
 @RequestMapping("/api/v3/alumnos")
 
-public class AlumnosREST {
+public class AlumnosV3REST {
 
 	// private Logger logger = LoggerFactory.getLogger(AlumnosREST.class);
 

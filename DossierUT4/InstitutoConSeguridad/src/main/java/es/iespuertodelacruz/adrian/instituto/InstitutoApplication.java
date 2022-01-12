@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.adrian.instituto;
 
+import es.iespuertodelacruz.adrian.instituto.security.CustomCorsFilter;
 import es.iespuertodelacruz.adrian.instituto.security.FiltroJWT;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
@@ -38,10 +41,15 @@ public class InstitutoApplication {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception
 		{
-			http.csrf().disable()
-					.addFilterBefore(new FiltroJWT(),
-							UsernamePasswordAuthenticationFilter.class)
+			http
+					//.addFilterBefore(new CustomCorsFilter(),
+						//	WebAsyncManagerIntegrationFilter.class)
+					.csrf().disable()
+			        .addFilterBefore(new FiltroJWT(),
+					UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
+					.requestMatchers(CorsUtils::isCorsRequest).permitAll()
+					.antMatchers(HttpMethod.OPTIONS, "**").permitAll()
 					.antMatchers("/api/v3/**").hasRole("ADMIN")
 					.anyRequest().authenticated()
 			;

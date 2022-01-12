@@ -52,17 +52,14 @@ public class LoginController {
 
         if(autenticado) {
 
-            String rol = username+", "+usuario.getRol();
-            logger.info("El rol obtenido es : " + rol);
 
 
-            List<GrantedAuthority> grantedAuthorities =
-                    AuthorityUtils
-                            .commaSeparatedStringToAuthorityList(usuario.getRol());
-            List<String> roles = grantedAuthorities.stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList());
-            System.out.println("Roles: " + roles);
+
+            String rol = usuario.getRol();
+            List<String> roles = new ArrayList<String>();
+            roles.add(rol);
+            logger.info("los roles obtenidos: " + roles);
+
             int duracionMinutos = 600;
             String token = gestorDeJWT.generarToken(username, roles,
                     duracionMinutos);
