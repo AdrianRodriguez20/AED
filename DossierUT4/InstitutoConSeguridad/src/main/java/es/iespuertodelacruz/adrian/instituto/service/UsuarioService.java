@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,33 +18,36 @@ public class UsuarioService implements GenericService<Usuario,Integer> {
     private UsuariosRepository usuariosRepository;
 
     @Override
+	@Transactional(readOnly=true)
     public Iterable<Usuario> findAll() {
-        return null;
+        return usuariosRepository.findAll();
     }
 
     @Override
+	@Transactional(readOnly=true)
     public Page<Usuario> findAll(Pageable pageable) {
-        return null;
+        return usuariosRepository.findAll(pageable);
     }
 
     @Override
+	@Transactional(readOnly=true)
     public Optional<Usuario> findById(Integer id) {
-        return Optional.empty();
+        return usuariosRepository.findById(id);
     }
 
     @Override
     public Usuario save(Usuario obj) {
-        return null;
+        return usuariosRepository.save(obj);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+    	usuariosRepository.deleteById(id);
     }
 
     @Override
     public void delete(Usuario obj) {
-
+    	usuariosRepository.delete(obj);
     }
 
     public Usuario findByUsername(String username){
