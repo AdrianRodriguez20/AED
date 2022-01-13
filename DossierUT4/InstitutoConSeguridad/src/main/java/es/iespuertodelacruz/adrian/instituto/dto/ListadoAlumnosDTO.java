@@ -59,10 +59,6 @@ public class ListadoAlumnosDTO {
 		return new Alumno(dni,apellidos,fechanacimiento,nombre);
 		
 	}
-	
 
-	
-	
-	
 	
 }

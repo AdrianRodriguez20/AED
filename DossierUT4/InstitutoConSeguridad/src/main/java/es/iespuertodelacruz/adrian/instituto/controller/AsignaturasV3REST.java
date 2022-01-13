@@ -23,9 +23,9 @@ import es.iespuertodelacruz.adrian.instituto.entity.Asignatura;
 import es.iespuertodelacruz.adrian.instituto.service.AsignaturaService;
 
 @RestController
-@RequestMapping("/api/v1/asignaturas")
+@RequestMapping("/api/v3/asignaturas")
 
-public class AsignaturasREST {
+public class AsignaturasV3REST {
 
 	// private Logger logger = LoggerFactory.getLogger(AlumnosREST.class);
 

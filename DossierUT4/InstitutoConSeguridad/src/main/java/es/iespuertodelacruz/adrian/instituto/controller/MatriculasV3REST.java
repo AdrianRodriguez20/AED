@@ -1,35 +1,29 @@
 package es.iespuertodelacruz.adrian.instituto.controller;
 
-import es.iespuertodelacruz.adrian.instituto.dto.ListadoAlumnosDTO;
 import es.iespuertodelacruz.adrian.instituto.dto.ListadoMatriculasByYearDTO;
 import es.iespuertodelacruz.adrian.instituto.dto.ListadoMatriculasDTO;
-import es.iespuertodelacruz.adrian.instituto.dto.MatriculaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import es.iespuertodelacruz.adrian.instituto.entity.Alumno;
-import es.iespuertodelacruz.adrian.instituto.entity.Asignatura;
 import es.iespuertodelacruz.adrian.instituto.entity.Matricula;
 import es.iespuertodelacruz.adrian.instituto.service.AlumnoService;
 import es.iespuertodelacruz.adrian.instituto.service.AsignaturaService;
 import es.iespuertodelacruz.adrian.instituto.service.MatriculaService;
 
 @RestController
-@RequestMapping("/api/matriculas")
+@RequestMapping("/api/V3/matriculas")
 
-public class MatriculasREST {
+public class MatriculasV3REST {
 	
-	private Logger logger = LoggerFactory.getLogger(MatriculasREST.class);
+	private Logger logger = LoggerFactory.getLogger(MatriculasV3REST.class);
 	@Autowired
 	MatriculaService matriculaService;
 	@Autowired
