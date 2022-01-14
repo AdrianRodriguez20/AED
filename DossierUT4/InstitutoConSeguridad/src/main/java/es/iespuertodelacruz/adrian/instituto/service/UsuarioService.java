@@ -1,5 +1,6 @@
 package es.iespuertodelacruz.adrian.instituto.service;
 
+import es.iespuertodelacruz.adrian.instituto.entity.Alumno;
 import es.iespuertodelacruz.adrian.instituto.entity.Asignatura;
 import es.iespuertodelacruz.adrian.instituto.entity.Usuario;
 import es.iespuertodelacruz.adrian.instituto.repository.UsuariosRepository;
@@ -9,10 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioService implements GenericService<Usuario,Integer> {
+public class UsuarioService implements GenericService<Usuario,String> {
 
     @Autowired
     private UsuariosRepository usuariosRepository;
@@ -31,7 +33,7 @@ public class UsuarioService implements GenericService<Usuario,Integer> {
 
     @Override
 	@Transactional(readOnly=true)
-    public Optional<Usuario> findById(Integer id) {
+    public Optional<Usuario> findById(String id) {
         return usuariosRepository.findById(id);
     }
 
@@ -41,7 +43,7 @@ public class UsuarioService implements GenericService<Usuario,Integer> {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(String id) {
     	usuariosRepository.deleteById(id);
     }
 
@@ -53,4 +55,6 @@ public class UsuarioService implements GenericService<Usuario,Integer> {
     public Usuario findByUsername(String username){
         return usuariosRepository.findByUsername(username);
     }
+
+
 }
