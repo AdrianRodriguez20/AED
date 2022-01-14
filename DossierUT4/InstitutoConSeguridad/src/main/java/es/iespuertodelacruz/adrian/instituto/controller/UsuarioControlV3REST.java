@@ -52,7 +52,8 @@ public class UsuarioControlV3REST {
         Optional<Usuario> optA = usuarioService.findById(a.getUsername());
         if (!optA.isPresent()) {
             UsuarioDTO aDTO = new UsuarioDTO(a);
-            return ResponseEntity.ok().body(usuarioService.save(aDTO.toUsuario()));
+            usuarioService.save(aDTO.toUsuario());
+            return ResponseEntity.ok().body(aDTO);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El usuario ya existe");
         }
@@ -75,7 +76,8 @@ public class UsuarioControlV3REST {
         Optional<Usuario> optA = usuarioService.findById(username);
         if (optA.isPresent()) {
             UsuarioDTO uDTO = new UsuarioDTO(u);
-            return ResponseEntity.ok(usuarioService.save(uDTO.toUsuario()));
+            usuarioService.save(uDTO.toUsuario());
+            return ResponseEntity.ok(uDTO);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("el id del registro no existe");
         }
