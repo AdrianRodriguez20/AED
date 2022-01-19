@@ -1,6 +1,5 @@
 package es.iespuertodelacruz.adrian.instituto.controller;
 
-import es.iespuertodelacruz.adrian.instituto.dto.AlumnoDTO;
 import es.iespuertodelacruz.adrian.instituto.dto.ListadoAlumnosDTO;
 import es.iespuertodelacruz.adrian.instituto.dto.ListadoAlumnosV1DTO;
 import es.iespuertodelacruz.adrian.instituto.dto.MatriculaDTO;
@@ -62,23 +61,7 @@ public class AlumnosV1REST {
 
     }
 
-    @GetMapping("/{idA}/matriculas/{idM}")
-    public ResponseEntity<?> getMatriculaById(@PathVariable("idA") String idA, @PathVariable("idM") Integer idM) {
-        Optional<Alumno> optA = alumnoService.findById(idA);
-        if (optA.isPresent()) {
-            Optional<Matricula> optM = matriculaService.findById(idM);
-            if (optM.isPresent() && optM.get().getAlumno().getDni().equals(idA)) {
-                MatriculaDTO mDTO = new MatriculaDTO(optM.get());
-                return ResponseEntity.ok().body(mDTO);
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La matrícula no existe");
-            }
 
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El alumno no existe");
-        }
-
-    }
 
 
 

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/asignaturas")
-public class AsignaturasV1REST {
+@RequestMapping(value={"/api/v1/asignaturas", "/api/v2/asignaturas"})
+public class AsignaturasV1V2REST {
 
     @Autowired
     AsignaturaService asignaturaService;

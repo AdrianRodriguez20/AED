@@ -19,11 +19,11 @@ import es.iespuertodelacruz.adrian.instituto.service.AsignaturaService;
 import es.iespuertodelacruz.adrian.instituto.service.MatriculaService;
 
 @RestController
-@RequestMapping("/api/V3/matriculas")
+@RequestMapping(value = {"/api/v2/matriculas", "/api/v3/matriculas"})
 
-public class MatriculasV3REST {
+public class MatriculasV2V3REST {
 	
-	private Logger logger = LoggerFactory.getLogger(MatriculasV3REST.class);
+	private Logger logger = LoggerFactory.getLogger(MatriculasV2V3REST.class);
 	@Autowired
 	MatriculaService matriculaService;
 	@Autowired
