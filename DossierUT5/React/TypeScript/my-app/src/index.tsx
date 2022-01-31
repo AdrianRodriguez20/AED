@@ -5,13 +5,17 @@ import './index.css';
 import MostrarInput from './MostrarInput';
 import OperarBotones from './OperarBotones';
 import App from './App';
+import Cronometro from './Cronometro';
 import reportWebVitals from './reportWebVitals';
+
+//ReactDOM.render(<App/>,document.getElementById('root'));
 
 //ReactDOM.render(<OperarBotones/>,document.getElementById('root'));
 
 //ReactDOM.render(<MostrarInput/>,document.getElementById('root'));
 
-ReactDOM.render(<App/>,document.getElementById('root'));
+ReactDOM.render(<Cronometro/>,document.getElementById('root'));
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
