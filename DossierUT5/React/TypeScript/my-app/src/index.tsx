@@ -7,6 +7,8 @@ import OperarBotones from './OperarBotones';
 import App from './App';
 import Cronometro from './Cronometro';
 import reportWebVitals from './reportWebVitals';
+import ListadoPersonas from './ListadoPersonas';
+
 
 //ReactDOM.render(<App/>,document.getElementById('root'));
 
@@ -14,7 +16,10 @@ import reportWebVitals from './reportWebVitals';
 
 //ReactDOM.render(<MostrarInput/>,document.getElementById('root'));
 
-ReactDOM.render(<Cronometro/>,document.getElementById('root'));
+//ReactDOM.render(<Cronometro/>,document.getElementById('root'));
+
+ReactDOM.render(<ListadoPersonas/>,document.getElementById('root'));
+
 
 
 // If you want to start measuring performance in your app, pass a function
