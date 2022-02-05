@@ -1,0 +1,90 @@
+{
+  "alumnos": [
+    {
+        "dni": "12312312K",
+        "apellidos": "Gutiérrez",
+        "fechanacimiento": 821234400000,
+        "nombre": "María Luisa"
+    },
+    {
+        "dni": "12345678Z",
+        "apellidos": "Martín",
+        "fechanacimiento": 968972400000,
+        "nombre": "Ana"
+    },
+    {
+        "dni": "43494199b",
+        "apellidos": "Rodriguez",
+        "fechanacimiento": 821234400000,
+        "nombre": "Adrian"
+    },
+    {
+        "dni": "87654321X",
+        "apellidos": "Afonso Jiménez",
+        "fechanacimiento": 874278000000,
+        "nombre": "Marcos"
+    }
+],
+  "asignaturas": [
+    {
+        "idasignatura": 4,
+        "curso": "2º DAM",
+        "nombre": "AED"
+    },
+    {
+        "idasignatura": 6,
+        "curso": "2º DAW",
+        "nombre": "DPL"
+    },
+    {
+        "idasignatura": 5,
+        "curso": "2º DAW",
+        "nombre": "DSW"
+    },
+    {
+        "idasignatura": 3,
+        "curso": "1º DAM",
+        "nombre": "LND"
+    },
+    {
+        "idasignatura": 8,
+        "curso": "2º DAM",
+        "nombre": "PGL"
+    },
+    {
+        "idasignatura": 2,
+        "curso": "2º DAM",
+        "nombre": "PGV"
+    },
+    {
+        "idasignatura": 11,
+        "curso": "2º DAM",
+        "nombre": "PGV2"
+    },
+    {
+        "idasignatura": 1,
+        "curso": "2º DAM",
+        "nombre": "PGV5"
+    },
+    {
+        "idasignatura": 7,
+        "curso": "1º DAM",
+        "nombre": "PRO"
+    },
+    {
+        "idasignatura": 9,
+        "curso": "2º DAM",
+        "nombre": "PRO"
+    },
+    {
+        "idasignatura": 12,
+        "curso": "2º DAM",
+        "nombre": "PRO2"
+    },
+    {
+        "idasignatura": 13,
+        "curso": "2º DAM",
+        "nombre": "PRO3"
+    }
+]
+}
