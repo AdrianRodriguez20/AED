@@ -23,8 +23,8 @@ export default function ListAlumnos() {
         <>
 
             <div id="content">
-                <h3 style={{textAlign:'center'}} >Alumnos</h3>
-
+                <h3 style={{ textAlign: 'center' }} >Alumnos</h3>
+                <hr></hr>
                 <div className='container-fluid'>
                     <div className='row'>
                         {
@@ -38,12 +38,12 @@ export default function ListAlumnos() {
                                                     <h3>{JSON.parse(JSON.stringify(alumno.nombre))} {JSON.parse(JSON.stringify(alumno.apellidos))}</h3>
                                                 </header>
                                                 <div className="card__supporting-text">
-                                                  <b>Fecha de Nacimiento: </b>  {new Date(parseInt(JSON.stringify(alumno.fechanacimiento))).toISOString().split('T')[0]}<br></br>
-                                                  <b>Dni :</b>  {JSON.parse(JSON.stringify(alumno.dni))}<br></br>
+                                                    <b>Fecha de Nacimiento: </b>  {new Date(parseInt(JSON.stringify(alumno.fechanacimiento))).toISOString().split('T')[0]}<br></br>
+                                                    <b>Dni :</b>  {JSON.parse(JSON.stringify(alumno.dni))}<br></br>
                                                 </div>
                                             </div>
                                             <footer className="card__actions">
-                                                <Link  className="btn"to={`/alumnos/${JSON.parse(JSON.stringify(alumno.dni))}`} > Ver mas </Link> &nbsp;
+                                                <Link className="btn" to={`/alumnos/${JSON.parse(JSON.stringify(alumno.dni))}`} > Ver mas </Link> &nbsp;
                                             </footer>
                                         </article>
                                     </div>
@@ -53,8 +53,15 @@ export default function ListAlumnos() {
 
                         }
                     </div>
+
                 </div>
+                <Link to="/alumnos/create">
+                <button className="botonF1">
+                    <span>+</span>
+                </button>
+                </Link>
             </div >
+
 
         </>
     );

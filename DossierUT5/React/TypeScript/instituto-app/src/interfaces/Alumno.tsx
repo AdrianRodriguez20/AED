@@ -5,6 +5,6 @@ export interface Alumno {
     nombre: string;
     apellidos: string;
     fechanacimiento: string;
-    matriculas: Matricula[];
+    matriculas?: Matricula[];
 }
 

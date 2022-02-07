@@ -23,6 +23,7 @@ export default function ListAsignaturas() {
     return (
         <div className="container-fluid">
                    <h3 style={{textAlign:'center'}} >Asignaturas</h3>
+                   <hr></hr>
             <div className="row">
                 {                 
                     asignaturas.asignaturas?.map((asignatura: Asignatura) => {
