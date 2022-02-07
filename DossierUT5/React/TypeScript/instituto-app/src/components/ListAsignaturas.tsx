@@ -9,7 +9,7 @@ export default function ListAsignaturas() {
     useEffect(
         () => {
             const getAsignatura = async () => {
-                let rutaDeAsignaturas = "http://localhost:8080/api/v1/asignaturas";
+                let rutaDeAsignaturas = "http://localhost:8080/api/asignaturas";
                 let { data } = await axios.get(rutaDeAsignaturas);
                 let asignaturas: Array<Asignatura> = data;
                 console.log("Asignaturas" + asignaturas);

@@ -9,7 +9,7 @@ export default function ListAlumnos() {
     useEffect(
         () => {
             const getAlumno = async () => {
-                let rutaDeAlumno = "http://localhost:8080/api/v1/alumnos";
+                let rutaDeAlumno = "http://localhost:8080/api/alumnos";
                 let { data } = await axios.get(rutaDeAlumno);
                 let alumnos: Array<Alumno> = data;
                 console.log("Alumno" + alumnos);

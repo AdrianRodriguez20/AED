@@ -14,7 +14,7 @@ export default function CreateAlumno() {
 
 		let nombrAlumno = inputnombrealumno.value;
 		let apellidosAlumno = inputapellidosalumno.value;
-		let fechanacimientoAlumno = inputfechanacimientoalumno.value;
+		let fechanacimientoAlumno = new Date(inputfechanacimientoalumno.value).getTime();
 		let dniAlumno = inputdni.value;
 
 		let alumno = {
@@ -24,7 +24,7 @@ export default function CreateAlumno() {
 			dni: dniAlumno
 		}
 
-		let ruta = "http://localhost:8080/api/v1/alumnos";
+		let ruta = "http://localhost:8080/api/alumnos";
 		
 		const axiospost =async (rutaAlumnos:string) => {
 			try{
@@ -57,7 +57,7 @@ export default function CreateAlumno() {
 
 				<div className="wrap-input100 validate-input" >
 					<span className="label-input100">Apellidos</span>
-					<input className="input100" type="text" id="nombre" placeholder="Introduce tus apellidos"/>
+					<input className="input100" type="text" id="apellidos" placeholder="Introduce tus apellidos"/>
 					<span className="focus-input100"></span>
 				</div>
 

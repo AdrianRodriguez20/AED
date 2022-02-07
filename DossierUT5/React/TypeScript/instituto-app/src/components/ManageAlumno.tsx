@@ -11,7 +11,7 @@ export default function ManageAlumno() {
     const { dni } = useParams();
     useEffect(() => {
         const getAlumno = async (dni :string |undefined) => {
-            let rutaAlumnos = "http://localhost:8080/api/v1/alumnos/";
+            let rutaAlumnos = "http://localhost:8080/api/alumnos/";
             let {data} = await axios.get(rutaAlumnos + dni);
             let alumno: Alumno = data;
             setStAlumno({ alumno });
@@ -20,7 +20,8 @@ export default function ManageAlumno() {
     }, [dni]);
     return (
         <>
-         <div><b>Nombre: </b> {JSON.parse(JSON.stringify(stAlumno.alumno?.nombre))}</div>
+         <div><b>Nombre: </b>{JSON.stringify(stAlumno.alumno?.dni)}</div>
+         <div>{JSON.stringify(stAlumno.alumno?.matriculas)}</div>
         </>
     );
 }
