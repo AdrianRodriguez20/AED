@@ -4,6 +4,6 @@ import { Alumno } from "./Alumno";
 export interface Matricula {
     idmatricula: number;
     year: number;
-    alumno: Alumno;
-    asignatura: Asignatura[];
+    alumno?: Alumno;
+    asignatura?: Asignatura[];
 }

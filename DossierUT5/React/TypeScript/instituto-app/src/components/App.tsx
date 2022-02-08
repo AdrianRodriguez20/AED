@@ -9,6 +9,7 @@ import '../style/App.css'
 import Inicio from './Inicio';
 import Navbar from './Navbar';
 import ManageAlumno from './ManageAlumno';
+import CreateMatricula from './CreateMatricula';
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/alumnos/create" element={<CreateAlumno />} />
         <Route path="/alumnos/:dni" element={<ManageAlumno/>}/>
         <Route path="/alumnos/:dni/update" element={<UpdateAlumno />} />
+        <Route path="/alumnos/:dni/matriculas" element={<CreateMatricula/>}/>
         <Route path="/alumnos/:dni/matriculas/:id" />
         <Route path="/asignaturas" element={<ListAsignaturas/>} />
         

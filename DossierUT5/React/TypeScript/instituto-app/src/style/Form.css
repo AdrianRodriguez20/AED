@@ -12,6 +12,11 @@
       height: 100%;
       font-family: Poppins-Regular, sans-serif;
   }
+  .picker{
+    position: absolute;
+    width: 20.5%;
+    z-index: 2;
+  }
   
   /*---------------------------------------------*/
   a {
@@ -314,8 +319,22 @@
     }
   }
   
+  .select {
+    width: 100%;
+  }
+  
+  .select option {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
   
 
-  
+  .color {
+    padding: 6px 30px;
+    margin: 10px;
+    background: orange;
+    display: inline-block;
+    border-radius: 100px;
+  }
 
  

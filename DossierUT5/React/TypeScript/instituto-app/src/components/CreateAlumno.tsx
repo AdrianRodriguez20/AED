@@ -18,10 +18,10 @@ export default function CreateAlumno() {
 		let dniAlumno = inputdni.value;
 
 		let alumno = {
-			nombre: nombrAlumno,
-			apellidos: apellidosAlumno,
-			fechanacimiento: fechanacimientoAlumno,
-			dni: dniAlumno
+			"nombre": nombrAlumno,
+			"apellidos": apellidosAlumno,
+			"fechanacimiento": fechanacimientoAlumno,
+			"dni": dniAlumno
 		}
 
 		let ruta = "http://localhost:8080/api/alumnos";
