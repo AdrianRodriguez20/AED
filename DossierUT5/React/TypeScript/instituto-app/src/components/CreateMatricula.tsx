@@ -10,7 +10,7 @@ export default function CreateMatricula() {
 
 
     const { dni } = useParams();
-    const [stasignaturaa, setSasignaturas] = useState<IState>({});
+    const [stasignatura, setSasignaturas] = useState<IState>({});
 
     useEffect(
         () => {
@@ -96,9 +96,9 @@ export default function CreateMatricula() {
                         <span className="label-input100">Asignaturas</span><br></br>
                         <select className="select mt-3" multiple={true} onChange={onChangeHandler} id="asignaturas">
                             {
-                                stasignaturaa.asignaturas?.map((asignatura: Asignatura) => {
+                                stasignatura.asignaturas?.map((asignatura: Asignatura) => {
                                     return (
-                                        <option value={asignatura.idasignatura}>{asignatura.nombre}</option>
+                                        <option value={asignatura.idasignatura}>{asignatura.nombre} → {asignatura.curso}</option>
                                     );
                                 })
                             }

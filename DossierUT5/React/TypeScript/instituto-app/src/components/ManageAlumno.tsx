@@ -46,7 +46,7 @@ export default function ManageAlumno() {
                                 <div className="row m-l-0 m-r-0">
                                     <div className="col-md-4 bg-c-lite-green user-profile">
                                         <div className="card-block text-center text-white">
-                                            <div className="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" className="img-radius" /> </div>
+                                            <div className="m-b-25"> <img src="https://easystore.com.mx/wa/img/profile-img.png" className="img-radius" style={{width:"50%"}}/> </div>
                                             <h6 className="f-w-600">{JSON.stringify(stAlumno.alumno?.nombre)?.replaceAll('"', '')}</h6>
 
                                         </div>
@@ -80,7 +80,7 @@ export default function ManageAlumno() {
                                                     <p className="m-b-10 f-w-600">Años</p>
                                                     {
                                                         stAlumno.alumno?.matriculas?.map((matricula: any) => (
-                                                     <Link to={`/alumnos/${JSON.stringify(stAlumno.alumno?.dni)?.replaceAll('"', '')}/matricula/${JSON.stringify(matricula?.id)?.replaceAll('"', '')}`} > 
+                                                     <Link to={`/alumnos/${JSON.stringify(stAlumno.alumno?.dni)?.replaceAll('"', '')}/matriculas/${JSON.stringify(matricula?.id)?.replaceAll('"', '')}`} > 
                                                        <h6 className="text-muted f-w-400 matriculas">{JSON.stringify(matricula?.year)} </h6>
                                                      </Link>
                                                         ))
@@ -100,7 +100,7 @@ export default function ManageAlumno() {
             </div>
             <Link to={`/alumnos/${JSON.stringify(stAlumno.alumno?.dni)?.replaceAll('"', '')}/matriculas`} > 
                 <button className="botonF3">
-                    <span><i className="fas fa-book" style={{fontSize:"25px", width:"50px"}}></i></span>
+                    <span><i className="fas fa-book-medical" style={{fontSize:"25px", width:"50px"}}></i></span>
                 </button>
             </Link>
             <Link to={`/alumnos/${JSON.stringify(stAlumno.alumno?.dni)?.replaceAll('"', '')}/update`} > 

@@ -5,5 +5,5 @@ export interface Matricula {
     idmatricula: number;
     year: number;
     alumno?: Alumno;
-    asignatura?: Asignatura[];
+    asignaturas?: Asignatura[];
 }
