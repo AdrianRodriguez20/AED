@@ -17,9 +17,6 @@ export default function Navbar() {
                             <Link to="/alumnos" className="nav_link ">
                                 <i className='bx bx-user nav_icon'></i>
                             </Link>
-                            <Link to="/matriculas" className="nav_link ">
-                                <i className='bx bx-message-square-detail nav_icon'></i>
-                            </Link>
                             <Link to="/asignaturas" className="nav_link ">
                                 <i className='bx bx-book nav_icon'></i>
                             </Link>

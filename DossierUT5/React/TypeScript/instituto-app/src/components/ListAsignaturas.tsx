@@ -53,7 +53,7 @@ export default function ListAsignaturas() {
                             <div className='col-md-2  col-12 col-sm-6 col-xl-3  mb-3 mt-3'>
                                 <article className="card bg--deep-purple depth--two">
                                 <div className="row">
-                                    <div className='col-6'>
+                                    <div className='col-10'>
                                         <div className="card__body">
                                             <header className="card__primary-title">
                                                 <h2>{JSON.parse(JSON.stringify(asignatura.nombre))}</h2>
@@ -64,8 +64,8 @@ export default function ListAsignaturas() {
 
                                         </div>
                                     </div>
-                                    <div className='col-3'>
-                                        <footer className="card__actions">
+                                    <div className='col-2'>
+                                        <footer className="card__actions mt-2">
                                             <form onSubmit={borrarAsignaturaApi}>
                                                 <button type="submit" className='btn' >
                                                     <input type="hidden" id="idasignatura" value={asignatura.idasignatura} />

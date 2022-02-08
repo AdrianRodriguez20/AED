@@ -82,7 +82,7 @@ export default function ManageAlumno() {
                                                     {
                                                         stAlumno.alumno?.matriculas?.map((matricula: any) => (
                                                      <Link to={`/alumnos/${JSON.stringify(stAlumno.alumno?.dni)?.replaceAll('"', '')}/matriculas/${JSON.stringify(matricula?.id)?.replaceAll('"', '')}`} > 
-                                                       <h6 className="text-muted f-w-400 matriculas">{JSON.stringify(matricula?.year)} </h6>
+                                                       <h6 className="text-muted f-w-400 matriculas">{JSON.stringify(matricula?.year)}<i className="fas fa-eye" style={{fontSize:"90%", margin:"1%"}}></i> </h6>
                                                      </Link>
                                                         ))
                                                     }
