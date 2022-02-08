@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link, Route, BrowserRouter, Routes } from 'react-router-dom';
 import { Matricula } from '../interfaces/Matricula';
+import { useNavigate } from 'react-router-dom';
 
 interface IState { matricula?: Matricula }
 export default function ManageMatricula() {

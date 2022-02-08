@@ -208,3 +208,14 @@ span{
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   transition:.3s;  
 }
+.botonF4{
+  width:50px;
+  height:50px;
+  border-radius:100%;
+  background:#6610f2;
+  border:none;
+  outline:none;
+  color:#FFF;
+  font-size:30px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); 
+}

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link, Route, BrowserRouter, Routes } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { Alumno } from '../interfaces/Alumno';
 import '../style/Alumno.css';
 

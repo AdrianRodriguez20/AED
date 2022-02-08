@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { Alumno } from "../interfaces/Alumno";
+import { useNavigate } from 'react-router-dom';
 
 interface IState { alumnos?: Array<Alumno>; }
 export default function ListAlumnos() {

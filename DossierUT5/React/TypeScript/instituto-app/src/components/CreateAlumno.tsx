@@ -1,10 +1,12 @@
 import React from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../style/Form.css'
 export default function CreateAlumno() {
-
+	let navigate = useNavigate();
 	const agregarAlumnoApi = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		
 		let formulario: HTMLFormElement = event.currentTarget;
 
 		let inputnombrealumno: HTMLInputElement = formulario.nombre;
@@ -30,7 +32,7 @@ export default function CreateAlumno() {
 			try{
 				const {data} = await axios.post(rutaAlumnos, alumno);
 				console.log(data);
-				window.location.href ="/alumnos";
+				navigate("/alumnos");
 			}catch(error){
 				console.log(error);
 			}

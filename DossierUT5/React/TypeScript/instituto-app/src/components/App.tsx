@@ -12,6 +12,8 @@ import ManageAlumno from './ManageAlumno';
 import CreateMatricula from './CreateMatricula';
 import ManageMatricula from './ManageMatricula';
 import UpdateMatricula from './UpdateMatricula';
+import CreateAsignatura from './CreateAsignatura';
+import UpdateAsignatura from './UpdateAsignatura';
 
 
 
@@ -33,6 +35,8 @@ function App() {
         <Route path="/alumnos/:dni/matriculas/:id" element={<ManageMatricula/>}/>
         <Route path="/alumnos/:dni/matriculas/:id/update" element={<UpdateMatricula/>}/>
         <Route path="/asignaturas" element={<ListAsignaturas/>} />
+        <Route path="/asignaturas/create" element={<CreateAsignatura/>} />
+        <Route path="/asignaturas/:id/update" element={<UpdateAsignatura/>} />
         
 
 

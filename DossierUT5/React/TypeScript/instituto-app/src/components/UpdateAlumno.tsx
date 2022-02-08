@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {Alumno} from '../interfaces/Alumno';
+import { useNavigate } from 'react-router-dom';
 
 interface IState { alumno?: Alumno }
 export default function UpdateAlumno() {
