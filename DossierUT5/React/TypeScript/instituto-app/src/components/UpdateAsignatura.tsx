@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface IState { asignatura?: Asignatura }
 export default  function CreateAsignatura(){
+	let navigate = useNavigate();
     const {id} = useParams();
     const [stasignatura, setStasignatura] =useState<IState>({});
 
@@ -35,9 +36,9 @@ export default  function CreateAsignatura(){
 
 
 		let asignatura = {
-            "idasignatura":id,
+			"idasignatura": Number(id),
 			"nombre": nombre,
-			"curso": curso,
+			"curso": curso
 
 		}
 
@@ -45,9 +46,9 @@ export default  function CreateAsignatura(){
 		
 		const axiospost =async (rutaAsignaturas:string) => {
 			try{
-				const {data} = await axios.post(rutaAsignaturas, asignatura);
+				const {data} = await axios.put(rutaAsignaturas, asignatura);
 				console.log(data);
-				window.location.href ="/asingaturas";
+				navigate('/asignaturas');
 			}catch(error){
 				console.log(error);
 			}

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface IState { alumno?: Alumno }
 export default function UpdateAlumno() {
+	let navigate = useNavigate();
     const [stalumno, setStalumno] =useState<IState>({});
     const {dni} = useParams();
     useEffect(() => {
@@ -45,7 +46,8 @@ export default function UpdateAlumno() {
 			try{
 				const {data} = await axios.put(rutaAlumnos, alumno);
 				console.log(data);
-				window.location.href ="/alumnos";
+
+				navigate('/alumnos/'+dni);
 			}catch(error){
 				console.log(error);
 			}

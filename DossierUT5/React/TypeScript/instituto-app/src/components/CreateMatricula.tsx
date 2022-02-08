@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 interface IState { asignaturas?: Array<Asignatura> }
 export default function CreateMatricula() {
 
-
+	let navigate = useNavigate();
 
     const { dni } = useParams();
     const [stasignatura, setSasignaturas] = useState<IState>({});
@@ -65,7 +65,7 @@ export default function CreateMatricula() {
             try{
                 const {data} = await axios.post(rutaAlumnos, newmatricula);
                 console.log(data);
-                window.location.href ="/alumnos/"+dni;
+                navigate('/alumnos/'+dni);
             }catch(error){
                 console.log(error);
             }

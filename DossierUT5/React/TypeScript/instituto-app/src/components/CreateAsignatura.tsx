@@ -4,7 +4,7 @@ import { Link, Route, BrowserRouter, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 export default  function CreateAsignatura(){
-
+	let navigate = useNavigate();
     const agregarAsignaturaApi = (event: React.FormEvent<HTMLFormElement>) => {
 
 		event.preventDefault();
@@ -30,7 +30,7 @@ export default  function CreateAsignatura(){
 			try{
 				const {data} = await axios.post(rutaAsignaturas, asignatura);
 				console.log(data);
-				window.location.href ="/asingaturas";
+				navigate("/asignaturas");
 			}catch(error){
 				console.log(error);
 			}

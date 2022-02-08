@@ -7,6 +7,7 @@ import '../style/ListAsignaturas.css'
 
 interface IState { asignaturas?: Array<Asignatura>; }
 export default function ListAsignaturas() {
+    let navigate = useNavigate();
     const [asignaturas, setAsignaturas] = useState<IState>({});
     useEffect(
         () => {
@@ -88,6 +89,11 @@ export default function ListAsignaturas() {
 
                 }
             </div>
+            <Link to="/asignaturas/create">
+                <button className="botonF1">
+                    <span>+</span>
+                </button>
+            </Link>
         </div>
     )
 }

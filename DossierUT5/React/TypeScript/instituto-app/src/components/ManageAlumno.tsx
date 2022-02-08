@@ -8,6 +8,7 @@ import '../style/Alumno.css';
 
 interface IState { alumno?: Alumno }
 export default function ManageAlumno() {
+    let navigate = useNavigate();
     const [stAlumno, setStAlumno] = useState<IState>({});
     const { dni } = useParams();
     useEffect(() => {
@@ -29,7 +30,7 @@ export default function ManageAlumno() {
             try {
                 const { data } = await axios.delete(rutaAlumnos)
                 console.log(data);
-                window.location.href = "/alumnos";
+                navigate('/alumnos');
             } catch (error) {
                 console.log(error);
             }

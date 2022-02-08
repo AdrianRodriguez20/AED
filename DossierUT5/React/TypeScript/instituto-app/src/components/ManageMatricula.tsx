@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface IState { matricula?: Matricula }
 export default function ManageMatricula() {
+    let navigate = useNavigate();
 
     const [stMatricula, setStMatricula] = useState<IState>({});
     const { id } = useParams();

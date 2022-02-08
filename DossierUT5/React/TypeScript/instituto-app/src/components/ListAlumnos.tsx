@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface IState { alumnos?: Array<Alumno>; }
 export default function ListAlumnos() {
+ 
     const [alumnos, setAlumnos] = useState<IState>({});
     useEffect(
         () => {

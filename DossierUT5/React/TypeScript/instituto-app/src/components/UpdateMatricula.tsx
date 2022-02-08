@@ -7,6 +7,7 @@ import { Asignatura } from '../interfaces/Asignatura';
 
 interface IState { matricula?: Matricula, asignaturas?: Array<Asignatura> }
 export default function UpdateMatricula() {
+    let navigate = useNavigate();
     const [stMatricula, setStMatricula] = useState<IState>({});
     const [stasignatura, setSasignaturas] = useState<IState>({});
     const { dni } = useParams();
@@ -72,7 +73,7 @@ const actualizarMatriculaApi = (event: React.FormEvent<HTMLFormElement>) => {
         try {
             const { data } = await axios.put(rutadeMatricula, updateMatricula);
             console.log(data);
-            window.location.href = "/alumnos/" + dni;
+            navigate("/alumnos/" + dni+ "/matriculas/" + id);
         } catch (error) {
             console.log(error);
         }
