@@ -43,7 +43,7 @@ export default function ListAlumnos() {
                                                 </div>
                                             </div>
                                             <footer className="card__actions">
-                                                <Link className="btn" to={`/alumnos/${JSON.parse(JSON.stringify(alumno.dni))}`} > Ver mas </Link> &nbsp;
+                                                <Link className="btn" to={`/alumnos/${JSON.parse(JSON.stringify(alumno.dni))}`} > Ver más </Link> &nbsp;
                                             </footer>
                                         </article>
                                     </div>
