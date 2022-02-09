@@ -30,7 +30,7 @@ export default function UpdateMatricula() {
             }
             getAsignaturas();
         },
-        [id]
+        []
     );
     const [asignaturasSelect, setAsigOption] = useState<String[]>();
     const onChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -73,12 +73,11 @@ export default function UpdateMatricula() {
             try {
                 const { data } = await axios.put(rutadeMatricula, updateMatricula);
                 console.log(data);
-                //   navigate("/alumnos/" + dni+ "/matriculas");
-                console.log("BIEN");
+                navigate("/alumnos/" + dni+ "/matriculas/" + id);
+            
             } catch (error) {
                 console.log(error);
-                console.log("ERROR");
-                alert("Error al actualizar la matricula");
+
             }
         }
 
@@ -135,7 +134,7 @@ export default function UpdateMatricula() {
                             <div className="wrap-contact100-form-btn">
                                 <div className="contact100-form-bgbtn"></div>
                                 <button type='submit' className="contact100-form-btn">
-                                    <span className='btn-accion'>Agregar </span>
+                                    <span className='btn-accion'>Actualizar </span>
                                 </button>
                             </div>
                         </div>

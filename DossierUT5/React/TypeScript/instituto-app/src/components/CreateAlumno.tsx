@@ -72,7 +72,7 @@ export default function CreateAlumno() {
 
 				<div className="wrap-input100 validate-input" >
 					<span className="label-input100">Fecha de Nacimiento</span>
-					<input className="input100" type="text" id="fechanacimiento" placeholder="yyyy-mm-dd"/>
+					<input className="input100" type="date" id="fechanacimiento" placeholder="yyyy-mm-dd"/>
 					<span className="focus-input100"></span>
 				</div>
                 

@@ -4,7 +4,7 @@ export interface Alumno {
     dni: string;
     nombre: string;
     apellidos: string;
-    fechanacimiento: string;
+    fechanacimiento: number;
     matriculas?: Matricula[];
 }
 
