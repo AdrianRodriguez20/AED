@@ -47,6 +47,7 @@ export default function UpdateMatricula() {
 
 
     const actualizarMatriculaApi = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         let formulario = event.currentTarget;
 
         let inputaniomatricula: HTMLInputElement = formulario.anio;
@@ -70,6 +71,7 @@ export default function UpdateMatricula() {
         }
 
         const axiosput = async (rutadeMatricula: string) => {
+
             try {
                 const { data } = await axios.put(rutadeMatricula, updateMatricula);
                 console.log(data);
@@ -77,7 +79,6 @@ export default function UpdateMatricula() {
             
             } catch (error) {
                 console.log(error);
-
             }
         }
 
