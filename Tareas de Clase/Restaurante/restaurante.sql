@@ -43,8 +43,8 @@ CREATE TABLE detallefactura
   iddetallefactura INT AUTO_INCREMENT NOT NULL,
   cantidad INT NOT NULL,
   preciounidad DOUBLE NOT NULL,
-  fk_idplato INT  NULL,
-  fk_idservicio INT  NULL,
+  fk_idplato INT NOT NULL,
+  fk_idservicio INT NOT NULL,
   PRIMARY KEY (iddetallefactura),
   FOREIGN KEY (fk_idplato) REFERENCES platos(idplato),
   FOREIGN KEY (fk_idservicio) REFERENCES servicios(idservicio)
