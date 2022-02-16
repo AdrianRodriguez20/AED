@@ -3,17 +3,17 @@ CREATE TABLE platos
 (
   idplato INT AUTO_INCREMENT NOT NULL,
   preciounidad DOUBLE NOT NULL,
-  disponible INT NOT NULL,
+  disponible BIT NOT NULL,
   descripcion VARCHAR(100) NOT NULL,
   nombre VARCHAR(50) NOT NULL,
   PRIMARY KEY (idplato)
 );
 
-CREATE TABLE Operario
+CREATE TABLE operario
 (
   idoperario INT AUTO_INCREMENT NOT NULL,
   nombre VARCHAR(50) NOT NULL,
-  password VARCHAR(100) NOT NULL,
+  password VARCHAR(200) NOT NULL,
   rol VARCHAR(100) NOT NULL,
   PRIMARY KEY (idoperario),
   UNIQUE (nombre)

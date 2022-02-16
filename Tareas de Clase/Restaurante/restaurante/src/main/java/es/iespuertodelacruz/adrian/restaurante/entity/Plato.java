@@ -21,7 +21,7 @@ public class Plato implements Serializable {
 
 	private String descripcion;
 
-	private int disponible;
+	private boolean disponible;
 
 	private String nombre;
 
@@ -50,11 +50,11 @@ public class Plato implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public int getDisponible() {
+	public boolean getDisponible() {
 		return this.disponible;
 	}
 
-	public void setDisponible(int disponible) {
+	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
 

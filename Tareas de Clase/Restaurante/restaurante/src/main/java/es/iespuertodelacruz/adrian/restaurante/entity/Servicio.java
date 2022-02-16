@@ -3,6 +3,7 @@ package es.iespuertodelacruz.adrian.restaurante.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,11 +21,11 @@ public class Servicio implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idservicio;
 
-	private BigInteger fechacomienzo;
+	private Date fechacomienzo;
 
-	private BigInteger fechafin;
+	private Date fechafin;
 
-	private byte pagada;
+	private boolean pagada;
 
 	private int reservada;
 
@@ -48,27 +49,27 @@ public class Servicio implements Serializable {
 		this.idservicio = idservicio;
 	}
 
-	public BigInteger getFechacomienzo() {
+	public Date getFechacomienzo() {
 		return this.fechacomienzo;
 	}
 
-	public void setFechacomienzo(BigInteger fechacomienzo) {
+	public void setFechacomienzo(Date fechacomienzo) {
 		this.fechacomienzo = fechacomienzo;
 	}
 
-	public BigInteger getFechafin() {
+	public Date getFechafin() {
 		return this.fechafin;
 	}
 
-	public void setFechafin(BigInteger fechafin) {
+	public void setFechafin(Date fechafin) {
 		this.fechafin = fechafin;
 	}
 
-	public byte getPagada() {
+	public boolean getPagada() {
 		return this.pagada;
 	}
 
-	public void setPagada(byte pagada) {
+	public void setPagada(boolean pagada) {
 		this.pagada = pagada;
 	}
 
