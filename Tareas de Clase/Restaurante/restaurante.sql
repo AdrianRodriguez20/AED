@@ -31,7 +31,7 @@ CREATE TABLE servicios
   idservicio INT AUTO_INCREMENT NOT NULL,
   fechacomienzo BIGINT NOT NULL,
   fechafin BIGINT NOT NULL,
-  reservada INT NOT NULL,
+  reservada VARCHAR(100) NOT NULL,
   pagada BIT NOT NULL,
   fk_nummesa INT NOT NULL,
   PRIMARY KEY (idservicio),
@@ -49,3 +49,6 @@ CREATE TABLE detallefactura
   FOREIGN KEY (fk_idplato) REFERENCES platos(idplato),
   FOREIGN KEY (fk_idservicio) REFERENCES servicios(idservicio)
 );
+
+
+
