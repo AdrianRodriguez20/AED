@@ -153,7 +153,19 @@ public class ServiciosREST {
 
     @PutMapping("/{id}/platos/{idplato}")
     public ResponseEntity <?> update (@PathVariable("id") Integer id, @PathVariable("idplato") Integer idplato, @RequestBody DetalleFacturaPostDTO dDTO){
-    return ResponseEntity.ok().body("");
+        Optional<Servicio> optS = servicioService.findById(id);
+        if (optS.isPresent()) {
+            Detallefactura detallefactura = detallefacturaService.findByPlato(idplato, id);
+            if (detallefactura != null) {
+                detallefactura.setCantidad(dDTO.getCantidad());
+                detallefacturaService.save(detallefactura);
+                return ResponseEntity.ok().body("");
+            }else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El plato no se encuentra en esta factura"));
+            }
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id de servicio no se encuentra"));
+        }
     }
 
     @DeleteMapping("/{id}/platos/{idplato}")

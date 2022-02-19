@@ -73,9 +73,9 @@ public class MesasRest {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<?> update (@PathVariable Integer id ,@RequestBody Mesa m ) {
-        Optional<Mesa> optP = mesaService.findById(m.getNummesa());
+        Optional<Mesa> optP = mesaService.findById(id);
         if (optP.isPresent()) {
             MesaUpdateDTO mDTO = new MesaUpdateDTO(m);
             mDTO.setNummesa(id);
