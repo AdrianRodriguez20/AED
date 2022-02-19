@@ -21,13 +21,13 @@ public class Servicio implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idservicio;
 
-	private Date fechacomienzo;
+	private Long fechacomienzo;
 
-	private Date fechafin;
+	private Long fechafin;
 
 	private boolean pagada;
 
-	private int reservada;
+	private String reservada;
 
 	//bi-directional many-to-one association to Detallefactura
 	@OneToMany(mappedBy="servicio")
@@ -49,19 +49,19 @@ public class Servicio implements Serializable {
 		this.idservicio = idservicio;
 	}
 
-	public Date getFechacomienzo() {
+	public Long getFechacomienzo() {
 		return this.fechacomienzo;
 	}
 
-	public void setFechacomienzo(Date fechacomienzo) {
+	public void setFechacomienzo(Long fechacomienzo) {
 		this.fechacomienzo = fechacomienzo;
 	}
 
-	public Date getFechafin() {
+	public Long getFechafin() {
 		return this.fechafin;
 	}
 
-	public void setFechafin(Date fechafin) {
+	public void setFechafin(Long fechafin) {
 		this.fechafin = fechafin;
 	}
 
@@ -73,11 +73,11 @@ public class Servicio implements Serializable {
 		this.pagada = pagada;
 	}
 
-	public int getReservada() {
+	public String getReservada() {
 		return this.reservada;
 	}
 
-	public void setReservada(int reservada) {
+	public void setReservada(String reservada) {
 		this.reservada = reservada;
 	}
 

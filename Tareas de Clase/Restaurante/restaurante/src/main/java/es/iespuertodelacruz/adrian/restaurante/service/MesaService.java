@@ -49,4 +49,10 @@ public class MesaService implements GenericService<Mesa, Integer> {
     public void delete(Mesa obj) {
         mesasRepository.delete(obj);
     }
+
+
+    @Transactional(readOnly=true)
+    public Iterable<Mesa> findMesasDisponibles(long fechaSolicitada, long fechaAhora ,  int comensales) {
+        return mesasRepository.findMesasDisponibles(fechaSolicitada, fechaAhora, comensales);
+    }
 }

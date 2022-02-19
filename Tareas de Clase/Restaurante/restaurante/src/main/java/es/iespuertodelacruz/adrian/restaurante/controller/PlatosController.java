@@ -1,9 +1,10 @@
 package es.iespuertodelacruz.adrian.restaurante.controller;
 
 
-import es.iespuertodelacruz.adrian.restaurante.dto.PlatoDTO;
+import es.iespuertodelacruz.adrian.restaurante.dto.platos.PlatoDTO;
 import es.iespuertodelacruz.adrian.restaurante.entity.Plato;
 import es.iespuertodelacruz.adrian.restaurante.service.PlatoService;
+import es.iespuertodelacruz.adrian.restaurante.utils.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class PlatosController {
             PlatoDTO pDTO = new PlatoDTO(optP.get());
             return ResponseEntity.ok().body(pDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El id del registro no existe");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST,"El id del registro no existe"));
         }
 
     }

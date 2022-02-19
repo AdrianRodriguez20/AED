@@ -1,24 +1,21 @@
-package es.iespuertodelacruz.adrian.restaurante.dto;
+package es.iespuertodelacruz.adrian.restaurante.dto.platos;
 
 import es.iespuertodelacruz.adrian.restaurante.entity.Plato;
 
-public class PlatoDTO {
+public class PlatoServicioDTO {
 
-    private int idplato;
+
     private String descripcion;
-    private boolean disponible;
     private String nombre;
     private double preciounidad;
 
 
-   public PlatoDTO() { }
+    public PlatoServicioDTO() { }
 
-    public PlatoDTO(Plato p){
-       this.idplato = p.getIdplato();
-       this.descripcion = p.getDescripcion();
-       this.disponible = p.getDisponible();
-       this.nombre = p.getNombre();
-       this.preciounidad = p.getPreciounidad();
+    public PlatoServicioDTO(Plato p){
+        this.descripcion = p.getDescripcion();
+        this.nombre = p.getNombre();
+        this.preciounidad = p.getPreciounidad();
     }
 
     public String getDescripcion() {
@@ -29,13 +26,6 @@ public class PlatoDTO {
         this.descripcion = descripcion;
     }
 
-    public boolean getDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
 
     public String getNombre() {
         return nombre;
@@ -53,22 +43,14 @@ public class PlatoDTO {
         this.preciounidad = preciounidad;
     }
 
-    public int getIdplato() {
-        return idplato;
-    }
-
-    public void setIdplato(int idplato) {
-        this.idplato = idplato;
-    }
 
 
-    public Plato toPlato(){
+    public Plato toEntity(){
         Plato p = new Plato();
-        p.setIdplato(this.idplato);
         p.setDescripcion(this.descripcion);
-        p.setDisponible(this.disponible);
         p.setNombre(this.nombre);
         p.setPreciounidad(this.preciounidad);
         return p;
     }
+
 }
