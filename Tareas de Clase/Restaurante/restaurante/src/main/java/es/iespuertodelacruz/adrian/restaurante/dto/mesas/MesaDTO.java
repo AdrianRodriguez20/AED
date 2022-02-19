@@ -1,4 +1,4 @@
-package es.iespuertodelacruz.adrian.restaurante.dto;
+package es.iespuertodelacruz.adrian.restaurante.dto.mesas;
 
 import es.iespuertodelacruz.adrian.restaurante.entity.Mesa;
 

@@ -71,7 +71,6 @@ public class ServiciosREST {
         }
     }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody ServicioDTO sDTO) {
         Optional<Servicio> optS = servicioService.findById(id);
@@ -90,13 +89,29 @@ public class ServiciosREST {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+        Optional<Servicio> optS = servicioService.findById(id);
+        if (optS.isPresent()) {
+            servicioService.delete(optS.get());
+            if (servicioService.findById(id).isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        new ApiError(HttpStatus.BAD_REQUEST, "No se puede eliminar , esta mesa está asociada a una factura."));
+            }
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id de servicio no se encuentra"));
+        }
+
+    }
+
     @PostMapping("/{id}/platos")
     public ResponseEntity<?> save(@PathVariable("id") Integer id, @RequestBody List<DetalleFacturaPostDTO> dsDTO) {
         Optional<Servicio> optS = servicioService.findById(id);
         if (optS.isPresent()) {
             List<DetalleFacturaPostDTO> listaValidada = new ArrayList<>();
             for (DetalleFacturaPostDTO dDTO : dsDTO) {
-                if (platoService.findById(dDTO.getIdplato()).isPresent()) {
+                if (platoService.findById(dDTO.getIdplato()).isPresent() && platoService.findById(dDTO.getIdplato()).get().getDisponible()) {
                     Plato plato = platoService.findById(dDTO.getIdplato()).get();
                     DetalleFacturaPostDTO platoValidado = new DetalleFacturaPostDTO();
                     platoValidado.setIdplato(plato.getIdplato());
@@ -135,5 +150,28 @@ public class ServiciosREST {
 
     }
 
+
+    @PutMapping("/{id}/platos/{idplato}")
+    public ResponseEntity <?> update (@PathVariable("id") Integer id, @PathVariable("idplato") Integer idplato, @RequestBody DetalleFacturaPostDTO dDTO){
+    return ResponseEntity.ok().body("");
+    }
+
+    @DeleteMapping("/{id}/platos/{idplato}")
+    public ResponseEntity <?> delete (@PathVariable("id") Integer id, @PathVariable("idplato") Integer idplato){
+        Optional<Servicio> optS = servicioService.findById(id);
+        if (optS.isPresent()) {
+            Detallefactura detallefactura = detallefacturaService.findByPlato(idplato, id);
+            if (detallefactura != null) {
+                detallefacturaService.delete(detallefactura);
+                return ResponseEntity.ok().body("");
+            }else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El plato no se encuentra en el servicio"));
+            }
+
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id de servicio no se encuentra"));
+        }
+
+    }
 
 }

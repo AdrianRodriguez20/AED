@@ -8,6 +8,7 @@ public class PlatoServicioDTO {
     private String descripcion;
     private String nombre;
     private double preciounidad;
+    private int idplato;
 
 
     public PlatoServicioDTO() { }
@@ -16,6 +17,7 @@ public class PlatoServicioDTO {
         this.descripcion = p.getDescripcion();
         this.nombre = p.getNombre();
         this.preciounidad = p.getPreciounidad();
+        this.idplato = p.getIdplato();
     }
 
     public String getDescripcion() {
@@ -44,12 +46,21 @@ public class PlatoServicioDTO {
     }
 
 
+    public int getIdplato() {
+        return idplato;
+    }
+
+    public void setIdplato(int idplato) {
+        this.idplato = idplato;
+    }
+
 
     public Plato toEntity(){
         Plato p = new Plato();
         p.setDescripcion(this.descripcion);
         p.setNombre(this.nombre);
         p.setPreciounidad(this.preciounidad);
+        p.setIdplato(this.idplato);
         return p;
     }
 

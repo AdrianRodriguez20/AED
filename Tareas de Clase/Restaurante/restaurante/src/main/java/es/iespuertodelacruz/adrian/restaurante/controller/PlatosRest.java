@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/platos")
-public class PlatosController {
+public class PlatosRest {
 
     @Autowired
     PlatoService platoService;
@@ -46,7 +46,13 @@ public class PlatosController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Plato p) {
             PlatoDTO pDTO = new PlatoDTO(p);
-            return ResponseEntity.ok().body(new PlatoDTO(platoService.save(pDTO.toPlato())));
+        Plato save = platoService.save(pDTO.toPlato());
+        if (save != null) {
+            return ResponseEntity.ok().body(new PlatoDTO(save));
+        }else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id del plato no existe"));
+        }
+
     }
 
     @PutMapping("/{id}")
@@ -57,7 +63,7 @@ public class PlatosController {
             pDTO.setIdplato(id);
             return ResponseEntity.ok().body(new PlatoDTO(platoService.save(pDTO.toPlato())));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El id del registro no existe");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST,"El numero de mesa no existe"));
         }
     }
 

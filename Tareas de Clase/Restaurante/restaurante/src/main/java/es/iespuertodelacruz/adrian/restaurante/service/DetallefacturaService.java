@@ -50,4 +50,9 @@ public class DetallefacturaService  implements GenericService<Detallefactura,Int
     public void delete(Detallefactura obj) {
         detallefacturasRepository.delete(obj);
     }
+
+    @Transactional(readOnly=true)
+    public Detallefactura findByPlato(Integer idplato, Integer idservicio) {
+        return detallefacturasRepository.findByPlato(idplato , idservicio);
+    }
 }
