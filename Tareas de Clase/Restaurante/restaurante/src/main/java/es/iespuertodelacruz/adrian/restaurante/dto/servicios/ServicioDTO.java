@@ -13,7 +13,14 @@ public class ServicioDTO {
     private String reservada;
     private int nummesa;
 
-
+    public ServicioDTO (Servicio s) {
+        this.idservicio = s.getIdservicio();
+        this.fechacomienzo = s.getFechacomienzo();
+        this.fechafin = s.getFechafin();
+        this.pagada = s.getPagada();
+        this.reservada = s.getReservada();
+        this.nummesa = s.getMesa().getNummesa();
+    }
 
 
     public Long getFechacomienzo() {
