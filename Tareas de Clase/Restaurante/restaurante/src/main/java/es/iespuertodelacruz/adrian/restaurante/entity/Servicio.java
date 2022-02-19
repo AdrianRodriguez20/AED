@@ -25,7 +25,7 @@ public class Servicio implements Serializable {
 
 	private Long fechafin;
 
-	private boolean pagada;
+	private Boolean pagada;
 
 	private String reservada;
 
@@ -65,11 +65,11 @@ public class Servicio implements Serializable {
 		this.fechafin = fechafin;
 	}
 
-	public boolean getPagada() {
+	public Boolean getPagada() {
 		return this.pagada;
 	}
 
-	public void setPagada(boolean pagada) {
+	public void setPagada(Boolean pagada) {
 		this.pagada = pagada;
 	}
 
