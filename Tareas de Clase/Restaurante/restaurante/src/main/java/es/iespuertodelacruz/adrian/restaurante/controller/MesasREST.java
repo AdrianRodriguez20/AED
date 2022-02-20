@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/mesas")
-public class MesasRest {
+public class MesasREST {
 
 
     @Autowired

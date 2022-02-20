@@ -38,6 +38,7 @@ public class RestauranteApplication {
 			webSecurity
 					.ignoring()
 					.antMatchers(HttpMethod.POST, "/api/login")
+					.antMatchers(HttpMethod.POST, "/api/registro")
 					.antMatchers("/api/v1/**");
 		}
 

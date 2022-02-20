@@ -64,6 +64,27 @@ public class LoginController {
 
     }
 
+    @PostMapping(path = "/api/registro", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> registro(@RequestBody OperarioJsonLogin usuarioJson) {
+        if (operarioService.findByNombre(usuarioJson.name) != null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("usuario ya existe");
+        }else{
+            Operario operario = new Operario();
+            operario.setNombre(usuarioJson.name);
+            String enHash = BCrypt.hashpw(usuarioJson.password, BCrypt.gensalt(10));
+            operario.setPassword(enHash);
+            operario.setRol("ROLE_USER");
+            operarioService.save(operario);
+            if (operarioService.findByNombre(usuarioJson.name) != null) {
+                return ResponseEntity.ok("usuario registrado");
+            }else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("usuario no registrado");
+            }
+        }
+
+
+    }
+
     @Autowired
     OperarioService operarioService;
 

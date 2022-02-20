@@ -2,7 +2,6 @@ package es.iespuertodelacruz.adrian.restaurante.controller;
 
 
 import es.iespuertodelacruz.adrian.restaurante.dto.detallefactura.DetalleFacturaPostDTO;
-import es.iespuertodelacruz.adrian.restaurante.dto.detallefactura.DetalleFacturaServicioDTO;
 import es.iespuertodelacruz.adrian.restaurante.dto.servicios.ListadoServiciosDTO;
 
 import es.iespuertodelacruz.adrian.restaurante.dto.servicios.ServicioDTO;
@@ -11,6 +10,7 @@ import es.iespuertodelacruz.adrian.restaurante.entity.Detallefactura;
 import es.iespuertodelacruz.adrian.restaurante.entity.Plato;
 import es.iespuertodelacruz.adrian.restaurante.entity.Servicio;
 import es.iespuertodelacruz.adrian.restaurante.service.DetallefacturaService;
+import es.iespuertodelacruz.adrian.restaurante.service.MesaService;
 import es.iespuertodelacruz.adrian.restaurante.service.PlatoService;
 import es.iespuertodelacruz.adrian.restaurante.service.ServicioService;
 import es.iespuertodelacruz.adrian.restaurante.utils.ApiError;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/v1/servicios")
@@ -34,6 +33,8 @@ public class ServiciosREST {
     PlatoService platoService;
     @Autowired
     DetallefacturaService detallefacturaService;
+    @Autowired
+    MesaService mesaService;
 
     @GetMapping
     public ArrayList<ListadoServiciosDTO> getAll() {
@@ -61,27 +62,36 @@ public class ServiciosREST {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody ServicioDTO sDTO) {
 
-        Servicio optS = servicioService.save(sDTO.toEntity());
-
-        if (optS != null) {
-            sDTO.setIdservicio(optS.getIdservicio());
-            return ResponseEntity.ok().body(sDTO);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "Error al guardar el servicio"));
+        if (mesaService.findById(sDTO.getNummesa()).isPresent()) {
+            Servicio optS = servicioService.save(sDTO.toEntity());
+            if (optS != null) {
+                sDTO.setIdservicio(optS.getIdservicio());
+                return ResponseEntity.ok().body(sDTO);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "Error al guardar el servicio"));
+            }
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id de mesa no se encuentra"));
         }
+
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody ServicioDTO sDTO) {
         Optional<Servicio> optS = servicioService.findById(id);
         if (optS.isPresent()) {
-            sDTO.setIdservicio(id);
-            Servicio servicio = servicioService.save(sDTO.toEntity());
-            if (servicio != null) {
-                return ResponseEntity.ok().body(sDTO);
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "Error al actualizar el servicio"));
+            if (mesaService.findById(sDTO.getNummesa()).isPresent()) {
+                sDTO.setIdservicio(id);
+                Servicio servicio = servicioService.save(sDTO.toEntity());
+                if (servicio != null) {
+                    return ResponseEntity.ok().body(sDTO);
+                } else {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "Error al actualizar el servicio"));
+                }
+            }else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id de mesa no se encuentra"));
             }
+
 
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id de servicio no se encuentra"));
@@ -93,12 +103,13 @@ public class ServiciosREST {
     public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
         Optional<Servicio> optS = servicioService.findById(id);
         if (optS.isPresent()) {
-            servicioService.delete(optS.get());
-            if (servicioService.findById(id).isPresent()) {
+            if (optS.get().getDetallefacturas().size() > 0) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new ApiError(HttpStatus.BAD_REQUEST, "No se puede eliminar , esta mesa está asociada a una factura."));
+            }else{
+                servicioService.delete(optS.get());
+                return ResponseEntity.ok().body(new ApiError(HttpStatus.OK, "Servicio eliminado"));
             }
-            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id de servicio no se encuentra"));
         }

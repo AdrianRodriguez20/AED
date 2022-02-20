@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/platos")
-public class PlatosRest {
+public class PlatosREST {
 
     @Autowired
     PlatoService platoService;
