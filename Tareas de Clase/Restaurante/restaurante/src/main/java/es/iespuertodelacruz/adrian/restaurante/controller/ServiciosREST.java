@@ -119,7 +119,9 @@ public class ServiciosREST {
     @PostMapping("/{id}/platos")
     public ResponseEntity<?> save(@PathVariable("id") Integer id, @RequestBody List<DetalleFacturaPostDTO> dsDTO) {
         Optional<Servicio> optS = servicioService.findById(id);
+
         if (optS.isPresent()) {
+
             List<DetalleFacturaPostDTO> listaValidada = new ArrayList<>();
             for (DetalleFacturaPostDTO dDTO : dsDTO) {
                 if (platoService.findById(dDTO.getIdplato()).isPresent() && platoService.findById(dDTO.getIdplato()).get().getDisponible()) {
@@ -134,6 +136,7 @@ public class ServiciosREST {
             }
             if (listaValidada.size() == dsDTO.size()) {
                 Servicio servicio = optS.get();
+
                 List<Detallefactura> detallefacturas = servicio.getDetallefacturas();
                 for (DetalleFacturaPostDTO dDTO : listaValidada) {
                     Optional<Detallefactura> optD = detallefacturas.stream().filter(d -> d.getPlato().getIdplato() == dDTO.getIdplato()).findFirst();
@@ -143,15 +146,17 @@ public class ServiciosREST {
                             if (detalleFactura.getPlato().getIdplato() == dDTO.getIdplato()) {
                                 detalleFactura.setCantidad(detalleFactura.getCantidad() + dDTO.getCantidad());
                                 detallefacturaService.save(detalleFactura);
+
                             }
                         });
                     }else{
                         detallefacturaService.save(dDTO.toEntity());
+
                     }
 
                 }
-                //TODO: hacer response
-                return ResponseEntity.ok().body("");
+               return ResponseEntity.ok().body("todo ok");
+
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "Error al guardar el detalle de factura"));
             }
