@@ -732,7 +732,7 @@ a:focus {
   overflow: hidden;
 }
 
-.book_section .map_container #googleMap {
+.book_section .map_container #imgPlato {
   height: 100%;
   min-height: 100%;
   width: 100%;

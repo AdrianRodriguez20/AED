@@ -9,7 +9,7 @@ export default function ManageServicio() {
 
     let navigate = useNavigate();
     const [stservicio, setStservicio] = useState<Servicio>({} as Servicio);
-    //state total
+    
     const [sttotal, setSttotal] = useState<number>(0);
     const { id } = useParams();
 
@@ -27,7 +27,7 @@ export default function ManageServicio() {
 
     }, []);
 
-    //sumar total
+  
     useEffect(() => {
         let total = 0;
         stservicio.detallefacturas?.forEach(detallefactura => {
