@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 export default function CrearServicio() {
 
     const [stfechacomienzo, setStfechacomienzo] = useState<Date>(new Date());
-    const [stcomensales, setStcomensales] = useState<number>(0);
+    const [stcomensales, setStcomensales] = useState<number>(1);
     const [stnummesas, setStnummesas] = useState<number[]>([]);
 
     const agregarServicioApi = (event: React.FormEvent<HTMLFormElement>) => {
@@ -99,7 +99,7 @@ export default function CrearServicio() {
                                     </div>
                                     <div>
                                         <select 
-                                        className="form-control nice-select wide" 
+                                        className="form-control  form-select-lg nice-select wide" 
                                         id="nummesa" 
                                         onClick={onclick}>
                                             <option disabled selected value="0">Seleccione una mesa</option>

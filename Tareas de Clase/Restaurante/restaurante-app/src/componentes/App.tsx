@@ -9,6 +9,7 @@ import ListadoPlatos from './plato/ListadoPlatos';
 import ListadoServicios from './servicio/ListadoServicios';
 import ManageServicio from './servicio/ManageServicio';
 import CrearServicio from './servicio/CrearServicios';
+import ListMesas from './mesa/ListMesas';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/servicios/:id" element={<ManageServicio />} />
       <Route path="/servicios/create" element={<CrearServicio />} />
       <Route path="/sobrenosotros" element={<SobreNostros />} />
+      <Route path="/mesas" element={<ListMesas />} />
       
     </Routes>
     <Footer/>

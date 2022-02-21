@@ -64,8 +64,6 @@ export default function ListadoPlatos() {
                 </div>
             </section>
 
-
-
         </>
     )
 
