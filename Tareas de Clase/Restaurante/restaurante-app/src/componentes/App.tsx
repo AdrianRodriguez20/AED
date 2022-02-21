@@ -17,23 +17,47 @@ import { RequireAuth } from './RequireAuth';
 function App() {
   return (
     <BrowserRouter>
-    <Navbar/>
-    <Routes>
-      <Route path="/" element={<Inicio />} />
-      <Route path="/platos" element={<ListadoPlatos />} />
-      <Route path="/registro" element={<Registro />} />
-      <Route path="/servicios" element={<ListadoServicios />} />
-      <Route path="/servicios/:id" element={<ManageServicio />} />
-      <Route path="/servicios/create" element={<CrearServicio />} />
-      <Route path="/sobrenosotros" element={<SobreNostros />} />
-      <Route path="/mesas" element={
-        <RequireAuth >
-      <ListMesas /> 
-      </RequireAuth>}/>
-      <Route path="/mesas/create" element={<CreateMesas />} />
-      <Route path="/servicios/:id/create" element={<CrearDetalleFactura/>}/>      
-    </Routes>
-    <Footer/>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Inicio />} />
+        <Route path="/platos" element={<ListadoPlatos />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/servicios" element={<ListadoServicios />} />
+        <Route path="/servicios/:id" element={
+          <RequireAuth >
+            <ManageServicio />
+          </RequireAuth>
+        } />
+        <Route path="/servicios/create" element={
+          <RequireAuth >
+            <CrearServicio />
+          </RequireAuth>
+        }
+        />
+        <Route path="/sobrenosotros" element={
+          <SobreNostros />
+        }
+        />
+        <Route path="/mesas" element={
+          <RequireAuth >
+            <ListMesas />
+          </RequireAuth>
+        }
+        />
+        <Route path="/mesas/create" element={
+          <RequireAuth >
+            <CreateMesas />
+          </RequireAuth>
+        }
+        />
+        <Route path="/servicios/:id/create" element={
+          <RequireAuth >
+            <CrearDetalleFactura />
+          </RequireAuth>
+        }
+        />
+      </Routes>
+      <Footer />
     </BrowserRouter>
 
   );

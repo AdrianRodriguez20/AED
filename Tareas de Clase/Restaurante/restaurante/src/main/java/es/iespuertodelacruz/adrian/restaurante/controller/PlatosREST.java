@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/platos")
+@RequestMapping("/api/v2/platos")
 public class PlatosREST {
 
     @Autowired
