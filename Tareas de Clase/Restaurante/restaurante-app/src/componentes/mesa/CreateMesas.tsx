@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { url } from 'inspector';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +12,7 @@ export default function CreateMesas() {
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         event.preventDefault();
+        
         const name = event.target.id;
         const value = event.target.value;
 
@@ -20,7 +20,36 @@ export default function CreateMesas() {
             setStocupantesmax(parseInt(value));
         }
     }
+    const agregarMesaApi = (event: React.FormEvent<HTMLFormElement>) => {
+        let formulario: HTMLFormElement = event.currentTarget;
+        let inputnummesa: HTMLInputElement = formulario.fechacomienzo;
+        let selectocupantesmax : HTMLSelectElement = formulario.ocupantesmax;
 
+        let nummesa = parseInt(inputnummesa.value);
+        let ocupantesmax = parseInt (selectocupantesmax.value);
+
+        let mesa = {
+            nummesa: nummesa,
+            selectocupantesmax: ocupantesmax
+        }
+
+        let ruta = process.env.REACT_APP_API_URL + "/v1/mesas";
+
+        const axiospost = async (rutaMesa: string) => {
+            try {
+				const { data } = await axios.put(rutaMesa, mesa);
+				console.log(data);
+
+                
+
+			} catch (error) {
+				console.log(error);
+
+			}
+
+        }
+        axiospost(ruta);
+    }
 
     return (
         <>
@@ -35,7 +64,7 @@ export default function CreateMesas() {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="form_container">
-                                <form action="">
+                                <form onSubmit={agregarMesaApi}>
                                     <div>
                                         <input type="number" className="form-control" id="nummesa" placeholder="Número de mesa" />
                                     </div>

@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/mesas")
+@RequestMapping("/api/v2/mesas")
 public class MesasREST {
 
 

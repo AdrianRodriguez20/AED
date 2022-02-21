@@ -1,91 +1,117 @@
 import '../style/style.css';
 import '../style/operario/Login.css';
+import axios from 'axios';
+
 export default function Navbar() {
-    return (
-        <>
-            <div className="sub_page">
-                <div className="hero_area">
-                    <div className="bg-box">
-                        <img src="../imagenes/navbar.jpg" alt="" />
-                    </div>
-                    <header className="header_section">
-                        <div className="container">
-                            <nav className="navbar navbar-expand-lg custom_nav-container ">
-                                <a className="navbar-brand" href="/">
-                                    <span>
-                                        La Chubascada
-                                    </span>
-                                </a>
 
-                                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span className=""> </span>
-                                </button>
+    function handleform(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        let formulario = event.currentTarget as HTMLFormElement;
+        let inputName : HTMLInputElement= formulario.nombre ;
+        let inputPassword: HTMLInputElement = formulario.password ;
+        let name: string = inputName.value ;
+        let password: string = inputPassword.value;
+        let login = {
+            name: name,
+            password: password
+        }
+        const axiospost = async (rutaDeMoneda: string) => {
+            try {
+                const { data } = await axios.post(rutaDeMoneda, login)
+                localStorage.clear();
+                localStorage.setItem("token", data);
+                console.log(data.token)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        axiospost( process.env.REACT_APP_API_URL + "/login")
+    }
+        return (
+            <>
+                <div className="sub_page">
+                    <div className="hero_area">
+                        <div className="bg-box">
+                            <img src="../imagenes/navbar.jpg" alt="" />
+                        </div>
+                        <header className="header_section">
+                            <div className="container">
+                                <nav className="navbar navbar-expand-lg custom_nav-container ">
+                                    <a className="navbar-brand" href="/">
+                                        <span>
+                                            La Chubascada
+                                        </span>
+                                    </a>
 
-                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul className="navbar-nav  mx-auto ">
-                                        <li className="nav-item active">
-                                            <a className="nav-link" href="/">Inicio<span className="sr-only">(current)</span> </a>
-                                        </li>
-                                        <li className="nav-item ">
-                                            <a className="nav-link" href="/platos">Menu  </a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="/sobrenosotros">Sobre Nosotros</a>
-                                        </li>
+                                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span className=""> </span>
+                                    </button>
 
-                                    </ul>
-                                    <div className="user_option">
-                                        <a href="#myModal" data-toggle="modal" className="user_link">
-                                            <i className="fa fa-user" aria-hidden="true"></i>
+                                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul className="navbar-nav  mx-auto ">
+                                            <li className="nav-item active">
+                                                <a className="nav-link" href="/">Inicio<span className="sr-only">(current)</span> </a>
+                                            </li>
+                                            <li className="nav-item ">
+                                                <a className="nav-link" href="/platos">Menu  </a>
+                                            </li>
+                                            <li className="nav-item">
+                                                <a className="nav-link" href="/sobrenosotros">Sobre Nosotros</a>
+                                            </li>
 
-                                        </a>
+                                        </ul>
+                                        <div className="user_option">
+                                            <a href="#myModal" data-toggle="modal" className="user_link">
+                                                <i className="fa fa-user" aria-hidden="true"></i>
 
-                                        <form className="form-inline">
-                                            <button className="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                                <i className="fa fa-search" aria-hidden="true"></i>
-                                            </button>
-                                        </form>
-                                        <a href="" className="order_online">
-                                        <i className='fa fa-phone'>    Reservar </i>
-                                        </a>
+                                            </a>
+
+                                            <form className="form-inline">
+                                                <button className="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                                                    <i className="fa fa-search" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                            <a href="" className="order_online">
+                                                <i className='fa fa-phone'>    Reservar </i>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </nav>
-                        </div>
-                    </header>
-                </div>
-            </div>
-
-            <div id="myModal" className="modal fade">
-                <div className="modal-dialog modal-login">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <div className="avatar">
-                                <img src="../imagenes/login.png" alt="Avatar" />
+                                </nav>
                             </div>
-                            <h4 className="modal-title">Iniciar Sesión</h4>
-                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div className="modal-body">
-                            <form action="Login" method="post">
-                                <div className="form-group">
-                                    <input type="text" className="form-control" name="name" placeholder="Usuario" />
+                        </header>
+                    </div>
+                </div>
+
+                <div id="myModal" className="modal fade">
+                    <div className="modal-dialog modal-login">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <div className="avatar">
+                                    <img src="../imagenes/login.png" alt="Avatar" />
                                 </div>
-                                <div className="form-group">
-                                    <input type="password" className="form-control" name="password" placeholder="Contraseña" />
-                                </div>
-                                <div className="form-group">
-                                    <button type="submit" className="btn btn-primary btn-lg btn-block login-btn">Login</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="modal-footer">
-                            <a href="/registro">Registrarme</a>
+                                <h4 className="modal-title">Iniciar Sesión</h4>
+                                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div className="modal-body">
+                                <form  onSubmit={handleform}>
+                                    <div className="form-group">
+                                        <input type="text" className="form-control" name="nombre" placeholder="Usuario" />
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="password" className="form-control" name="password" placeholder="Contraseña" />
+                                    </div>
+                                    <div className="form-group">
+                                        <button type="submit" className="btn btn-primary btn-lg btn-block login-btn">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div className="modal-footer">
+                                <a href="/registro">Registrarme</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </>
-    )
-}
+            </>
+        )
+    }

@@ -13,10 +13,11 @@ public interface MesasRepository  extends JpaRepository<Mesa, Integer> {
             "SELECT mesas.nummesa, mesas.ocupantesmax FROM mesas "
                     + "LEFT JOIN servicios ON mesas.nummesa = servicios.fk_nummesa "
                     + "WHERE :fechaSolicitada >= :fechaAhora AND "
-                    + "((:fechaSolicitada + 7200000 < servicios.fechacomienzo OR :fechaSolicitada >= servicios.fechafin) OR "
-                    + "(servicios.pagada = true)) AND "
-                    + ":comensales <= mesas.ocupantesmax OR "
-                    + "mesas.nummesa NOT IN (SELECT servicios.fk_nummesa FROM servicios) ",
+                    + "((:fechaSolicitada + 7200000 < servicios.fechacomienzo OR :fechaSolicitada >= servicios.fechafin) "
+                    + "OR (servicios.pagada = true) OR mesas.nummesa NOT IN (SELECT servicios.fk_nummesa FROM servicios) "
+                    + ") AND "
+                    + ":comensales <= mesas.ocupantesmax",
+                 
             nativeQuery = true)
     List<Mesa> findMesasDisponibles(long fechaSolicitada, long fechaAhora ,  int comensales);
 

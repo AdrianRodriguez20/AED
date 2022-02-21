@@ -11,6 +11,8 @@ import ManageServicio from './servicio/ManageServicio';
 import CrearServicio from './servicio/CrearServicios';
 import ListMesas from './mesa/ListMesas';
 import CreateMesas from './mesa/CreateMesas';
+import CrearDetalleFactura from './detallefactura/CrearDetalleFactura';
+import { RequireAuth } from './RequireAuth';
 
 function App() {
   return (
@@ -24,9 +26,12 @@ function App() {
       <Route path="/servicios/:id" element={<ManageServicio />} />
       <Route path="/servicios/create" element={<CrearServicio />} />
       <Route path="/sobrenosotros" element={<SobreNostros />} />
-      <Route path="/mesas" element={<ListMesas />} />
+      <Route path="/mesas" element={
+        <RequireAuth >
+      <ListMesas /> 
+      </RequireAuth>}/>
       <Route path="/mesas/create" element={<CreateMesas />} />
-      
+      <Route path="/servicios/:id/create" element={<CrearDetalleFactura/>}/>      
     </Routes>
     <Footer/>
     </BrowserRouter>

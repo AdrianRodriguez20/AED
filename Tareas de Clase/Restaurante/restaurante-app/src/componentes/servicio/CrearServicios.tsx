@@ -11,19 +11,19 @@ export default function CrearServicio() {
         event.preventDefault();
 		let formulario: HTMLFormElement = event.currentTarget;
         let inputfechacomienzo: HTMLInputElement = formulario.fechacomienzo;
-        let inputnummesas: HTMLInputElement = formulario.nummesas;
+        let inputnummesa: HTMLInputElement = formulario.nummesa;
         let inputreservada: HTMLInputElement = formulario.reservada;
 
 
         let fechacomienzo = new Date(inputfechacomienzo.value).getTime();
-        let nummesas = inputnummesas.value;
+        let nummesa = inputnummesa.value;
         let reservada = inputreservada.value;
         let fechafin = new Date(inputfechacomienzo.value).getTime() +7200000;
 
         let reserva = {
             fechacomienzo: fechacomienzo,
             fechafin: fechafin,
-            nummesas: nummesas,
+            nummesa: nummesa,
             reservada: reservada
         }
 
@@ -31,7 +31,7 @@ export default function CrearServicio() {
 
 		const axiospost = async (rutaServicio: string) => {
 			try {
-				const { data } = await axios.put(rutaServicio, reserva);
+				const { data } = await axios.post(rutaServicio, reserva);
 				console.log(data);
 
 			} catch (error) {
@@ -57,6 +57,7 @@ export default function CrearServicio() {
         console.log(data);
         let nummesas = data.map((mesa: any) => mesa.nummesa);
         setStnummesas(nummesas);
+     
     }
     const onclick = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();

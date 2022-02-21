@@ -13,8 +13,12 @@ export default function ListMesas() {
     useEffect(
         () => {
             const getMesas = async () => {
-                let rutaMesas = process.env.REACT_APP_API_URL + "/v1/mesas";
-                let { data } = await axios.get(rutaMesas);
+                let token: string = localStorage.getItem("token") as string;
+                const headers = {
+                    headers: { Authorization: token }
+                };
+                let rutaMesas = process.env.REACT_APP_API_URL + "/v2/mesas";
+                let { data } = await axios.get(rutaMesas, headers);
                 setStmesas(data);
             }
             getMesas();
@@ -47,7 +51,7 @@ export default function ListMesas() {
                                                         <div className="row">
                                                             <div className="col-md-4 text-center">
 
-                                                                <p  style={{ "fontWeight": "bold"}}>
+                                                                <p style={{ "fontWeight": "bold" }}>
                                                                     Num:
                                                                 </p>
                                                                 <h5>
@@ -55,22 +59,22 @@ export default function ListMesas() {
                                                                 </h5>
                                                             </div>
                                                             <div className="col-md-4 text-center">
-                                                                <p  style={{ "fontWeight": "bold"}}>
+                                                                <p style={{ "fontWeight": "bold" }}>
                                                                     Comensales:
                                                                 </p>
                                                                 <h5>
                                                                     {mesa.ocupantesmax}
                                                                 </h5>
                                                             </div>
-                                                            <div className="col-md-4">
-                                                            <p  style={{ "fontWeight": "bold"}}>
+                                                            <div className="col-md-4 text-center">
+                                                                <p style={{ "fontWeight": "bold" }}>
                                                                     Editar:
                                                                 </p>
-                                                            <Link to={`/mesas/${mesa.nummesa}/update`} >
-                                                                        <button className="btn mt-1 " style={{ "background": "#222831" , "borderColor":"white" }}>
-                                                                            <i className="fa fa-pencil" style={{ "color": "white" }} ></i>
-                                                                        </button>
-                                                                    </Link>
+                                                                <Link to={`/mesas/${mesa.nummesa}/update`} >
+                                                                    <button className="btn mt-1 " style={{ "background": "#222831", "borderColor": "white" }}>
+                                                                        <i className="fa fa-pencil" style={{ "color": "white" }} ></i>
+                                                                    </button>
+                                                                </Link>
                                                             </div>
                                                         </div>
                                                     </div>
