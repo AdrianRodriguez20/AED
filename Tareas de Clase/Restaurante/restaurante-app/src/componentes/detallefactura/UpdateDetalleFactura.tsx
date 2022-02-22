@@ -153,6 +153,14 @@ export default function UpdateDetalleFactura() {
                                 </form>
                             </div>
                         </div>
+                        <div className="col-md-6">
+                        <div className="map_container ">
+                                <div id="imgPlato" >
+                                    <img src={`/imagenes/hamburguesa3.svg`} style={{ "width": "80%" }} alt="" />
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <form onSubmit={borrarPlatoApi} >

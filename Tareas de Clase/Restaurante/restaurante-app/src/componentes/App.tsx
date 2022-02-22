@@ -19,6 +19,7 @@ import UpdatePlatos from './plato/UpdatePlato';
 import UpdateMesas from './mesa/UpdateMesas';
 import UpdateServicio from './servicio/UpdateServicio';
 import UpdateDetalleFactura from './detallefactura/UpdateDetalleFactura';
+import MainMenu from './otros/MainAdmin';
 
 function App() {
   return (
@@ -103,6 +104,12 @@ function App() {
         <Route path="/servicios/:id/platos/:idplato/update" element={
           <RequireAuth >
             <UpdateDetalleFactura />
+          </RequireAuth>
+        }
+        />
+            <Route path="/main" element={
+          <RequireAuth >
+            <MainMenu />
           </RequireAuth>
         }
         />

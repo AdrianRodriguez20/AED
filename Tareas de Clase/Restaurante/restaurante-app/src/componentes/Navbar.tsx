@@ -44,7 +44,7 @@ export default function Navbar() {
                 localStorage.clear();
                 localStorage.setItem("token", data);
                 setLogin(true);
-                navigate("/");
+                navigate("/main");
             } catch (error) {
                 console.log(error);
             }
