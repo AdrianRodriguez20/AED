@@ -14,6 +14,9 @@ export default function ManageServicio() {
     const [sttotal, setSttotal] = useState<number>(0);
     const { id } = useParams();
 
+
+    
+
     useEffect(() => {
         const getServicio = async (id: string | undefined) => {
             let token: string = localStorage.getItem("token") as string;
@@ -22,15 +25,12 @@ export default function ManageServicio() {
             };
             let rutaServicio = process.env.REACT_APP_API_URL + "/v2/servicios/";
             let { data } = await axios.get(rutaServicio + id, headers);
-
-
             setStservicio(data);
 
         }
         getServicio(id);
-
-
-    }, [id]);
+        
+    }, []);
 
 
     useEffect(() => {

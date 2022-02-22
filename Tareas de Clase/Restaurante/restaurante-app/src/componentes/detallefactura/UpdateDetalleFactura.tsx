@@ -6,6 +6,7 @@ import { Plato } from '../../interfaces/Plato';
 import { Servicio } from '../../interfaces/Servicio';
 import { Detallefactura } from '../../interfaces/DetalleFactura';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export default function UpdateDetalleFactura() {
@@ -24,6 +25,8 @@ export default function UpdateDetalleFactura() {
                 headers: { Authorization: token }
             };
             let rutaServicio = process.env.REACT_APP_API_URL + "/v2/servicios/";
+
+
             let { data } = await axios.get(rutaServicio + id, headers);
 
 
@@ -33,7 +36,7 @@ export default function UpdateDetalleFactura() {
         getServicio(id);
 
 
-    }, [id]);
+    }, []);
 
 
 
@@ -43,27 +46,53 @@ export default function UpdateDetalleFactura() {
     const actualizarPlatoApi = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let formulario: HTMLFormElement = event.currentTarget;
-        let detallefactura :  HTMLInputElement = formulario.cantidad;
+        let detallefactura: HTMLInputElement = formulario.cantidad;
         let cantidad = parseInt(detallefactura.value);
         let token: string = localStorage.getItem("token") as string;
-     
-       
 
-     
+
+
+
         const headers = {
             headers: { Authorization: token }
         };
-        let rutaPlato = process.env.REACT_APP_API_URL + "/v2/servicios/" + id + "/platos/"+ idplato;
+        let ruta = process.env.REACT_APP_API_URL + "/v2/servicios/" + id + "/platos/" + idplato;
         let data = {
             cantidad: cantidad
         }
-
-        try {
-            axios.put(rutaPlato, data, headers);
-            navigate("/servicios/" + id );
-        } catch (error) {
-            console.log(error);
+        const axiosput = async (rutaPlato: string) => {
+            try {
+                axios.put(rutaPlato, data, headers);
+                navigate("/servicios/" + id);
+            } catch (error) {
+                console.log(error);
+            }
         }
+        axiosput(ruta);
+
+    }
+
+    const borrarPlatoApi = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        let token: string = localStorage.getItem("token") as string;
+
+        const headers = {
+            headers: { Authorization: token }
+        };
+
+        let ruta = process.env.REACT_APP_API_URL + "/v2/servicios/" + id + "/platos/" + idplato;
+
+        const axiosdelete = async (rutaDetalles: string) => {
+            try {
+                const { data } = await axios.delete(rutaDetalles)
+                console.log(data);
+                navigate("/servicios/" + id);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        axiosdelete(ruta);
+
 
     }
 
@@ -99,9 +128,9 @@ export default function UpdateDetalleFactura() {
                                                             <input
                                                                 type="number"
                                                                 className="form-control"
-                                                                value={detallefactura.plato.preciounidad}                                                           
+                                                                value={detallefactura.plato.preciounidad}
                                                                 readOnly
-                                                                 />
+                                                            />
 
                                                         </div>
                                                         <div>
@@ -110,7 +139,7 @@ export default function UpdateDetalleFactura() {
                                                                 className="form-control"
                                                                 id="cantidad"
                                                                 defaultValue={detallefactura.cantidad}
-                                                               />
+                                                            />
                                                         </div>
                                                     </>
                                                 )
@@ -126,6 +155,12 @@ export default function UpdateDetalleFactura() {
                         </div>
                     </div>
                 </div>
+                <form onSubmit={borrarPlatoApi} >
+
+                    <button className="botonF1">
+                        <i className="fas fa-trash"></i>
+                    </button>
+                </form >
             </section>
 
         </>

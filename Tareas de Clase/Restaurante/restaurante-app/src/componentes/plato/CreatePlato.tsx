@@ -37,6 +37,7 @@ export default function CreatePlatos() {
             try {
                 const { data } = await axios.post(rutaServicio,plato, headers );
                 console.log(data);
+                navigate("/platos");
 
             } catch (error) {
                 console.log(error);
@@ -69,7 +70,7 @@ export default function CreatePlatos() {
                                     </div>
                                     <div>
                                         <select className="form-control nice-select wide" id="disponible" >
-                                            <option value="" disabled selected>
+                                            <option value="" disabled >
                                                 Disponibilidad
                                             </option>
                                             <option value="true" >

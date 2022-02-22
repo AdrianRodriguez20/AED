@@ -49,6 +49,7 @@ export default function UpdateMesas() {
             try {
                 const { data } = await axios.put(rutaMesa, mesa, headers);
                 console.log(data);
+                navigate("/mesas");
             } catch (error) {
                 console.log(error);
             }

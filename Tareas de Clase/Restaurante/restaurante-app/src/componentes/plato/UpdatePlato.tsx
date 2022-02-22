@@ -53,6 +53,7 @@ export default function UpdatePlatos() {
             try {
                 const { data } = await axios.put(rutaServicio, plato, headers);
                 console.log(data);
+                navigate("/platos");
 
             } catch (error) {
                 console.log(error);

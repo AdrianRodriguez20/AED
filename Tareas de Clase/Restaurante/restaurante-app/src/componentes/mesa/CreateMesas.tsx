@@ -45,7 +45,7 @@ export default function CreateMesas() {
 				const { data } = await axios.post(rutaMesa, mesa ,headers);
 				console.log(data);
 
-                
+                navigate("/mesas");
 
 			} catch (error) {
 				console.log(error);

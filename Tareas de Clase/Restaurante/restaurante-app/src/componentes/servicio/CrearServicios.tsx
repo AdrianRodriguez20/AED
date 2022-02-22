@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 export default function CrearServicio() {
-
+    let navigate = useNavigate();
     const [stfechacomienzo, setStfechacomienzo] = useState<Date>(new Date());
     const [stcomensales, setStcomensales] = useState<number>(1);
     const [stnummesas, setStnummesas] = useState<number[]>([]);
@@ -37,6 +37,7 @@ export default function CrearServicio() {
 			try {
 				const { data } = await axios.post(rutaServicio, reserva ,headers);
 				console.log(data);
+                navigate("/servicios/"+data.idservicio);
 
 			} catch (error) {
 				console.log(error);
