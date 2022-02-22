@@ -39,7 +39,13 @@ public class RestauranteApplication {
 					.ignoring()
 					.antMatchers(HttpMethod.POST, "/api/login")
 					.antMatchers(HttpMethod.POST, "/api/registro")
-					.antMatchers("/api/v1/**");
+					.antMatchers("/swagger-ui.html")
+					.antMatchers("/v2/api-docs",
+							"/configuration/ui",
+							"/swagger-resources/**",
+							"/configuration/security",
+							"/swagger-ui.html",
+							"/webjars/**");
 		}
 
 		@Override

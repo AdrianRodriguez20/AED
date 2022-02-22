@@ -7,6 +7,9 @@ import es.iespuertodelacruz.adrian.restaurante.entity.Mesa;
 import es.iespuertodelacruz.adrian.restaurante.entity.Plato;
 import es.iespuertodelacruz.adrian.restaurante.service.MesaService;
 import es.iespuertodelacruz.adrian.restaurante.utils.ApiError;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v2/mesas")
+@Api(value="API REST Mesas")
 public class MesasREST {
 
 
@@ -25,8 +29,14 @@ public class MesasREST {
     MesaService mesaService;
 
     @GetMapping
-    public ArrayList<MesaDTO> getAll(@RequestParam(required = false, name = "disponible") Boolean disponible,
-                                     @RequestParam(required = false, name = "fecha") Long fecha,
+    @ApiOperation(value="Retorna todas las mesas o las mesas disponibles.")
+    public ArrayList<MesaDTO> getAll(
+            @ApiParam( name="disponible",
+                    value="Si es true, se retornan las mesas disponibles.", required=false)
+            @RequestParam(required = false, name = "disponible") Boolean disponible,
+            @ApiParam( name="fecha", value = "Fecha de la reserva.", required=false)
+             @RequestParam(required = false, name = "fecha") Long fecha,
+            @ApiParam( name="comensales", value = "Numero de personas que asistiran.", required=false)
                                      @RequestParam(required = false, name = "comensales") Integer comensales) {
 
         ArrayList<MesaDTO> mesas = new ArrayList<>();
@@ -47,7 +57,10 @@ public class MesasREST {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") int id) {
+    @ApiOperation(value="Retorna la mesa con el id indicado.")
+    public ResponseEntity<?> getById(
+            @ApiParam( name="id", value="Id de la mesa.", required=true)
+            @PathVariable("id") int id) {
         Optional<Mesa> optP = mesaService.findById(id);
         if (optP.isPresent()) {
             Mesa m = optP.get();
@@ -58,7 +71,10 @@ public class MesasREST {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Mesa m) {
+    @ApiOperation(value="Crea una nueva mesa.")
+    public ResponseEntity<?> save(
+            @ApiParam( name="mesa", value="Mesa a crear.", required=true)
+            @RequestBody Mesa m) {
         Optional<Mesa> optP = mesaService.findById(m.getNummesa());
         if (!optP.isPresent()) {
             MesaDTO mDTO = new MesaDTO(m);
@@ -74,7 +90,12 @@ public class MesasREST {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update (@PathVariable Integer id ,@RequestBody Mesa m ) {
+    @ApiOperation(value="Actualiza la mesa con el id indicado.")
+    public ResponseEntity<?> update (
+            @ApiParam( name="id", value="Id de la mesa.", required=true)
+            @PathVariable Integer id ,
+            @ApiParam( name="mesa", value="Mesa a actualizar.", required=true)
+            @RequestBody Mesa m ) {
         Optional<Mesa> optP = mesaService.findById(id);
         if (optP.isPresent()) {
             MesaUpdateDTO mDTO = new MesaUpdateDTO(m);

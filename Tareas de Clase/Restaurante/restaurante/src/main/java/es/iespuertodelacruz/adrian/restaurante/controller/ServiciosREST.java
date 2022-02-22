@@ -14,6 +14,10 @@ import es.iespuertodelacruz.adrian.restaurante.service.MesaService;
 import es.iespuertodelacruz.adrian.restaurante.service.PlatoService;
 import es.iespuertodelacruz.adrian.restaurante.service.ServicioService;
 import es.iespuertodelacruz.adrian.restaurante.utils.ApiError;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +29,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v2/servicios")
+@Api(value="API REST Servicios")
 public class ServiciosREST {
 
     @Autowired
@@ -37,6 +42,7 @@ public class ServiciosREST {
     MesaService mesaService;
 
     @GetMapping
+    @ApiOperation(value = "Listado de servicios")
     public ArrayList<ListadoServiciosDTO> getAll() {
         ArrayList<ListadoServiciosDTO> listadoServiciosDTOS = new ArrayList<ListadoServiciosDTO>();
         servicioService.findAll().forEach(p -> {
@@ -48,7 +54,10 @@ public class ServiciosREST {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") Integer id) {
+    @ApiOperation(value = "Devuelve los detalle de servicio")
+    public ResponseEntity<?> getById(
+            @ApiParam(value = "Id del servicio", required = true)
+            @PathVariable("id") Integer id) {
         Optional<Servicio> optS = servicioService.findById(id);
         if (optS.isPresent()) {
             ServicioDetallesDTO sDTO = new ServicioDetallesDTO(optS.get());
@@ -60,7 +69,10 @@ public class ServiciosREST {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody ServicioDTO sDTO) {
+    @ApiOperation(value = "Crea un servicio")
+    public ResponseEntity<?> save(
+            @ApiParam(value = "Servicio a crear", required = true)
+            @RequestBody ServicioDTO sDTO) {
 
         if (mesaService.findById(sDTO.getNummesa()).isPresent()) {
             Servicio optS = servicioService.save(sDTO.toEntity());
@@ -77,7 +89,12 @@ public class ServiciosREST {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody ServicioDTO sDTO) {
+    @ApiOperation(value = "Actualiza un servicio")
+    public ResponseEntity<?> update(
+            @ApiParam(value = "Id del servicio", required = true)
+            @PathVariable("id") Integer id,
+            @ApiParam(value = "Servicio a actualizar", required = true)
+            @RequestBody ServicioDTO sDTO) {
         Optional<Servicio> optS = servicioService.findById(id);
         if (optS.isPresent()) {
             if (mesaService.findById(sDTO.getNummesa()).isPresent()) {
@@ -100,7 +117,10 @@ public class ServiciosREST {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+    @ApiOperation(value = "Elimina un servicio")
+    public ResponseEntity<?> delete(
+            @ApiParam(value = "Id del servicio", required = true)
+            @PathVariable("id") Integer id) {
         Optional<Servicio> optS = servicioService.findById(id);
         if (optS.isPresent()) {
             if (optS.get().getDetallefacturas().size() > 0) {
@@ -117,7 +137,12 @@ public class ServiciosREST {
     }
 
     @PostMapping("/{id}/platos")
-    public ResponseEntity<?> save(@PathVariable("id") Integer id, @RequestBody List<DetalleFacturaPostDTO> dsDTO) {
+    @ApiOperation(value = "Agrega un plato a un servicio")
+    public ResponseEntity<?> save(
+            @ApiParam(value = "Id del servicio", required = true)
+            @PathVariable("id") Integer id,
+            @ApiParam(value = "Plato a agregar", required = true)
+            @RequestBody List<DetalleFacturaPostDTO> dsDTO) {
         Optional<Servicio> optS = servicioService.findById(id);
 
         if (optS.isPresent()) {
@@ -168,7 +193,15 @@ public class ServiciosREST {
 
 
     @PutMapping("/{id}/platos/{idplato}")
-    public ResponseEntity <?> update (@PathVariable("id") Integer id, @PathVariable("idplato") Integer idplato, @RequestBody DetalleFacturaPostDTO dDTO){
+    @ApiOperation(value = "Modifica un plato de un servicio")
+
+    public ResponseEntity <?> update (
+            @ApiParam(value = "Id del servicio", required = true)
+            @PathVariable("id") Integer id,
+            @ApiParam(value = "Id del plato", required = true)
+            @PathVariable("idplato") Integer idplato,
+            @ApiParam(value = "Detalle de la factura", required = true)
+            @RequestBody DetalleFacturaPostDTO dDTO){
         Optional<Servicio> optS = servicioService.findById(id);
         if (optS.isPresent()) {
             Detallefactura detallefactura = detallefacturaService.findByPlato(idplato, id);
@@ -185,7 +218,12 @@ public class ServiciosREST {
     }
 
     @DeleteMapping("/{id}/platos/{idplato}")
-    public ResponseEntity <?> delete (@PathVariable("id") Integer id, @PathVariable("idplato") Integer idplato){
+    @ApiOperation(value = "Elimina un plato de un servicio")
+    public ResponseEntity <?> delete (
+            @ApiParam(value = "Id del servicio", required = true)
+            @PathVariable("id") Integer id,
+            @ApiParam(value = "Id del plato", required = true)
+            @PathVariable("idplato") Integer idplato){
         Optional<Servicio> optS = servicioService.findById(id);
         if (optS.isPresent()) {
             Detallefactura detallefactura = detallefacturaService.findByPlato(idplato, id);

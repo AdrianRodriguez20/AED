@@ -3,6 +3,9 @@ package es.iespuertodelacruz.adrian.restaurante.controller;
 import es.iespuertodelacruz.adrian.restaurante.entity.Operario;
 import es.iespuertodelacruz.adrian.restaurante.security.GestorDeJWT;
 import es.iespuertodelacruz.adrian.restaurante.service.OperarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Api(value="API REST Login ")
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     /*  funciona el form urlencode */
     @PostMapping(path = "/api/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<?> login(@RequestParam("nombre") String nombre, @RequestParam("password") String pwd) {
+    public ResponseEntity<?> login(
+            @RequestParam("nombre") String nombre, @RequestParam("password") String pwd) {
 
 
         String token = getJWTToken(nombre,pwd);
@@ -51,7 +56,10 @@ public class LoginController {
 
     /* json post */
     @PostMapping(path = "/api/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody OperarioJsonLogin usuarioJson) {
+    @ApiOperation(value = "Login, devuelve un token con el rol del usuario y credenciales")
+    public ResponseEntity<?> login(
+            @ApiParam(value = "Usuario y contraseña" , required = true)
+            @RequestBody OperarioJsonLogin usuarioJson) {
 
 
         String token = getJWTToken(usuarioJson.name, usuarioJson.password);
@@ -65,7 +73,10 @@ public class LoginController {
     }
 
     @PostMapping(path = "/api/registro", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> registro(@RequestBody OperarioJsonLogin usuarioJson) {
+    @ApiOperation(value = "Registro de un nuevo usuario")
+    public ResponseEntity<?> registro(
+            @ApiParam(value = "Usuario y contraseña" , required = true)
+            @RequestBody OperarioJsonLogin usuarioJson) {
         if (operarioService.findByNombre(usuarioJson.name) != null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("usuario ya existe");
         }else{

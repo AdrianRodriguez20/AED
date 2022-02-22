@@ -5,6 +5,9 @@ import es.iespuertodelacruz.adrian.restaurante.dto.platos.PlatoDTO;
 import es.iespuertodelacruz.adrian.restaurante.entity.Plato;
 import es.iespuertodelacruz.adrian.restaurante.service.PlatoService;
 import es.iespuertodelacruz.adrian.restaurante.utils.ApiError;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +18,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v2/platos")
+@Api(value="API REST Platos V2")
 public class PlatosREST {
 
     @Autowired
     PlatoService platoService;
 
     @GetMapping
+    @ApiOperation(value="Devuelve todos los platos")
     public ArrayList<PlatoDTO> getAll() {
         ArrayList<PlatoDTO> platos = new ArrayList<PlatoDTO>();
         platoService.findAll().forEach(p -> {
@@ -32,7 +37,10 @@ public class PlatosREST {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") Integer id) {
+    @ApiOperation(value="Devuelve un plato")
+    public ResponseEntity<?> getById(
+            @ApiParam(value = "Id del plato", required = true)
+            @PathVariable("id") Integer id) {
         Optional<Plato> optP = platoService.findById(id);
         if (optP.isPresent()) {
             PlatoDTO pDTO = new PlatoDTO(optP.get());
@@ -44,7 +52,10 @@ public class PlatosREST {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Plato p) {
+    @ApiOperation(value="Crea un plato")
+    public ResponseEntity<?> save(
+            @ApiParam(value = "Plato a crear", required = true)
+            @RequestBody Plato p) {
             PlatoDTO pDTO = new PlatoDTO(p);
         Plato save = platoService.save(pDTO.toPlato());
         if (save != null) {
@@ -56,7 +67,12 @@ public class PlatosREST {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Plato p) {
+    @ApiOperation(value="Actualiza un plato")
+    public ResponseEntity<?> update(
+            @ApiParam(value = "Id del plato", required = true)
+            @PathVariable Integer id,
+            @ApiParam(value = "Plato a actualizar", required = true)
+            @RequestBody Plato p) {
         Optional<Plato> optP = platoService.findById(id);
         if (optP.isPresent()) {
             PlatoDTO pDTO = new PlatoDTO(p);
@@ -68,7 +84,12 @@ public class PlatosREST {
     }
 
     @PutMapping("/{id}/disponibilidad")
-    public  ResponseEntity<?> updateDisponiblidad (@PathVariable Integer id, @RequestParam(name = "disponible") Boolean disponibilidad) {
+    @ApiOperation(value="Actualiza la disponibilidad de un plato")
+    public  ResponseEntity<?> updateDisponiblidad (
+            @ApiParam(value = "Id del plato", required = true)
+            @PathVariable Integer id,
+            @ApiParam(value = "Disponibilidad del plato", required = true)
+            @RequestParam(name = "disponible") Boolean disponibilidad) {
         Optional<Plato> optP = platoService.findById(id);
         if (optP.isPresent()) {
             PlatoDTO pDTO = new PlatoDTO(optP.get());
