@@ -1,0 +1,16 @@
+.inputcantidad{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-top: 10px;
+ 
+    font-size: 14px;
+    font-family: Arial;
+    color: #333;
+    text-align: center;
+
+
+
+}

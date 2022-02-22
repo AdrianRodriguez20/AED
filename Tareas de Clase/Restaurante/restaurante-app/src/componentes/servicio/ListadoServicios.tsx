@@ -34,7 +34,7 @@ export default function ListadoServicios() {
                             Servicios
                         </h2>
                     </div>
-                    <div className="filters-content">
+                    <div className="filters-content ">
 
                         <div className="limiter">
                             <div className="container-table100">
@@ -44,11 +44,13 @@ export default function ListadoServicios() {
                                             <table>
                                                 <thead>
                                                     <tr className="row100 head">
-                                                        <th className="cell100 column1">Numero mesa</th>
+                                                        <th className="cell100 column1">Num  </th>
                                                         <th className="cell100 column2">Fecha</th>
                                                         <th className="cell100 column3">Hora</th>
                                                         <th className="cell100 column4">Pagado</th>
                                                         <th className="cell100 column5">Ver</th>
+                                                        <th className="cell100 column6">Editar</th>
+                                                        <th className="cell100 column7">Eliminar</th>
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -77,7 +79,20 @@ export default function ListadoServicios() {
                                                                         </button>
                                                                     </Link>
                                                                 </td>
-
+                                                                <td className="cell100 column6">
+                                                                     <Link  to={`/servicios/${servicio.idservicio}/update`}>
+                                                                        <button className="btn " style={{ "background": "#6c7ae0" }}>
+                                                                            <i className="fa fa-pencil" style={{ "color": "white" }} ></i>
+                                                                        </button>
+                                                                    </Link>
+                                                                </td>
+                                                                <td className="cell100 column7">
+                                                                <Link  to={`/servicios/${servicio.idservicio}/delete`}>
+                                                                        <button className="btn " style={{ "background": "#6c7ae0" }}>
+                                                                            <i className="fa fa-trash" style={{ "color": "white" }} ></i>
+                                                                        </button>
+                                                                    </Link>
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     ))
@@ -90,7 +105,13 @@ export default function ListadoServicios() {
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
+                    <Link to="/servicios/create">
+                        <button className="botonF1">
+                        <i className="fas fa-plus"></i>
+                        </button>
+                    </Link>
                 </div>
             </section>
         </>

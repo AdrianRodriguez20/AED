@@ -17,6 +17,8 @@ import { RequireAuth } from './RequireAuth';
 import CreatePlatos from './plato/CreatePlato';
 import UpdatePlatos from './plato/UpdatePlato';
 import UpdateMesas from './mesa/UpdateMesas';
+import UpdateServicio from './servicio/UpdateServicio';
+import UpdateDetalleFactura from './detallefactura/UpdateDetalleFactura';
 
 function App() {
   return (
@@ -63,6 +65,12 @@ function App() {
           </RequireAuth>
         }
         />
+        <Route path="/servicios/:id/update" element={
+          <RequireAuth >
+            <UpdateServicio />
+          </RequireAuth>
+        }
+        />
         <Route path="/sobrenosotros" element={
           <SobreNostros />
         }
@@ -79,19 +87,26 @@ function App() {
           </RequireAuth>
         }
         />
-           <Route path="/mesas/:id/update" element={
+        <Route path="/mesas/:id/update" element={
           <RequireAuth >
-            <UpdateMesas/>
+            <UpdateMesas />
           </RequireAuth>
         }
         />
 
-        <Route path="/servicios/:id/create" element={
+        <Route path="/servicios/:id/platos/create" element={
           <RequireAuth >
             <CrearDetalleFactura />
           </RequireAuth>
         }
         />
+        <Route path="/servicios/:id/platos/:id/Plato/update" element={
+          <RequireAuth >
+            <UpdateDetalleFactura />
+          </RequireAuth>
+        }
+        />
+
       </Routes>
       <Footer />
     </BrowserRouter>

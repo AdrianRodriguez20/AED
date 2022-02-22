@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Servicio } from '../../interfaces/Servicio';
 import { useNavigate } from 'react-router-dom';
 import { Detallefactura } from '../../interfaces/DetalleFactura';
+import { Link } from 'react-router-dom';
 
 export default function ManageServicio() {
 
@@ -75,7 +76,7 @@ export default function ManageServicio() {
                                                 <td>
                                                     <div className="py-2"> <span className="d-block text-muted">Num Mesa:</span>
                                                         <span> {stservicio.nummesa}</span> </div>
-                                                        
+
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -136,6 +137,12 @@ export default function ManageServicio() {
                         </div>
                     </div>
                 </div>
+                <Link to={`/servicios/${stservicio.idservicio}/platos/create`}>
+                    <button className="botonF1">
+                        <i className="fas fa-edit" style={{ "fontSize": "19px" }}></i>
+                    </button>
+                </Link>
+
             </div>
         </>
     )
