@@ -21,8 +21,9 @@ export default function CreateMesas() {
         }
     }
     const agregarMesaApi = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         let formulario: HTMLFormElement = event.currentTarget;
-        let inputnummesa: HTMLInputElement = formulario.fechacomienzo;
+        let inputnummesa: HTMLInputElement = formulario.nummesa;
         let selectocupantesmax : HTMLSelectElement = formulario.ocupantesmax;
 
         let nummesa = parseInt(inputnummesa.value);
@@ -30,10 +31,10 @@ export default function CreateMesas() {
 
         let mesa = {
             nummesa: nummesa,
-            selectocupantesmax: ocupantesmax
+            ocupantesmax: ocupantesmax
         }
 
-        let ruta = process.env.REACT_APP_API_URL + "/v1/mesas";
+        let ruta = process.env.REACT_APP_API_URL + "/v2/mesas";
 
         const axiospost = async (rutaMesa: string) => {
             let token: string = localStorage.getItem("token") as string;
@@ -41,7 +42,7 @@ export default function CreateMesas() {
                 headers: { Authorization: token }
             };
             try {
-				const { data } = await axios.put(rutaMesa, mesa ,headers);
+				const { data } = await axios.post(rutaMesa, mesa ,headers);
 				console.log(data);
 
                 

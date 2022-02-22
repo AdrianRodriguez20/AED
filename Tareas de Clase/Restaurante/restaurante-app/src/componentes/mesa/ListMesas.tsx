@@ -66,14 +66,12 @@ export default function ListMesas() {
                                                                     {mesa.ocupantesmax}
                                                                 </h5>
                                                             </div>
-                                                            <div className="col-md-4 text-center">
-                                                                <p style={{ "fontWeight": "bold" }}>
-                                                                    Editar:
-                                                                </p>
+                                                            <div className="col-md-4 text-center mt-1">
+                                                             
                                                                 <Link to={`/mesas/${mesa.nummesa}/update`} >
-                                                                    <button className="btn mt-1 " style={{ "background": "#222831", "borderColor": "white" }}>
-                                                                        <i className="fa fa-pencil" style={{ "color": "white" }} ></i>
-                                                                    </button>
+                                                                <button type="submit" id="disponible" value="true" className='buttonDisponible edit'>
+                                                                                <li className='fas fa-edit'></li>
+                                                                            </button>
                                                                 </Link>
                                                             </div>
                                                         </div>
@@ -86,6 +84,11 @@ export default function ListMesas() {
                             }
                         </div>
                     </div>
+                    <Link to="/mesas/create">
+                        <button className="botonF1">
+                        <i className="fas fa-plus"></i>
+                        </button>
+                    </Link>
                 </div>
             </section>
 

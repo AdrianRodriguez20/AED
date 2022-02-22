@@ -16,6 +16,7 @@ import CrearDetalleFactura from './detallefactura/CrearDetalleFactura';
 import { RequireAuth } from './RequireAuth';
 import CreatePlatos from './plato/CreatePlato';
 import UpdatePlatos from './plato/UpdatePlato';
+import UpdateMesas from './mesa/UpdateMesas';
 
 function App() {
   return (
@@ -78,6 +79,13 @@ function App() {
           </RequireAuth>
         }
         />
+           <Route path="/mesas/:id/update" element={
+          <RequireAuth >
+            <UpdateMesas/>
+          </RequireAuth>
+        }
+        />
+
         <Route path="/servicios/:id/create" element={
           <RequireAuth >
             <CrearDetalleFactura />

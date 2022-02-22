@@ -157,7 +157,7 @@ export default function UpdatePlatos() {
                                     </div>
                                     <div className="btn_box text-center">
                                         <button>
-                                            Crear
+                                            Actualizar
                                         </button>
                                     </div>
 
