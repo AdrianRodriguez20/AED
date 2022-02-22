@@ -14,6 +14,8 @@ import ListMesas from './mesa/ListMesas';
 import CreateMesas from './mesa/CreateMesas';
 import CrearDetalleFactura from './detallefactura/CrearDetalleFactura';
 import { RequireAuth } from './RequireAuth';
+import CreatePlatos from './plato/CreatePlato';
+import UpdatePlatos from './plato/UpdatePlato';
 
 function App() {
   return (
@@ -30,6 +32,19 @@ function App() {
           </RequireAuth>
         }
         />
+        <Route path="/platos/create" element={
+          <RequireAuth>
+            <CreatePlatos />
+          </RequireAuth>
+        }
+        />
+        <Route path="/platos/:id/update" element={
+          <RequireAuth>
+            <UpdatePlatos />
+          </RequireAuth>
+        }
+        />
+
         <Route path="/servicios" element={
           <RequireAuth >
             <ListadoServicios />

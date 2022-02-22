@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Plato } from '../../interfaces/Plato';
@@ -39,7 +40,7 @@ export default function ListadoPlatos() {
         const axiospost = async (rutaPlatos: string) => {
             try {
                 const { data } = await axios.put(rutaPlatos);
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -47,7 +48,7 @@ export default function ListadoPlatos() {
         axiospost(ruta);
     }
 
-  
+
     return (
         <>
             <section className="food_section layout_padding">
@@ -80,13 +81,13 @@ export default function ListadoPlatos() {
                                                                 <div className="row">
                                                                     <div className="col-8">
 
-                                                                        <h6>
+                                                                        <h6 className="mt-4" style={{ "fontSize": "25px" }}>
                                                                             {plato.preciounidad}€
 
                                                                         </h6>
                                                                     </div>
-                                                                    <div className="col-4  mt-3">
-                                                                        <div>
+                                                                    <div className="col-4  mt-3" style={{ "display": "flex", "justifyContent": "flex-end" }}>
+                                                                        <div className='ml-5 mr-3'>
                                                                             {plato.disponible ?
                                                                                 <>
                                                                                     <form onSubmit={actualizarDisponibilidadApi}>
@@ -110,18 +111,29 @@ export default function ListadoPlatos() {
                                                                             }
 
                                                                         </div>
+                                                                        <Link to={`/platos/${plato.idplato}/update`} className="mt-1">
+                                                                            <button type="submit" id="disponible" value="true" className='buttonDisponible edit'>
+                                                                                <li className='fas fa-edit'></li>
+                                                                            </button>
+                                                                        </Link>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         )
                                     })
                             }
                         </div>
                     </div>
+                    <Link to="/platos/create">
+                        <button className="botonF1">
+                        <i className="fas fa-plus"></i>
+                        </button>
+                    </Link>
                 </div>
             </section>
 

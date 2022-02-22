@@ -10,9 +10,13 @@
    }
    .disponible{
     background: #FBCA1F;
+    
    }
    .agotado{
     background: #ff6119;
+   }
+   .edit{
+    background: #1293e9;
    }
    .buttonDisponible:hover {
     transform: translate(-0.05em, -0.05em);
