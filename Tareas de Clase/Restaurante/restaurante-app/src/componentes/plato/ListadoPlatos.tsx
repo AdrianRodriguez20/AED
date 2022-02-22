@@ -23,7 +23,7 @@ export default function ListadoPlatos() {
             }
             getPlatos();
         },
-        [stplatos]
+        []
     )
     const actualizarDisponibilidadApi = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -39,8 +39,8 @@ export default function ListadoPlatos() {
         let ruta = process.env.REACT_APP_API_URL + "/v2/platos/" + idplato + "/disponibilidad?disponible=" + disponible;
         const axiospost = async (rutaPlatos: string) => {
             try {
-                const { data } = await axios.put(rutaPlatos);
-
+                const { data } = await axios.put(rutaPlatos ,headers);
+                setStplatos(stplatos.map(plato => plato.idplato === parseInt(idplato) ? data : plato));
             } catch (error) {
                 console.log(error);
             }

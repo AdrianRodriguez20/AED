@@ -100,7 +100,7 @@ function App() {
           </RequireAuth>
         }
         />
-        <Route path="/servicios/:id/platos/:id/Plato/update" element={
+        <Route path="/servicios/:id/platos/:idplato/update" element={
           <RequireAuth >
             <UpdateDetalleFactura />
           </RequireAuth>

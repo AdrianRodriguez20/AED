@@ -7,7 +7,7 @@ import { Detallefactura } from '../../interfaces/DetalleFactura';
 import { Link } from 'react-router-dom';
 
 export default function ManageServicio() {
-
+    
     let navigate = useNavigate();
     const [stservicio, setStservicio] = useState<Servicio>({} as Servicio);
 
@@ -30,7 +30,7 @@ export default function ManageServicio() {
         getServicio(id);
 
 
-    }, []);
+    }, [id]);
 
 
     useEffect(() => {
@@ -87,24 +87,25 @@ export default function ManageServicio() {
                                         <tbody>
                                             {stservicio.detallefacturas?.map((detallefactura: Detallefactura) => {
                                                 return (
-                                                    <tr key={detallefactura.iddetallefactura} >
-                                                        <td width="20%"> <img src="/imagenes/plato-servicio.png" width="90" /> </td>
-                                                        <td width="60%"> <span className="font-weight-bold">{detallefactura.plato.nombre}</span>
-                                                            <div className="product-qty"> <span className="d-block">{detallefactura.cantidad} ud. * {detallefactura.preciounidad}€/ud.</span> <span></span> </div>
-                                                        </td>
-                                                        <td width="20%">
-                                                            <div className="text-right"> <span className="font-weight-bold">
+                                                    <Link className='editarDetalleFactura' to={`/servicios/${stservicio.idservicio}/platos/${detallefactura.plato.idplato}/update`}>
+                                                        <tr key={detallefactura.iddetallefactura} >
+                                                            <td width="20%"> <img src="/imagenes/plato-servicio.png" width="90" /> </td>
+                                                            <td width="60%"> <span className="font-weight-bold">{detallefactura.plato.nombre}</span>
+                                                                <div className="product-qty"> <span className="d-block">{detallefactura.cantidad} ud. * {detallefactura.preciounidad}€/ud.</span> <span></span> </div>
+                                                            </td>
+                                                            <td width="20%">
+                                                                <div className="text-right"> <span className="font-weight-bold">
 
-                                                                {
-                                                                    parseFloat(JSON.stringify(detallefactura.plato.preciounidad)) * parseFloat(JSON.stringify(detallefactura.cantidad))
-                                                                }
-                                                                €
+                                                                    {
+                                                                        parseFloat(JSON.stringify(detallefactura.plato.preciounidad)) * parseFloat(JSON.stringify(detallefactura.cantidad))
+                                                                    }
+                                                                    €
 
 
-                                                            </span> </div>
-                                                        </td>
-                                                    </tr>
-
+                                                                </span> </div>
+                                                            </td>
+                                                        </tr>
+                                                    </Link>
                                                 )
                                             })}
 
@@ -144,6 +145,8 @@ export default function ManageServicio() {
                 </Link>
 
             </div>
+
+
         </>
     )
 

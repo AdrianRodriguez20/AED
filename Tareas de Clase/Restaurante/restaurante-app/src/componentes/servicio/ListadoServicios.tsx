@@ -18,12 +18,34 @@ export default function ListadoServicios() {
                 };
                 let rutaServicios = process.env.REACT_APP_API_URL + "/v2/servicios/";
                 let { data } = await axios.get(rutaServicios, headers);
+             
                 setStservicios(data);
             }
             getServicios();
         },
         []
     )
+    const borrarServicioApi = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        let formulario: HTMLFormElement   = event.currentTarget;
+        let inputId: HTMLInputElement  = formulario.idservicio;
+        let id = inputId.value;
+
+        let ruta = process.env.REACT_APP_API_URL + "/v2/servicios/";
+        const axiosdelete = async (rutaServicios: string) => {
+            try {
+                const { data } = await axios.delete(rutaServicios +id)
+                console.log(data);
+            
+                setStservicios(  stservicios.filter(servicio => servicio.idservicio !== Number(id)) );
+            }catch (error) {
+                console.log(error);
+               
+            }
+        } 
+         axiosdelete(ruta);
+            
+    }
 
     return (
         <>
@@ -87,11 +109,12 @@ export default function ListadoServicios() {
                                                                     </Link>
                                                                 </td>
                                                                 <td className="cell100 column7">
-                                                                <Link  to={`/servicios/${servicio.idservicio}/delete`}>
+                                                               <form onSubmit={borrarServicioApi}>
+                                                               <input type="hidden" id="idservicio" value={servicio.idservicio} />
                                                                         <button className="btn " style={{ "background": "#6c7ae0" }}>
                                                                             <i className="fa fa-trash" style={{ "color": "white" }} ></i>
                                                                         </button>
-                                                                    </Link>
+                                                                 </form>
                                                                 </td>
                                                             </tr>
                                                         </tbody>

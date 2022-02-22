@@ -242,7 +242,7 @@ a:focus {
   display: inline-block;
   padding: 8px 30px;
   background-color: #ffbe33;
-  color: #ffffff;
+  color: #222831;
   border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -1012,7 +1012,7 @@ a:focus {
 	font-size: 16px; /* Cambiar el tamaño de la tipografia */
 	text-transform: uppercase; /* Texto en mayusculas */
 	font-weight: bold; /* Fuente en negrita o bold */
-	color: #ffffff; /* Color del texto */
+	color: #222831; /* Color del texto */
 	border-radius: 5px; /* Borde del boton */
 	letter-spacing: 2px; /* Espacio entre letras */
 	background-color: #ffbe33; /* Color de fondo */

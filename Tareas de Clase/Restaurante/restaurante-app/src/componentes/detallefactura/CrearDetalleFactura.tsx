@@ -8,7 +8,7 @@ import { Plato } from '../../interfaces/Plato';
 import { Link } from 'react-router-dom';
 import '../../style/servicio/CrearDetalleFactura.css';
 
-//cear interface detalle
+
 
 export interface Detalle {
     idplato: number;
@@ -36,7 +36,7 @@ export default function CrearDetalleFactura() {
             }
             getPlatos();
         },
-        [stplatos]
+        []
     )
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -71,7 +71,7 @@ export default function CreateMesas() {
                             <div className="form_container">
                                 <form onSubmit={agregarMesaApi}>
                                     <div>
-                                        <input type="number" className="form-control" id="nummesa" placeholder="Número de mesa" />
+                                        <input type="number" className="form-control" id="nummesa" placeholder="Número de mesa" min="0" max="10" />
                                     </div>
 
                                     <div>

@@ -10,7 +10,7 @@ public interface MesasRepository  extends JpaRepository<Mesa, Integer> {
 
 
     @Query(value =
-            "SELECT mesas.nummesa, mesas.ocupantesmax FROM mesas "
+            "SELECT distinct mesas.nummesa, mesas.ocupantesmax FROM mesas "
                     + "LEFT JOIN servicios ON mesas.nummesa = servicios.fk_nummesa "
                     + "WHERE :fechaSolicitada >= :fechaAhora AND "
                     + "((:fechaSolicitada + 7200000 < servicios.fechacomienzo OR :fechaSolicitada >= servicios.fechafin) "

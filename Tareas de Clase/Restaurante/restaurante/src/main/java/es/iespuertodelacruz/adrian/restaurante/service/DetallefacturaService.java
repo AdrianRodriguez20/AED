@@ -55,4 +55,6 @@ public class DetallefacturaService  implements GenericService<Detallefactura,Int
     public Detallefactura findByPlato(Integer idplato, Integer idservicio) {
         return detallefacturasRepository.findByPlato(idplato , idservicio);
     }
+
+
 }
