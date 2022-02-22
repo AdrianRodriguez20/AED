@@ -9,14 +9,18 @@ export default function ManageServicio() {
 
     let navigate = useNavigate();
     const [stservicio, setStservicio] = useState<Servicio>({} as Servicio);
-    
+
     const [sttotal, setSttotal] = useState<number>(0);
     const { id } = useParams();
 
     useEffect(() => {
         const getServicio = async (id: string | undefined) => {
-            let rutaServicio = process.env.REACT_APP_API_URL + "/v1/servicios/";
-            let { data } = await axios.get(rutaServicio + id);
+            let token: string = localStorage.getItem("token") as string;
+            const headers = {
+                headers: { Authorization: token }
+            };
+            let rutaServicio = process.env.REACT_APP_API_URL + "/v2/servicios/";
+            let { data } = await axios.get(rutaServicio + id, headers);
 
 
             setStservicio(data);
@@ -27,7 +31,7 @@ export default function ManageServicio() {
 
     }, []);
 
-  
+
     useEffect(() => {
         let total = 0;
         stservicio.detallefacturas?.forEach(detallefactura => {
@@ -53,15 +57,15 @@ export default function ManageServicio() {
                                     <table className="table table-borderless">
                                         <tbody>
                                             <tr>
-                                            <td>
+                                                <td>
                                                     <div className="py-2"> <span className="d-block text-muted">Fecha</span>
                                                         <span>
                                                             {new Date(stservicio.fechacomienzo).toLocaleDateString()}
-                                                             </span> </div>
+                                                        </span> </div>
                                                 </td>
                                                 <td>
                                                     <div className="py-2"> <span className="d-block text-muted">Hora: </span>
-                                                    {new Date(stservicio.fechacomienzo).toLocaleTimeString()}
+                                                        {new Date(stservicio.fechacomienzo).toLocaleTimeString()}
                                                         <span> </span> </div>
                                                 </td>
                                                 <td>
@@ -71,6 +75,7 @@ export default function ManageServicio() {
                                                 <td>
                                                     <div className="py-2"> <span className="d-block text-muted">Num Mesa:</span>
                                                         <span> {stservicio.nummesa}</span> </div>
+                                                        
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -117,9 +122,9 @@ export default function ManageServicio() {
                                                     </td>
                                                     <td>
                                                         <div className="text-right"> <span className="font-weight-bold">
-                                         
-                                                        {sttotal}€
-                                                    
+
+                                                            {sttotal}€
+
                                                         </span> </div>
                                                     </td>
                                                 </tr>

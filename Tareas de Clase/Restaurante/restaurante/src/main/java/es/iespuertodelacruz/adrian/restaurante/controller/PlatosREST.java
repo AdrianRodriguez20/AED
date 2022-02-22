@@ -67,4 +67,18 @@ public class PlatosREST {
         }
     }
 
+    @PutMapping("/{id}/disponibilidad")
+    public  ResponseEntity<?> updateDisponiblidad (@PathVariable Integer id, @RequestParam(name = "disponible") Boolean disponibilidad) {
+        Optional<Plato> optP = platoService.findById(id);
+        if (optP.isPresent()) {
+            PlatoDTO pDTO = new PlatoDTO(optP.get());
+            pDTO.setIdplato(id);
+            pDTO.setDisponible(disponibilidad);
+            return ResponseEntity.ok().body(new PlatoDTO(platoService.save(pDTO.toPlato())));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST,"El numero de mesa no existe"));
+        }
+    }
+
+
 }

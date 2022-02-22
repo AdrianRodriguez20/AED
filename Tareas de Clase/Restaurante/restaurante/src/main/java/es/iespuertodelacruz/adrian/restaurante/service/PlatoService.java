@@ -48,4 +48,9 @@ public class PlatoService implements GenericService <Plato , Integer> {
     public void delete(Plato obj) {
         platosRepository.delete(obj);
     }
+
+   public void updateDisponible(Integer id, boolean disponible) {
+        platosRepository.updateDisponible(disponible,id);
+    }
+
 }

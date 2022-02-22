@@ -12,8 +12,12 @@ export default function ListadoServicios() {
     useEffect(
         () => {
             const getServicios = async () => {
-                let rutaServicios = process.env.REACT_APP_API_URL + "/v1/servicios/";
-                let { data } = await axios.get(rutaServicios);
+                let token: string = localStorage.getItem("token") as string;
+                const headers = {
+                    headers: { Authorization: token }
+                };
+                let rutaServicios = process.env.REACT_APP_API_URL + "/v2/servicios/";
+                let { data } = await axios.get(rutaServicios, headers);
                 setStservicios(data);
             }
             getServicios();

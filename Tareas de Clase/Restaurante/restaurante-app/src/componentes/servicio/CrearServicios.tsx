@@ -30,8 +30,12 @@ export default function CrearServicio() {
 		let ruta = process.env.REACT_APP_API_URL + "/v1/servicios";
 
 		const axiospost = async (rutaServicio: string) => {
+            let token: string = localStorage.getItem("token") as string;
+            const headers = {
+                headers: { Authorization: token }
+            };
 			try {
-				const { data } = await axios.post(rutaServicio, reserva);
+				const { data } = await axios.post(rutaServicio, reserva ,headers);
 				console.log(data);
 
 			} catch (error) {
@@ -49,11 +53,14 @@ export default function CrearServicio() {
 
 
     const getDisponibilidad = async (fecha: number, comensales: number) => {
-
+        let token: string = localStorage.getItem("token") as string;
+        const headers = {
+            headers: { Authorization: token }
+        };
 
 
         let rutaServicio = process.env.REACT_APP_API_URL + "/v1/mesas?disponible=true&fecha=" + fecha + "&comensales=" + comensales;
-        let { data } = await axios.get(rutaServicio);
+        let { data } = await axios.get(rutaServicio ,headers);
         console.log(data);
         let nummesas = data.map((mesa: any) => mesa.nummesa);
         setStnummesas(nummesas);

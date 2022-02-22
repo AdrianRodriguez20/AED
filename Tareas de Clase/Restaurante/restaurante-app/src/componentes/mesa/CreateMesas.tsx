@@ -36,8 +36,12 @@ export default function CreateMesas() {
         let ruta = process.env.REACT_APP_API_URL + "/v1/mesas";
 
         const axiospost = async (rutaMesa: string) => {
+            let token: string = localStorage.getItem("token") as string;
+            const headers = {
+                headers: { Authorization: token }
+            };
             try {
-				const { data } = await axios.put(rutaMesa, mesa);
+				const { data } = await axios.put(rutaMesa, mesa ,headers);
 				console.log(data);
 
                 

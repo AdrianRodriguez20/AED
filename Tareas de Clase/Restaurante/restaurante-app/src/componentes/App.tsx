@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Inicio from './Inicio';
 import Footer from './Footer';
 import Navbar from './Navbar';
+import Menu from './plato/Menu';
 import SobreNostros from './otros/SobreNosotros';
 import Registro from './operario/Registro';
 import ListadoPlatos from './plato/ListadoPlatos';
@@ -20,9 +21,21 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Inicio />} />
-        <Route path="/platos" element={<ListadoPlatos />} />
+        <Route path="/menu" element={<Menu />} />
         <Route path="/registro" element={<Registro />} />
-        <Route path="/servicios" element={<ListadoServicios />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/platos" element={
+          <RequireAuth>
+            <ListadoPlatos />
+          </RequireAuth>
+        }
+        />
+        <Route path="/servicios" element={
+          <RequireAuth >
+            <ListadoServicios />
+          </RequireAuth>
+        }
+        />
         <Route path="/servicios/:id" element={
           <RequireAuth >
             <ManageServicio />
