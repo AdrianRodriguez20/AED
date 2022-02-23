@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function CrearServicio() {
     let navigate = useNavigate();
     const [stfechacomienzo, setStfechacomienzo] = useState<Date>(new Date());
@@ -34,15 +36,18 @@ export default function CrearServicio() {
             const headers = {
                 headers: { Authorization: token }
             };
-			try {
-				const { data } = await axios.post(rutaServicio, reserva ,headers);
-				console.log(data);
-                navigate("/servicios/"+data.idservicio);
-
-			} catch (error) {
-				console.log(error);
-
-			}
+ 
+            await axios.post(rutaServicio, reserva ,headers).then(
+                (response) => {
+                    
+                    toast.success("Servicio agregado correctamente");
+                    navigate("/servicios/"+response.data.idservicio);
+                }
+            ).catch(
+                (error) => {
+                    toast.error(error.response.data.message);
+                }
+            );
 
 		}
 

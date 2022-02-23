@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import '../../style/servicio/ListadoServicios.css';
 import { Servicio } from '../../interfaces/Servicio';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ListadoServicios() {
 
@@ -33,15 +35,18 @@ export default function ListadoServicios() {
 
         let ruta = process.env.REACT_APP_API_URL + "/v2/servicios/";
         const axiosdelete = async (rutaServicios: string) => {
-            try {
-                const { data } = await axios.delete(rutaServicios +id)
-                console.log(data);
-            
-                setStservicios(  stservicios.filter(servicio => servicio.idservicio !== Number(id)) );
-            }catch (error) {
-                console.log(error);
-               
-            }
+
+            await axios.delete(rutaServicios +id).then(
+                (response) => {
+                    setStservicios(  stservicios.filter(servicio => servicio.idservicio !== Number(id)) );
+                    toast.success("Servicio borrado correctamente");
+                }
+            ).catch(
+                (error) => {
+                    toast.error(error.response.data.message);
+                }
+            );
+
         } 
          axiosdelete(ruta);
             

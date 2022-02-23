@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Mesa } from '../../interfaces/Mesa';
-
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CreateMesas() {
     let navigate = useNavigate();
@@ -41,16 +42,20 @@ export default function CreateMesas() {
             const headers = {
                 headers: { Authorization: token }
             };
-            try {
-				const { data } = await axios.post(rutaMesa, mesa ,headers);
-				console.log(data);
+ 
+            await axios.post(rutaMesa, mesa ,headers).then( 
+                (response) => {
+                  
+                    toast.success("Mesa agregada correctamente");
+                    navigate("/mesas");
+                }
+            ).catch(
+                (error) => {
+                    toast.error(error.response.data.message);
+                    console.log(error);
+                }
+            );
 
-                navigate("/mesas");
-
-			} catch (error) {
-				console.log(error);
-
-			}
 
         }
         axiospost(ruta);

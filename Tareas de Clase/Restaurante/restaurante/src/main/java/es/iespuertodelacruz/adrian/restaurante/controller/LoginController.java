@@ -3,6 +3,7 @@ package es.iespuertodelacruz.adrian.restaurante.controller;
 import es.iespuertodelacruz.adrian.restaurante.entity.Operario;
 import es.iespuertodelacruz.adrian.restaurante.security.GestorDeJWT;
 import es.iespuertodelacruz.adrian.restaurante.service.OperarioService;
+import es.iespuertodelacruz.adrian.restaurante.utils.ApiError;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -68,7 +69,7 @@ public class LoginController {
         if( token != null) {
             return ResponseEntity.ok(token);
         }else
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("usuario/pass erróneos");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "usuario/pass erróneos"));
 
     }
 
@@ -78,7 +79,7 @@ public class LoginController {
             @ApiParam(value = "Usuario y contraseña" , required = true)
             @RequestBody OperarioJsonLogin usuarioJson) {
         if (operarioService.findByNombre(usuarioJson.name) != null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("usuario ya existe");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError(HttpStatus.FORBIDDEN, "Usuario ya existe"));
         }else{
             Operario operario = new Operario();
             operario.setNombre(usuarioJson.name);
@@ -87,9 +88,9 @@ public class LoginController {
             operario.setRol("ROLE_USER");
             operarioService.save(operario);
             if (operarioService.findByNombre(usuarioJson.name) != null) {
-                return ResponseEntity.ok("usuario registrado");
+                return ResponseEntity.ok("Usuario registrado");
             }else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("usuario no registrado");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError(HttpStatus.FORBIDDEN, "Usuario no registrado"));
             }
         }
 

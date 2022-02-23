@@ -7,7 +7,8 @@ import { Mesa } from '../../interfaces/Mesa';
 import { Plato } from '../../interfaces/Plato';
 import { Link } from 'react-router-dom';
 import '../../style/servicio/CrearDetalleFactura.css';
-
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export interface Detalle {
@@ -79,6 +80,7 @@ export default function CrearDetalleFactura() {
         };
         let ruta = process.env.REACT_APP_API_URL + "/v2/servicios/"+id+"/platos";
         const axiospost = async (rutaDetalleFactura: string) => {
+            /** 
             try {
                 const { data } = await axios.post(rutaDetalleFactura, stdetallefactura, headers);
                 console.log(data);
@@ -88,6 +90,17 @@ export default function CrearDetalleFactura() {
                 console.log(error);
 
             }
+            */
+            await axios.post(rutaDetalleFactura, stdetallefactura, headers).then(
+                (response) => {
+                    toast.success("Se agrego correctamente");
+                    navigate("/servicios/"+id);
+                }
+            ).catch(
+                (error) => {
+                    toast.error(error.data.message);
+                }
+            )
 
         }
         axiospost(ruta);

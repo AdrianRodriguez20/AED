@@ -4,6 +4,8 @@ import { Navigate, useParams } from 'react-router-dom';
 import { Servicio } from '../../interfaces/Servicio';
 import { Mesa } from '../../interfaces/Mesa';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UpdateServicio() {
     let navigate = useNavigate();
@@ -70,16 +72,18 @@ export default function UpdateServicio() {
             const headers = {
                 headers: { Authorization: token }
             };
-            try {
-                const { data } = await axios.put(rutaServicio, reserva, headers);
-                console.log(data);
-                navigate("/servicios/"+id);
 
-            } catch (error) {
-                console.log(error);
+            await axios.put(rutaServicio, reserva, headers).then(
+                (response) => {
+                    toast.success("Servicio actualizado correctamente");
+                    navigate("/servicios/" + id);
+                }
+            ).catch(
+                (error) => {
+                    toast.error(error.response.data.message);
+                }
 
-            }
-
+            )
         }
 
         axiosput(ruta);
@@ -99,7 +103,7 @@ export default function UpdateServicio() {
         let rutaServicio = process.env.REACT_APP_API_URL + "/v2/mesas?disponible=true&fecha=" + fecha + "&comensales=" + comensales;
         let { data } = await axios.get(rutaServicio, headers);
         console.log(data);
-        let mesas = data; 
+        let mesas = data;
         setStnummesas(data);
 
     }
@@ -152,7 +156,7 @@ export default function UpdateServicio() {
                 <div className="container">
                     <div className="heading_container heading_center">
                         <h2>
-                         Actualizar Reservar
+                            Actualizar Reservar
                         </h2>
                     </div>
                     <div className="row">

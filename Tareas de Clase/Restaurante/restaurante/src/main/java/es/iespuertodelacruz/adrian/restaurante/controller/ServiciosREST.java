@@ -75,6 +75,13 @@ public class ServiciosREST {
             @RequestBody ServicioDTO sDTO) {
 
         if (mesaService.findById(sDTO.getNummesa()).isPresent()) {
+            if (sDTO.getReservada() ==null || sDTO.getReservada().trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El concepto no puede estar vacio"));
+            }
+            if ( sDTO.getNummesa() == 0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de mesa no puede estar vacio"));
+            }
+
             Servicio optS = servicioService.save(sDTO.toEntity());
             if (optS != null) {
                 sDTO.setIdservicio(optS.getIdservicio());
@@ -83,7 +90,7 @@ public class ServiciosREST {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "Error al guardar el servicio"));
             }
         }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id de mesa no se encuentra"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de mesa no se encuentra"));
         }
 
     }
@@ -99,6 +106,12 @@ public class ServiciosREST {
         if (optS.isPresent()) {
             if (mesaService.findById(sDTO.getNummesa()).isPresent()) {
                 sDTO.setIdservicio(id);
+                if (sDTO.getReservada() ==null || sDTO.getReservada().trim().isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El concepto no puede estar vacio"));
+                }
+                if ( sDTO.getNummesa() == 0) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de mesa no puede estar vacio"));
+                }
                 Servicio servicio = servicioService.save(sDTO.toEntity());
                 if (servicio != null) {
                     return ResponseEntity.ok().body(sDTO);
@@ -146,6 +159,7 @@ public class ServiciosREST {
         Optional<Servicio> optS = servicioService.findById(id);
 
         if (optS.isPresent()) {
+
 
             List<DetalleFacturaPostDTO> listaValidada = new ArrayList<>();
             for (DetalleFacturaPostDTO dDTO : dsDTO) {

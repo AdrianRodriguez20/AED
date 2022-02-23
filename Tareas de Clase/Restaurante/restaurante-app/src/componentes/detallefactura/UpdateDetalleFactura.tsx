@@ -7,7 +7,8 @@ import { Servicio } from '../../interfaces/Servicio';
 import { Detallefactura } from '../../interfaces/DetalleFactura';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UpdateDetalleFactura() {
 
@@ -61,13 +62,21 @@ export default function UpdateDetalleFactura() {
             cantidad: cantidad
         }
         const axiosput = async (rutaPlato: string) => {
-            try {
-                axios.put(rutaPlato, data, headers);
-                navigate("/servicios/" + id);
-            } catch (error) {
-                console.log(error);
-            }
+
+            await axios.put(rutaPlato, data, headers).then(
+                (response) => {
+                    navigate("/servicios/" + id);
+                    toast.success("Se actualizo correctamente");
+                }
+            ).catch(
+                (error) => {
+                    toast.error(error.data.message);
+                   
+                }
+
+            )
         }
+        
         axiosput(ruta);
 
     }

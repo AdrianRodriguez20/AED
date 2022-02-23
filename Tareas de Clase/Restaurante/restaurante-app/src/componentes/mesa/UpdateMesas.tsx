@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Mesa } from '../../interfaces/Mesa';
 import { useNavigate } from 'react-router-dom';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UpdateMesas() {
 
@@ -46,13 +48,17 @@ export default function UpdateMesas() {
             const headers = {
                 headers: { Authorization: token }
             };
-            try {
-                const { data } = await axios.put(rutaMesa, mesa, headers);
-                console.log(data);
-                navigate("/mesas");
-            } catch (error) {
-                console.log(error);
-            }
+
+            await axios.put(rutaMesa, mesa, headers).then(
+                (response) => {
+                    toast.success("Mesa actualizada correctamente");
+                    navigate("/mesas");
+                }
+            ).catch(
+                (error) => {
+                    toast.error(error.response.data.message);
+                }
+            );
 
         }
         axiospost(ruta);
@@ -100,6 +106,7 @@ export default function UpdateMesas() {
                                     <div>
                                         <input 
                                         type="number"
+                                        readOnly
                                          className="form-control" 
                                          id="nummesa" 
                                          placeholder="Número de mesa"

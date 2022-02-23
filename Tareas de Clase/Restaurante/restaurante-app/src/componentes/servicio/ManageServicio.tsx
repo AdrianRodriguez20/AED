@@ -35,7 +35,7 @@ export default function ManageServicio() {
         });
         setSttotal(total);
         
-    }, [stservicio.detallefacturas]);
+    }, []);
 
 
    

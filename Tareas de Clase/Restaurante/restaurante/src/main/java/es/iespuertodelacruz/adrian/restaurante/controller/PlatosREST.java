@@ -118,7 +118,7 @@ public class PlatosREST {
             pDTO.setDisponible(disponibilidad);
             return ResponseEntity.ok().body(new PlatoDTO(platoService.save(pDTO.toPlato())));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de mesa no existe"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero del plato  no existe"));
         }
     }
 

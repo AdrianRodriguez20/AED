@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link, Route, BrowserRouter, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Navbar() {
     let navigate = useNavigate();
@@ -39,21 +40,32 @@ export default function Navbar() {
             password: password
         }
         const axiospost = async (rutaLogin: string) => {
-            try {
-                const { data } = await axios.post(rutaLogin, login)
-                localStorage.clear();
-                localStorage.setItem("token", data);
-                setLogin(true);
-                navigate("/main");
-                document.getElementById("myModal")!.style.display = "none";
-                document.getElementById("myModal")!.classList.toggle("show");
-                document.getElementsByTagName("body")![0].classList.toggle("modal-open");
-                document.getElementsByClassName("modal-backdrop")![0].classList.toggle("show");
-                document.getElementsByClassName("modal-backdrop")![0].classList.toggle("show");
-                document.getElementsByClassName("modal-backdrop")![0].remove();
-            } catch (error) {
-                console.log(error);
-            }
+
+            await axios.post(rutaLogin, login).then (
+                (response) => {
+      
+                    localStorage.clear();
+                    localStorage.setItem("token",response.data);
+                    setLogin(true);
+                    navigate("/main");
+                    document.getElementById("myModal")!.style.display = "none";
+                    document.getElementById("myModal")!.classList.toggle("show");
+                    document.getElementsByTagName("body")![0].classList.toggle("modal-open");
+                    document.getElementsByClassName("modal-backdrop")![0].classList.toggle("show");
+                    document.getElementsByClassName("modal-backdrop")![0].classList.toggle("show");
+                    document.getElementsByClassName("modal-backdrop")![0].remove();
+                    toast.success("Se logueo correctamente");
+                }
+            ).catch(
+                (error) => {
+                    if (name.trim() === "" || password.trim() === "") {
+                        toast.error("No puede dejar campos vacios");
+                    }else{
+                        toast.error("Usuario o contraseña incorrectos");
+                    }
+                }
+            )
+
         }
 
         axiospost(process.env.REACT_APP_API_URL + "/login")

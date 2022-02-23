@@ -77,6 +77,19 @@ public class MesasREST {
             @RequestBody Mesa m) {
         Optional<Mesa> optP = mesaService.findById(m.getNummesa());
         if (!optP.isPresent()) {
+
+            if (m.getNummesa() ==0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de mesa no puede ser 0"));
+            }
+            if (m.getNummesa() <0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de mesa no puede ser negativo"));
+            }
+            if (m.getOcupantesmax() ==0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de ocupantes no puede ser 0"));
+            }
+            if (m.getOcupantesmax() <0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de ocupantes no puede ser negativo"));
+            }
             MesaDTO mDTO = new MesaDTO(m);
             Mesa save = mesaService.save(mDTO.toMesa());
             if (save != null) {
@@ -98,6 +111,12 @@ public class MesasREST {
             @RequestBody Mesa m ) {
         Optional<Mesa> optP = mesaService.findById(id);
         if (optP.isPresent()) {
+            if (m.getOcupantesmax() ==0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de ocupantes no puede ser 0"));
+            }
+            if (m.getOcupantesmax() <0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de ocupantes no puede ser negativo"));
+            }
             MesaUpdateDTO mDTO = new MesaUpdateDTO(m);
             mDTO.setNummesa(id);
             Mesa save = mesaService.save(mDTO.toEntity());
