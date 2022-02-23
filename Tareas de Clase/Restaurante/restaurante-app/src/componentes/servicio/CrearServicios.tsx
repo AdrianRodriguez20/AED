@@ -2,12 +2,28 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {  toast } from 'react-toastify';
+import { Mesa } from '../../interfaces/Mesa';
 import 'react-toastify/dist/ReactToastify.css';
 export default function CrearServicio() {
     let navigate = useNavigate();
     const [stfechacomienzo, setStfechacomienzo] = useState<Date>(new Date());
     const [stcomensales, setStcomensales] = useState<number>(1);
-    const [stnummesas, setStnummesas] = useState<number[]>([]);
+    const [stnummesas, setStnummesas] = useState<Mesa[]>(new Array<Mesa>());
+
+    useEffect(() => {
+        const getMesas = async () => {
+            let token: string = localStorage.getItem("token") as string;
+            const headers = {
+                headers: { Authorization: token }
+            };
+            let rutaMesas = process.env.REACT_APP_API_URL + "/v2/mesas/";
+            let { data } = await axios.get(rutaMesas, headers);
+            setStnummesas(data)
+
+
+        }
+        getMesas();
+    }, []);
 
     const agregarServicioApi = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -67,9 +83,8 @@ export default function CrearServicio() {
 
         let rutaServicio = process.env.REACT_APP_API_URL + "/v2/mesas?disponible=true&fecha=" + fecha + "&comensales=" + comensales;
         let { data } = await axios.get(rutaServicio ,headers);
-        console.log(data);
-        let nummesas = data.map((mesa: any) => mesa.nummesa);
-        setStnummesas(nummesas);
+  
+        setStnummesas(data);
      
     }
     const onclick = (event: React.MouseEvent<HTMLElement>) => {
@@ -97,6 +112,7 @@ export default function CrearServicio() {
     return (
         <>
 
+
             <section className="book_section layout_padding">
                 <div className="container">
                     <div className="heading_container heading_center">
@@ -117,9 +133,9 @@ export default function CrearServicio() {
                                         id="nummesa" 
                                         onClick={onclick}>
                                             <option disabled selected value="0">Seleccione una mesa</option>
-                                            {stnummesas.map((nummesa: number) => {
-                                                return <option  value={nummesa}>{nummesa}</option>
-                                            })}
+                                             {stnummesas.map((mesa: any) => (
+                                                <option value={mesa.nummesa}>{mesa.nummesa} ({mesa.ocupantesmax}) </option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div>
