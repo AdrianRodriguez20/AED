@@ -38,10 +38,11 @@ export default function ListadoPlatos() {
         const headers = {
             headers: { Authorization: token }
         };
+        const as={}
         let ruta = process.env.REACT_APP_API_URL + "/v2/platos/" + idplato + "/disponibilidad?disponible=" + disponible;
-        const axiospost = async (rutaPlatos: string) => {
+        const axiosput = async (rutaPlatos: string) => {
 
-            await axios.put(rutaPlatos, headers).then(
+            await axios.put(rutaPlatos,as, headers).then(
                 (response) => {
                     console.log(response);
                     setStplatos(stplatos.map(plato => plato.idplato === parseInt(idplato) ? response.data : plato));
@@ -54,7 +55,7 @@ export default function ListadoPlatos() {
             )
         }
 
-        axiospost(ruta);
+        axiosput(ruta);
     }
 
 

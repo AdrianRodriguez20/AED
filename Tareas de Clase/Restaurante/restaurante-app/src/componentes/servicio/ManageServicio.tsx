@@ -26,16 +26,27 @@ export default function ManageServicio() {
             let rutaServicio = process.env.REACT_APP_API_URL + "/v2/servicios/"+id;
             let { data } = await axios.get(rutaServicio, headers);
             setStservicio(data);
-
+            getTotal(data);
+      
         }
         getServicio(id);
-        let total = 0;
-        stservicio.detallefacturas?.forEach(detallefactura => {
-            total += parseFloat(JSON.stringify(detallefactura.plato.preciounidad)) * parseFloat(JSON.stringify(detallefactura.cantidad))
-        });
-        setSttotal(total);
+      
+        const getTotal  = ( data : any) => {
+            let total = 0;
+            data.detallefacturas?.forEach((detallefactura : Detallefactura)=> {
+                total += Number(detallefactura.preciounidad) * Number(detallefactura.cantidad);
+                console.log(total)
+            });
+    
+            setSttotal(total);
+        }
+       
+       
         
     }, []);
+
+ 
+    
 
 
    
@@ -94,7 +105,7 @@ export default function ManageServicio() {
                                                                 <div className="text-right"> <span className="font-weight-bold">
 
                                                                     {
-                                                                        parseFloat(JSON.stringify(detallefactura.plato.preciounidad)) * parseFloat(JSON.stringify(detallefactura.cantidad))
+                                                                        parseFloat(JSON.stringify(detallefactura.preciounidad)) * parseFloat(JSON.stringify(detallefactura.cantidad))
                                                                     }
                                                                     €
 

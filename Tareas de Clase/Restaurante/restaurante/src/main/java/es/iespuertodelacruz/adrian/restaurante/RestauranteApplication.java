@@ -37,6 +37,7 @@ public class RestauranteApplication {
 		{
 			webSecurity
 					.ignoring()
+					.antMatchers("/api/v1/*")
 					.antMatchers(HttpMethod.POST, "/api/login")
 					.antMatchers(HttpMethod.POST, "/api/registro")
 					.antMatchers("/swagger-ui.html")
@@ -58,8 +59,8 @@ public class RestauranteApplication {
 					.addFilterBefore(new FiltroJWT(),
 							UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
-					.requestMatchers(CorsUtils::isCorsRequest).permitAll()
-					.antMatchers(HttpMethod.OPTIONS, "**").permitAll()
+				//	.requestMatchers(CorsUtils::isCorsRequest).permitAll()
+				//	.antMatchers(HttpMethod.OPTIONS, "**").permitAll()
 					.antMatchers("/api/v2/**").hasRole("USER")
 					.anyRequest().authenticated()
 			;

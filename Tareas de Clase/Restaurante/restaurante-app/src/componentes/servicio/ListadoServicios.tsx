@@ -32,11 +32,14 @@ export default function ListadoServicios() {
         let formulario: HTMLFormElement   = event.currentTarget;
         let inputId: HTMLInputElement  = formulario.idservicio;
         let id = inputId.value;
-
+        let token: string = localStorage.getItem("token") as string;
+        const headers = {
+            headers: { Authorization: token }
+        };
         let ruta = process.env.REACT_APP_API_URL + "/v2/servicios/";
         const axiosdelete = async (rutaServicios: string) => {
 
-            await axios.delete(rutaServicios +id).then(
+            await axios.delete(rutaServicios +id ,headers).then(
                 (response) => {
                     setStservicios(  stservicios.filter(servicio => servicio.idservicio !== Number(id)) );
                     toast.success("Servicio borrado correctamente");

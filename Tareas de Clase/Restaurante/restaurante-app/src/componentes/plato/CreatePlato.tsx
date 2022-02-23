@@ -80,7 +80,7 @@ export default function CreatePlatos() {
                                     </div>
                                     <div>
                                         <select className="form-control nice-select wide" id="disponible" >
-                                            <option value="" disabled selected>
+                                            <option value="" disabled >
                                                 Disponibilidad
                                             </option>
                                             <option value="true" >

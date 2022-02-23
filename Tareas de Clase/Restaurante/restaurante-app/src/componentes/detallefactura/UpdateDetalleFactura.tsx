@@ -92,13 +92,18 @@ export default function UpdateDetalleFactura() {
         let ruta = process.env.REACT_APP_API_URL + "/v2/servicios/" + id + "/platos/" + idplato;
 
         const axiosdelete = async (rutaDetalles: string) => {
-            try {
-                const { data } = await axios.delete(rutaDetalles)
-                console.log(data);
-                navigate("/servicios/" + id);
-            } catch (error) {
-                console.log(error);
-            }
+
+            await axios.delete(rutaDetalles, headers).then(
+                (response) => {
+                    navigate("/servicios/" + id);
+                    toast.success("Se elimino correctamente");
+                }
+            ).catch(
+                (error) => {
+                    toast.error(error.data.message);
+                }
+            )
+
         }
         axiosdelete(ruta);
 
