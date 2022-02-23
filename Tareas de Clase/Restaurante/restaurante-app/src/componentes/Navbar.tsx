@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { Link, Route, BrowserRouter, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function Navbar() {
     let navigate = useNavigate();
     const [login, setLogin] = useState(false);
@@ -16,7 +17,6 @@ export default function Navbar() {
         let token: string = localStorage.getItem("token") as string;
         if (token) {
             setLogin(true);
-            document.getElementById("myModal")!.style.display = "none";
         } else {
             setLogin(false);
         }
@@ -45,6 +45,12 @@ export default function Navbar() {
                 localStorage.setItem("token", data);
                 setLogin(true);
                 navigate("/main");
+                document.getElementById("myModal")!.style.display = "none";
+                document.getElementById("myModal")!.classList.toggle("show");
+                document.getElementsByTagName("body")![0].classList.toggle("modal-open");
+                document.getElementsByClassName("modal-backdrop")![0].classList.toggle("show");
+                document.getElementsByClassName("modal-backdrop")![0].classList.toggle("show");
+                document.getElementsByClassName("modal-backdrop")![0].remove();
             } catch (error) {
                 console.log(error);
             }
@@ -121,7 +127,7 @@ export default function Navbar() {
                                         {login ?
                                             <>
 
-                                                <i className="fas fa-sign-out-alt"  aria-hidden="true" style={{"color":"white","fontSize":"1.5em"}} onClick={logout}></i>
+                                                <i className="fas fa-sign-out-alt" aria-hidden="true" style={{ "color": "white", "fontSize": "1.5em" }} onClick={logout}></i>
 
                                             </>
                                             :

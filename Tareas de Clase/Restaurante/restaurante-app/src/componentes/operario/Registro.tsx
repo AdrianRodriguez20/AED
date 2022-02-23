@@ -1,6 +1,12 @@
 import '../../style/operario/Login.css';
 import '../../style/operario/Registro.css';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 export default function Registro() {
+    let navigate = useNavigate();
+
     return (
         <>
             <section className="food_section layout_padding">

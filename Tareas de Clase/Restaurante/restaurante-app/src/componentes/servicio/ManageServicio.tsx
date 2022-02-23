@@ -23,25 +23,22 @@ export default function ManageServicio() {
             const headers = {
                 headers: { Authorization: token }
             };
-            let rutaServicio = process.env.REACT_APP_API_URL + "/v2/servicios/";
-            let { data } = await axios.get(rutaServicio + id, headers);
+            let rutaServicio = process.env.REACT_APP_API_URL + "/v2/servicios/"+id;
+            let { data } = await axios.get(rutaServicio, headers);
             setStservicio(data);
 
         }
         getServicio(id);
-        
-    }, []);
-
-
-    useEffect(() => {
         let total = 0;
         stservicio.detallefacturas?.forEach(detallefactura => {
             total += parseFloat(JSON.stringify(detallefactura.plato.preciounidad)) * parseFloat(JSON.stringify(detallefactura.cantidad))
         });
         setSttotal(total);
+        
     }, [stservicio.detallefacturas]);
 
 
+   
     return (
         <>
             <div className="container mt-5 mb-5">
