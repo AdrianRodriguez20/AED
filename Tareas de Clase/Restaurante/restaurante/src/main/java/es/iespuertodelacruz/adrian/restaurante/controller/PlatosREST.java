@@ -18,14 +18,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v2/platos")
-@Api(value="API REST Platos V2")
+@Api(value = "API REST Platos V2")
 public class PlatosREST {
 
     @Autowired
     PlatoService platoService;
 
     @GetMapping
-    @ApiOperation(value="Devuelve todos los platos")
+    @ApiOperation(value = "Devuelve todos los platos")
     public ArrayList<PlatoDTO> getAll() {
         ArrayList<PlatoDTO> platos = new ArrayList<PlatoDTO>();
         platoService.findAll().forEach(p -> {
@@ -37,7 +37,7 @@ public class PlatosREST {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value="Devuelve un plato")
+    @ApiOperation(value = "Devuelve un plato")
     public ResponseEntity<?> getById(
             @ApiParam(value = "Id del plato", required = true)
             @PathVariable("id") Integer id) {
@@ -46,28 +46,39 @@ public class PlatosREST {
             PlatoDTO pDTO = new PlatoDTO(optP.get());
             return ResponseEntity.ok().body(pDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST,"El id del registro no existe"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id del registro no existe"));
         }
 
     }
 
     @PostMapping
-    @ApiOperation(value="Crea un plato")
+    @ApiOperation(value = "Crea un plato")
     public ResponseEntity<?> save(
             @ApiParam(value = "Plato a crear", required = true)
             @RequestBody Plato p) {
-            PlatoDTO pDTO = new PlatoDTO(p);
+        if (p.getNombre() == null || p.getNombre().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El nombre del plato no puede estar vacio"));
+        }
+        if (p.getDescripcion() == null || p.getDescripcion().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "La descripcion del plato no puede estar vacia"));
+        }
+        if (p.getPreciounidad() == 0.0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El precio del plato no puede ser 0"));
+        }
+
+
+        PlatoDTO pDTO = new PlatoDTO(p);
         Plato save = platoService.save(pDTO.toPlato());
         if (save != null) {
             return ResponseEntity.ok().body(new PlatoDTO(save));
-        }else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El id del plato no existe"));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "No se ha puede crear el plato"));
         }
 
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value="Actualiza un plato")
+    @ApiOperation(value = "Actualiza un plato")
     public ResponseEntity<?> update(
             @ApiParam(value = "Id del plato", required = true)
             @PathVariable Integer id,
@@ -75,17 +86,27 @@ public class PlatosREST {
             @RequestBody Plato p) {
         Optional<Plato> optP = platoService.findById(id);
         if (optP.isPresent()) {
+            if (p.getNombre() == null || p.getNombre().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El nombre del plato no puede estar vacio"));
+            }
+            if (p.getDescripcion() == null || p.getDescripcion().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "La descripcion del plato no puede estar vacia"));
+            }
+            if (p.getPreciounidad() == 0.0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El precio del plato no puede ser 0"));
+            }
+
             PlatoDTO pDTO = new PlatoDTO(p);
             pDTO.setIdplato(id);
             return ResponseEntity.ok().body(new PlatoDTO(platoService.save(pDTO.toPlato())));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST,"El numero de mesa no existe"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero del plato  no existe"));
         }
     }
 
     @PutMapping("/{id}/disponibilidad")
-    @ApiOperation(value="Actualiza la disponibilidad de un plato")
-    public  ResponseEntity<?> updateDisponiblidad (
+    @ApiOperation(value = "Actualiza la disponibilidad de un plato")
+    public ResponseEntity<?> updateDisponiblidad(
             @ApiParam(value = "Id del plato", required = true)
             @PathVariable Integer id,
             @ApiParam(value = "Disponibilidad del plato", required = true)
@@ -97,7 +118,7 @@ public class PlatosREST {
             pDTO.setDisponible(disponibilidad);
             return ResponseEntity.ok().body(new PlatoDTO(platoService.save(pDTO.toPlato())));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST,"El numero de mesa no existe"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "El numero de mesa no existe"));
         }
     }
 

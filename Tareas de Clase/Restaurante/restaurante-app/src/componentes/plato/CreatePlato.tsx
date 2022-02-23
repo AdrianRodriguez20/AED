@@ -1,6 +1,11 @@
 import axios from "axios";
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 export default function CreatePlatos() {
     let navigate = useNavigate();
 
@@ -34,15 +39,20 @@ export default function CreatePlatos() {
             const headers = {
                 headers: { Authorization: token }
             };
-            try {
-                const { data } = await axios.post(rutaServicio,plato, headers );
-                console.log(data);
-                navigate("/platos");
 
-            } catch (error) {
-                console.log(error);
-
-            }
+            await axios.post(rutaServicio,plato, headers ).then(
+                (response) => {
+                    console.log(response);
+                    toast.success("Plato creado con exito");
+                    navigate("/platos");
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                    toast.error(error.response.data.message);
+                    
+                }
+            );
 
         }
 
@@ -70,7 +80,7 @@ export default function CreatePlatos() {
                                     </div>
                                     <div>
                                         <select className="form-control nice-select wide" id="disponible" >
-                                            <option value="" disabled >
+                                            <option value="" disabled selected>
                                                 Disponibilidad
                                             </option>
                                             <option value="true" >
@@ -85,7 +95,7 @@ export default function CreatePlatos() {
                                         <input type="text" className="form-control" id="preciounidad" placeholder="Precio" />
                                     </div>
                                     <div className="btn_box text-center">
-                                        <button>
+                                        <button >
                                             Crear
                                         </button>
                                     </div>

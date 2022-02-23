@@ -124,15 +124,7 @@ export default function UpdateDetalleFactura() {
                                                                 readOnly
                                                             />
                                                         </div>
-                                                        <div>
-                                                            <input
-                                                                type="number"
-                                                                className="form-control"
-                                                                value={detallefactura.plato.preciounidad}
-                                                                readOnly
-                                                            />
 
-                                                        </div>
                                                         <div>
                                                             <input
                                                                 type="number"

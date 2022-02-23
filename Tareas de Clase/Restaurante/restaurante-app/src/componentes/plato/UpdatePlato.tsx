@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Plato } from '../../interfaces/Plato';
 import { useNavigate } from 'react-router-dom';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UpdatePlatos() {
     let navigate = useNavigate();
@@ -50,15 +52,20 @@ export default function UpdatePlatos() {
             const headers = {
                 headers: { Authorization: token }
             };
-            try {
-                const { data } = await axios.put(rutaServicio, plato, headers);
-                console.log(data);
-                navigate("/platos");
 
-            } catch (error) {
-                console.log(error);
-
-            }
+            await axios.put(rutaServicio,plato, headers ).then(
+                (response) => {
+                    console.log(response);
+                    toast.success("Plato actualizado con exito");
+                    navigate("/platos");
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                    toast.error(error.response.data.message);
+                    
+                }
+            );
 
         }
 

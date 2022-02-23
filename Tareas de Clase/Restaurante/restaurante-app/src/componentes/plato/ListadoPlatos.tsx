@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Plato } from '../../interfaces/Plato';
 import '../../style/plato/ListadoPlato.css';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ListadoPlatos() {
 
@@ -38,13 +40,20 @@ export default function ListadoPlatos() {
         };
         let ruta = process.env.REACT_APP_API_URL + "/v2/platos/" + idplato + "/disponibilidad?disponible=" + disponible;
         const axiospost = async (rutaPlatos: string) => {
-            try {
-                const { data } = await axios.put(rutaPlatos ,headers);
-                setStplatos(stplatos.map(plato => plato.idplato === parseInt(idplato) ? data : plato));
-            } catch (error) {
-                console.log(error);
-            }
+
+            await axios.put(rutaPlatos, headers).then(
+                (response) => {
+                    console.log(response);
+                    setStplatos(stplatos.map(plato => plato.idplato === parseInt(idplato) ? response.data : plato));
+                    toast.success("Disponibilidad actualizada con exito");
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            )
         }
+
         axiospost(ruta);
     }
 

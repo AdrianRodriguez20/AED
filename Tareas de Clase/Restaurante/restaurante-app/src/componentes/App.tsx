@@ -20,11 +20,13 @@ import UpdateMesas from './mesa/UpdateMesas';
 import UpdateServicio from './servicio/UpdateServicio';
 import UpdateDetalleFactura from './detallefactura/UpdateDetalleFactura';
 import MainMenu from './otros/MainAdmin';
+import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/menu" element={<Menu />} />
@@ -113,12 +115,15 @@ function App() {
           </RequireAuth>
         }
         />
-
+      
       </Routes>
       <Footer />
+ 
     </BrowserRouter>
 
   );
 }
 
 export default App;
+
+
