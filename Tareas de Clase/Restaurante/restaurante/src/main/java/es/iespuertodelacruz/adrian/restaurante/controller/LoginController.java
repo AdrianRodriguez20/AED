@@ -78,6 +78,9 @@ public class LoginController {
     public ResponseEntity<?> registro(
             @ApiParam(value = "Usuario y contraseña" , required = true)
             @RequestBody OperarioJsonLogin usuarioJson) {
+        if (usuarioJson.name == null || usuarioJson.name.trim().isEmpty() || usuarioJson.password == null ||usuarioJson.password.trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "Usuario/pass vacios"));
+        }
         if (operarioService.findByNombre(usuarioJson.name) != null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError(HttpStatus.FORBIDDEN, "Usuario ya existe"));
         }else{

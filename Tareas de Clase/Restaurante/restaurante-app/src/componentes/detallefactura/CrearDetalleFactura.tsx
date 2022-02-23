@@ -80,17 +80,7 @@ export default function CrearDetalleFactura() {
         };
         let ruta = process.env.REACT_APP_API_URL + "/v2/servicios/"+id+"/platos";
         const axiospost = async (rutaDetalleFactura: string) => {
-            /** 
-            try {
-                const { data } = await axios.post(rutaDetalleFactura, stdetallefactura, headers);
-                console.log(data);
-               navigate("/servicios/"+id);
 
-            } catch (error) {
-                console.log(error);
-
-            }
-            */
             await axios.post(rutaDetalleFactura, stdetallefactura, headers).then(
                 (response) => {
                     toast.success("Se agrego correctamente");
